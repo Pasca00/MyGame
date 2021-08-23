@@ -79,7 +79,10 @@
       <Filter>Source Files\Game\Render</Filter>
     </ClCompile>
     <ClCompile Include="src\Game\Visuals\View.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Game\Visuals</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Visuals\ButtonView.cpp">
+      <Filter>Source Files\Game\Visuals</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -366,7 +369,10 @@
       <Filter>Header Files\Game\Window</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\Visuals\View.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Game\Visuals</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Visuals\ButtonView.h">
+      <Filter>Header Files\Game\Visuals</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -5,8 +5,9 @@
 class View {
 	public:
 		SDL_Texture* texture;
+		SDL_Rect dstrect;
 
-		View(SDL_Renderer *renderer, const char* path);
+		View(SDL_Texture* texture, SDL_Rect destrect);
 		~View();
 };
 

@@ -135,6 +135,7 @@
     <ClCompile Include="src\game\state\GameState.cpp" />
     <ClCompile Include="src\game\state\MainMenuGameState.cpp" />
     <ClCompile Include="src\game\state\State.cpp" />
+    <ClCompile Include="src\Game\Visuals\ButtonView.cpp" />
     <ClCompile Include="src\Game\Visuals\View.cpp" />
     <ClCompile Include="src\game\window\Window.cpp" />
   </ItemGroup>
@@ -145,6 +146,7 @@
     <ClInclude Include="src\game\state\GameState.h" />
     <ClInclude Include="src\game\state\MainMenuGameState.h" />
     <ClInclude Include="src\game\state\State.h" />
+    <ClInclude Include="src\Game\Visuals\ButtonView.h" />
     <ClInclude Include="src\Game\Visuals\View.h" />
     <ClInclude Include="src\game\window\Window.h" />
     <ClInclude Include="src\sdl\sdl2-2.0.14\include\begin_code.h" />

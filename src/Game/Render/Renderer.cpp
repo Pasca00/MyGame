@@ -9,13 +9,8 @@ Renderer::Renderer(Window* window) {
 	SDL_SetRenderDrawColor(renderer, drawR, drawG, drawB, SDL_ALPHA_OPAQUE);
 }
 
-void Renderer::addToQueue(SDL_Texture* texture) {
-	SDL_Rect destRect;
-	destRect.x = 0;
-	destRect.y = 0;
-	destRect.w = 1280;
-	destRect.h = 720;
-	SDL_RenderCopy(renderer, texture, NULL, &destRect);
+void Renderer::addToQueue(View* view) {
+	SDL_RenderCopy(renderer, view->texture, NULL, &(view->dstrect));
 }
 
 void Renderer::clearScreen() {

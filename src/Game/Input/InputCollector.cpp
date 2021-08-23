@@ -13,6 +13,9 @@ Input InputCollector::getInput() {
 }
 
 void InputCollector::collectInput() {
+	SDL_PumpEvents();
+	SDL_GetMouseState(&(input.MOUSE_X), &(input.MOUSE_Y));
+
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {

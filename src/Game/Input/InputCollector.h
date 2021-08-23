@@ -12,6 +12,9 @@ typedef struct Input {
 	bool LEFT_MOUSE_CLICK;
 	bool RIGHT_MOUSE_CLICK;
 
+	int MOUSE_X;
+	int MOUSE_Y;
+
 	bool QUIT;
 } Input;
 

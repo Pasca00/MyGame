@@ -2,7 +2,9 @@
 
 #include <vector>
 #include <SDL.h>
+
 #include "../Window/Window.h"
+#include "../Visuals/View.h"
 
 class Renderer {
 	private:
@@ -14,7 +16,7 @@ class Renderer {
 
 	public:
 		Renderer(Window* window);
-		void addToQueue(SDL_Texture* texture);
+		void addToQueue(View* view);
 		void clearScreen();
 		void renderQueue();
 
