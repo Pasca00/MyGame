@@ -6,5 +6,5 @@ View::View(SDL_Texture* texture, SDL_Rect dstrect) {
 }
 
 View::~View() {
-	
+	//SDL_DestroyTexture(texture);
 }

@@ -13,6 +13,7 @@ int main(int argc, char* args[]) {
 	double accumulator = 0;
 
 	while (game->isRunning()) {
+		game->changeState();
 		Input input = game->collectInput();
 
 		deltaTime = game->getCurrentTime() - oldTime;
@@ -23,6 +24,7 @@ int main(int argc, char* args[]) {
 			accumulator -= 1.0 / 60.0;
 		}
 
+		game->update();
 		game->renderClearScreen();
 		game->renderQueue();
 	}

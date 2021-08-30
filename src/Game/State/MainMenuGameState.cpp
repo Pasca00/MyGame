@@ -3,7 +3,7 @@
 
 MainMenuGameState::MainMenuGameState(Renderer* renderer) : GameState() {
 	SDL_Texture* mainMenuWallpaperTexture = IMG_LoadTexture(renderer->getSDLRenderer(), "C:/Users/alexp/Desktop/Game/resources/main_wallpaper.png");
-	
+
 	SDL_Rect dstrect;
 	dstrect.x = dstrect.y = 0;
 	dstrect.w = Window::BASE_WINDOW_WIDTH;
@@ -29,6 +29,17 @@ MainMenuGameState::MainMenuGameState(Renderer* renderer) : GameState() {
 		[this]() {
 			SDL_SetTextureColorMod(playButtonView->texture, 255, 255, 255);
 		});
+
+	playButtonView->setOnClickListener(
+		[this]() {
+			// TODO:
+			// Should make it so that LoadingGameState receives the
+			// level that it needs to load and does it in its own thread
+			// member object. But since the game has a single level,
+			// I'll leave it like this for now.
+			LoadingGameState* s_ = Game::getInstance()->getLoadScreen();
+			Game::getInstance()->loadLevel();
+		});
 }
 
 void MainMenuGameState::handleInput(Game* game, Input* input) {
@@ -44,9 +55,17 @@ void MainMenuGameState::handleInput(Game* game, Input* input) {
 			playButtonView->onHover();
 		}
 	}
+
+	if (playButtonView->hasClickListener()) {
+		if (playButtonView->mouseIsHovering(input->MOUSE_X, input->MOUSE_Y) && input->LEFT_MOUSE_CLICK) {
+			playButtonView->onClick();
+		}
+	}
 }
 
 void MainMenuGameState::draw() {
 	Game::getInstance()->getRenderer()->addToQueue(wallpaperView);
 	Game::getInstance()->getRenderer()->addToQueue(playButtonView);
 }
+
+void MainMenuGameState::update() { }

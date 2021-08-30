@@ -52,6 +52,18 @@
     <Filter Include="Source Files\Game\Visuals">
       <UniqueIdentifier>{f4df8f82-dde0-4783-b249-6fd1aa1d7b4c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game\State\PlayerStates">
+      <UniqueIdentifier>{4bef87db-f2c2-420f-a369-19159d78d636}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\State\PlayerStates">
+      <UniqueIdentifier>{5d5807c6-8b79-4ff2-822d-baa19db90132}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Player">
+      <UniqueIdentifier>{0f5742ba-1f44-4bf1-a740-310ac0e641a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\Player">
+      <UniqueIdentifier>{f7550ab4-0e3e-481a-ac3f-21366b447ea4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\game\main.cpp">
@@ -82,6 +94,24 @@
       <Filter>Source Files\Game\Visuals</Filter>
     </ClCompile>
     <ClCompile Include="src\Game\Visuals\ButtonView.cpp">
+      <Filter>Source Files\Game\Visuals</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\State\PlayingGameState.cpp">
+      <Filter>Source Files\Game\State</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\State\PlayerState\PlayerState.cpp">
+      <Filter>Source Files\Game\State\PlayerStates</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Player\Player.cpp">
+      <Filter>Source Files\Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\State\LoadingGameState.cpp">
+      <Filter>Source Files\Game\State</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Visuals\Animation.cpp">
+      <Filter>Source Files\Game\Visuals</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Visuals\FrameView.cpp">
       <Filter>Source Files\Game\Visuals</Filter>
     </ClCompile>
   </ItemGroup>
@@ -373,6 +403,24 @@
     </ClInclude>
     <ClInclude Include="src\Game\Visuals\ButtonView.h">
       <Filter>Header Files\Game\Visuals</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\State\PlayingGameState.h">
+      <Filter>Header Files\Game\State</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\State\PlayerState\PlayerState.h">
+      <Filter>Header Files\Game\State\PlayerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Player\Player.h">
+      <Filter>Header Files\Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Visuals\Animation.h">
+      <Filter>Header Files\Game\Visuals</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Visuals\FrameView.h">
+      <Filter>Header Files\Game\Visuals</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\State\LoadingGameState.h">
+      <Filter>Header Files\Game\State</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -22,6 +22,31 @@ void InputCollector::collectInput() {
 			case SDL_QUIT:
 				input.QUIT = true;
 				break;
+			
+			case SDL_MOUSEBUTTONDOWN:
+				switch (event.button.button) {
+					case SDL_BUTTON_LEFT:
+						input.LEFT_MOUSE_CLICK = true;
+						break;
+
+					case SDL_BUTTON_RIGHT:
+						input.RIGHT_MOUSE_CLICK = true;
+						break;
+				}
+				break;
+
+			case SDL_MOUSEBUTTONUP:
+				switch (event.button.button) {
+					case SDL_BUTTON_LEFT:
+						input.LEFT_MOUSE_CLICK = false;
+						break;
+
+					case SDL_BUTTON_RIGHT:
+						input.RIGHT_MOUSE_CLICK = false;
+						break;
+				}
+
+				break;
 
 			case SDL_KEYDOWN:
 				switch (event.key.keysym.sym) {
