@@ -5,6 +5,7 @@
 
 #include "../Window/Window.h"
 #include "../Visuals/View.h"
+#include "../Player/Player.h"
 
 class Renderer {
 	private:
@@ -16,7 +17,13 @@ class Renderer {
 
 	public:
 		Renderer(Window* window);
+
+		void addToQueueFlipped(SDL_Rect dstrect, SDL_Texture* texture, SDL_RendererFlip flipType);
+
+		void addToQueue(SDL_Rect dstrect, SDL_Texture* texture);
 		void addToQueue(View* view);
+		void addToQueue(Player* player);
+
 		void clearScreen();
 		void renderQueue();
 

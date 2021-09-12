@@ -1,12 +1,23 @@
 #pragma once
 
 #include "../../Input/InputCollector.h"
-#include "../../Player/Player.h"
+#include "../../Visuals/Animation.h"
+
+class Player;
 
 class PlayerState {
+	protected:
+		Uint8 numberOfFrames;
+		Animation* animation;
+
 	public:
-		virtual void handleInput(Input* input) = 0;
+		PlayerState();
+
+		virtual void handleInput(Player* player, Input* input) = 0;
 		virtual void update() = 0;
 		virtual void draw() = 0;
+
+		FrameView* getCurrentFrame();
+		SDL_Texture* getCurrentTexture();
 };
 

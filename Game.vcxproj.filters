@@ -114,6 +114,15 @@
     <ClCompile Include="src\Game\Visuals\FrameView.cpp">
       <Filter>Source Files\Game\Visuals</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Render\Camera.cpp">
+      <Filter>Source Files\Game\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\State\PlayerState\IdlePlayerState.cpp">
+      <Filter>Source Files\Game\State\PlayerStates</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\State\PlayerState\WalkingPlayerState.cpp">
+      <Filter>Source Files\Game\State\PlayerStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\sdl\sdl2-2.0.14\include\begin_code.h">
@@ -421,6 +430,15 @@
     </ClInclude>
     <ClInclude Include="src\Game\State\LoadingGameState.h">
       <Filter>Header Files\Game\State</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Render\Camera.h">
+      <Filter>Header Files\Game\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\State\PlayerState\IdlePlayerState.h">
+      <Filter>Header Files\Game\State\PlayerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\State\PlayerState\WalkingPlayerState.h">
+      <Filter>Header Files\Game\State\PlayerStates</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

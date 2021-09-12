@@ -15,7 +15,7 @@ class LoadingGameState : public GameState {
 	public:
 		LoadingGameState(Renderer* renderer);
 
-		void enter();
+		void enter(/*should take level that needs to be loaded*/);
 
 		bool loaderIsReady();
 

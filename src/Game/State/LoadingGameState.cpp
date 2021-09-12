@@ -22,6 +22,7 @@ void LoadingGameState::enter() {
 		PlayingGameState* s_ = new PlayingGameState();
 		loaderPromise.set_value(s_);
 	});
+
 }
 
 bool LoadingGameState::loaderIsReady() {
@@ -34,7 +35,7 @@ void LoadingGameState::update() {
 		PlayingGameState* s_ = loaderFuture.get();
 		Game::getInstance()->requestTransition(s_);
 	}
-	
+
 	loadingAnimation->update();
 }
 

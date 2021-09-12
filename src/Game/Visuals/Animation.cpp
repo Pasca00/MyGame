@@ -1,12 +1,21 @@
 #include "Animation.h"
 #include "../Game.h"
 
+Animation::Animation(std::vector<SDL_Texture*> textures, std::vector<SDL_Rect> dstrect, uint32_t frameTimes) {
+	timeSinceLastFrame = 0;
+	currentFrame = 0;
+	frames = new std::vector<FrameView*>(textures.size(), NULL);
+	for (int i = 0; i < textures.size(); i++) {
+		(*frames)[i] = (new FrameView(textures[i], dstrect[i], frameTimes));
+	}
+}
+
 Animation::Animation(std::vector<SDL_Texture*> textures, SDL_Rect dstrect, std::vector<uint32_t> frameTimes) {
 	timeSinceLastFrame = 0;
 	currentFrame = 0;
 	frames = new std::vector<FrameView*>(textures.size(), NULL);
 	for (int i = 0; i < textures.size(); i++) {
-		frames->push_back(new FrameView(textures[i], dstrect, frameTimes[i]));
+		(*frames)[i] = (new FrameView(textures[i], dstrect, frameTimes[i]));
 	}
 }
 
@@ -28,6 +37,5 @@ void Animation::update() {
 }
 
 FrameView* Animation::getCurrentFrame() {
-	//return (*frames)[currentFrame];
 	return frames->at(currentFrame);
 }
