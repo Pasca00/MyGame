@@ -123,6 +123,9 @@
     <ClCompile Include="src\Game\State\PlayerState\WalkingPlayerState.cpp">
       <Filter>Source Files\Game\State\PlayerStates</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Visuals\Background.cpp">
+      <Filter>Source Files\Game\Visuals</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\sdl\sdl2-2.0.14\include\begin_code.h">
@@ -439,6 +442,9 @@
     </ClInclude>
     <ClInclude Include="src\Game\State\PlayerState\WalkingPlayerState.h">
       <Filter>Header Files\Game\State\PlayerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Visuals\Background.h">
+      <Filter>Header Files\Game\Visuals</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -8,17 +8,16 @@
 #include "../Player/Player.h"
 #include "../Visuals/View.h"
 #include "../Visuals/Animation.h"
+#include "../Visuals/Background.h"
 
 class PlayingGameState : public GameState {
 	private:
 		Camera* camera;
 		Player* player;
 
-		View* background;
-		std::vector<View*> treesFar;
-		std::vector<View*> treesClose;
+		Background* background;
 
-		View* test;
+		std::vector<View*> tiles;
 
 	public:
 		PlayingGameState();

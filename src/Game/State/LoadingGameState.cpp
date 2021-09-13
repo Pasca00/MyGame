@@ -1,3 +1,4 @@
+#include <exception>
 #include "LoadingGameState.h"
 #include "../Game.h"
 

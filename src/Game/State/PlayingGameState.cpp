@@ -1,32 +1,17 @@
 #include "PlayingGameState.h"
 #include "../Game.h"
 
-PlayingGameState::PlayingGameState() : GameState() {
+PlayingGameState::PlayingGameState() : GameState() {	
+	std::vector<const char*> fileNames(2);
+	fileNames[0] = "C:/Users/alexp/Desktop/Game/resources/backgrounds/trees_far.png";
+	fileNames[1] = "C:/Users/alexp/Desktop/Game/resources/backgrounds/trees_close.png";
+	char* bgFile = "C:/Users/alexp/Desktop/Game/resources/backgrounds/clouds_background.png";
 
-	SDL_Texture* backgroundTexture = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(),
-		"C:/Users/alexp/Desktop/Game/resources/backgrounds/clouds_background.png");
-	
+	background = new Background(bgFile, fileNames, 10);
+
 	SDL_Rect dstrect;
-	dstrect.x = dstrect.y = 0;
-	dstrect.w = Window::BASE_WINDOW_WIDTH;
-	dstrect.h = Window::BASE_WINDOW_HEIGHT;
-
-	background = new View(backgroundTexture, dstrect);
-
-	SDL_Texture* treesFarTexture = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(),
-		"C:/Users/alexp/Desktop/Game/resources/backgrounds/trees_far.png");
-
-	treesFar = std::vector<View*>(20, NULL);
-	treesClose = std::vector<View*>(20, NULL);
-
-	for (int i = 0; i < 20; i++) {
-		treesFar[i] = new View(treesFarTexture, dstrect);
-		//treesClose[i] = new View(treesCloseTexture, dstrect);
-		dstrect.x += dstrect.w;
-	}
-
 	dstrect.x = 400;
-	dstrect.y = 200;
+	dstrect.y = Window::BASE_WINDOW_HEIGHT - 200;
 
 	player = new Player(100, dstrect, 1);
 }
@@ -42,13 +27,11 @@ void PlayingGameState::handleInput(Game* game, Input* input) {
 }
 
 void PlayingGameState::update() {
+	background->scrollLeft();
 	player->update();
 }
 
 void PlayingGameState::draw() {
-	Game::getInstance()->getRenderer()->addToQueue(background);
-
-	Game::getInstance()->getRenderer()->addToQueue(treesFar[0]);
-
+	background->draw();
 	player->draw();
 }
