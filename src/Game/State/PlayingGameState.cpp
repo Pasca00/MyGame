@@ -14,6 +14,7 @@ PlayingGameState::PlayingGameState() : GameState() {
 	dstrect.y = Window::BASE_WINDOW_HEIGHT - 200;
 
 	player = new Player(100, dstrect, 1);
+	physicsEngine = new PhysicsEngine(1, 5, 1);
 }
 
 void PlayingGameState::enter() { }
@@ -28,6 +29,8 @@ void PlayingGameState::handleInput(Game* game, Input* input) {
 
 void PlayingGameState::update() {
 	background->scrollLeft();
+
+	physicsEngine->applyFriction(player);
 	player->update();
 }
 

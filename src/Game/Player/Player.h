@@ -17,11 +17,10 @@ class Player {
 		PlayerState* currentState_;
 
 		int velocity;
+		int fallSpeed;
 		int acceleration;
 		int velocityCap;
 		int accCap;
-
-		SDL_Rect buildRenderRect();
 
 	public:
 		Player(int health, SDL_Rect posRect, int8_t direction);
@@ -32,6 +31,9 @@ class Player {
 
 		SDL_Texture* getCurrentTexture();
 		SDL_Rect getRect();
+		SDL_Rect buildRenderRect();
+
+		void setRect(SDL_Rect posRect);
 
 		void setDirection(int8_t direction);
 		int8_t getDirection();
@@ -41,7 +43,10 @@ class Player {
 		void accelerate();
 
 		void setVelocity(int velocity);
+		int getVelocity();
+
 		void setAcceleration(int acceleration);
+		int getAcceleration();
 
 		IdlePlayerState* idleState;
 		WalkingPlayerState* walkingState;

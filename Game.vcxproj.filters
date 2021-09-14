@@ -64,6 +64,12 @@
     <Filter Include="Header Files\Game\Player">
       <UniqueIdentifier>{f7550ab4-0e3e-481a-ac3f-21366b447ea4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game\Physics">
+      <UniqueIdentifier>{dfd61b42-a29c-4b3d-afa5-eeae0da1410f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Physics">
+      <UniqueIdentifier>{7770f428-c784-4cec-9930-3018f19f7a0b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\game\main.cpp">
@@ -125,6 +131,9 @@
     </ClCompile>
     <ClCompile Include="src\Game\Visuals\Background.cpp">
       <Filter>Source Files\Game\Visuals</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Physics\PhysicsEngine.cpp">
+      <Filter>Source Files\Game\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -445,6 +454,9 @@
     </ClInclude>
     <ClInclude Include="src\Game\Visuals\Background.h">
       <Filter>Header Files\Game\Visuals</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Physics\PhysicsEngine.h">
+      <Filter>Header Files\Game\Physics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -9,11 +9,13 @@
 #include "../Visuals/View.h"
 #include "../Visuals/Animation.h"
 #include "../Visuals/Background.h"
+#include "../Physics/PhysicsEngine.h"
 
 class PlayingGameState : public GameState {
 	private:
 		Camera* camera;
 		Player* player;
+		PhysicsEngine* physicsEngine;
 
 		Background* background;
 

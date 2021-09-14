@@ -11,9 +11,10 @@ Player::Player(int health, SDL_Rect posRect, int8_t direction) {
 	this->currentState_ = idleState;
 
 	this->velocity = 0;
-	this->acceleration = 1;
+	this->fallSpeed = 0;
+	this->acceleration = 3;
 	this->accCap = 2;
-	this->velocityCap = 5;
+	this->velocityCap = 6;
 }
 
 void Player::handleInput(Input* input) {
@@ -45,6 +46,10 @@ SDL_Rect Player::buildRenderRect() {
 	return rect;
 }
 
+void Player::setRect(SDL_Rect posRect) {
+	this->posRect = posRect;
+}
+
 void Player::draw() {
 	SDL_Rect renderRect = buildRenderRect();
 
@@ -59,8 +64,16 @@ void Player::setVelocity(int velocity) {
 	this->velocity = velocity;
 }
 
+int Player::getVelocity() {
+	return velocity;
+}
+
 void Player::setAcceleration(int acceleration) {
 	this->acceleration = acceleration;
+}
+
+int Player::getAcceleration() {
+	return acceleration;
 }
 
 SDL_Texture* Player::getCurrentTexture() {

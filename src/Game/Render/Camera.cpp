@@ -11,27 +11,14 @@ Camera::Camera() {
 	focusZone.x = (dimensions.w - focusZone.w) / 2;
 	focusZone.y = (dimensions.h - focusZone.h) / 2;
 
-	focusView = NULL;
+	SDL_memset(&focusView, 0, sizeof(SDL_Rect));
 }
 
-Camera::Camera(SDL_Rect* focusView) {
-	dimensions.w = Window::BASE_WINDOW_WIDTH;
-	dimensions.h = Window::BASE_WINDOW_HEIGHT;
-	dimensions.x = dimensions.y = 0;
-
+void Camera::setFocusView(SDL_Rect focusView) {
 	this->focusView = focusView;
 
-	focusZone.w = focusView->w * 2;
-	focusZone.h = focusView->h * 2;
-	focusZone.x = (dimensions.w - focusZone.w) / 2;
-	focusZone.y = (dimensions.h - focusZone.h) / 2;
-}
-
-void Camera::setFocusView(SDL_Rect* focusView) {
-	this->focusView = focusView;
-
-	focusZone.w = focusView->w * 2;
-	focusZone.h = focusView->h * 2;
+	focusZone.w = focusView.w * 2;
+	focusZone.h = focusView.h * 2;
 	focusZone.x = (dimensions.w - focusZone.w) / 2;
 	focusZone.y = (dimensions.h - focusZone.h) / 2;
 }

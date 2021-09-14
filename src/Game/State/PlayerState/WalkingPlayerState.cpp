@@ -24,12 +24,10 @@ WalkingPlayerState::WalkingPlayerState(Player* player) : PlayerState() {
 void WalkingPlayerState::handleInput(Player* player, Input* input) {
 	if (player->getDirection() == DIRECTION_RIGHT && input->KEY_D == 0) {
 		player->setState(player->idleState);
-		player->setVelocity(0);
 	}
 
 	if (player->getDirection() == DIRECTION_LEFT && input->KEY_A == 0) {
 		player->setState(player->idleState);
-		player->setVelocity(0);
 	}
 }
 
