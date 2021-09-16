@@ -9,7 +9,8 @@
 #include "../Visuals/View.h"
 #include "../Visuals/Animation.h"
 #include "../Visuals/Background.h"
-#include "../Physics/PhysicsEngine.h"
+
+class PhysicsEngine;
 
 class PlayingGameState : public GameState {
 	private:

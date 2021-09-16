@@ -135,6 +135,9 @@
     <ClCompile Include="src\Game\Physics\PhysicsEngine.cpp">
       <Filter>Source Files\Game\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Physics\Movable.cpp">
+      <Filter>Source Files\Game\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\sdl\sdl2-2.0.14\include\begin_code.h">
@@ -456,6 +459,9 @@
       <Filter>Header Files\Game\Visuals</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\Physics\PhysicsEngine.h">
+      <Filter>Header Files\Game\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Physics\Movable.h">
       <Filter>Header Files\Game\Physics</Filter>
     </ClInclude>
   </ItemGroup>
