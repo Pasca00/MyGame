@@ -15,6 +15,7 @@ class Background {
 		void scrollLeft();
 		void scrollRight();
 
+		void update(int8_t cameraDirection);
 		void draw();
 };
 

@@ -31,6 +31,10 @@ SDL_Rect Player::buildRenderRect() {
 	return rect;
 }
 
+SDL_Rect* Player::getRenderRectAddress() {
+	return &renderRect;
+}
+
 void Player::setRect(SDL_Rect posRect) {
 	this->posRect = posRect;
 }
@@ -45,12 +49,28 @@ void Player::draw() {
 	}
 }
 
+void Player::drawToRelativePosition(SDL_Rect cameraPos) {
+	SDL_Rect renderRect = buildRenderRect();
+	renderRect.x -= cameraPos.x;
+
+	if (direction == DIRECTION_RIGHT) {
+		Game::getInstance()->getRenderer()->addToQueue(renderRect, currentState_->getCurrentTexture());
+	}
+	else {
+		Game::getInstance()->getRenderer()->addToQueueFlipped(renderRect, currentState_->getCurrentTexture(), SDL_FLIP_HORIZONTAL);
+	}
+}
+
 SDL_Texture* Player::getCurrentTexture() {
 	return currentState_->getCurrentTexture();
 }
 
 SDL_Rect Player::getRect() {
 	return posRect;
+}
+
+SDL_Rect* Player::getPosRectAddress() {
+	return &posRect;
 }
 
 void Player::setState(PlayerState* state) {

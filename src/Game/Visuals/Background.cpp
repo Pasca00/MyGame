@@ -61,3 +61,11 @@ void Background::draw() {
 		}
 	}
 }
+
+void Background::update(int8_t cameraDirection) {
+	if (cameraDirection == 1) {
+		scrollLeft();
+	} else if (cameraDirection == -1) {
+		scrollRight();
+	}
+}

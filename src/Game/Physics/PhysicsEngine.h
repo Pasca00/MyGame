@@ -25,6 +25,8 @@ class PhysicsEngine {
 		void applyGravity();
 		void applyFriction();
 
+		void update();
+
 		void setUpdateTime(Uint32 updateTime);
 		Uint32 getUpdateTime();
 };

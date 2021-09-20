@@ -24,14 +24,21 @@ void PhysicsEngine::applyGravity() {
 }
 
 void PhysicsEngine::applyFriction() {
-	/*
-	if (player->getVelocity() - friction < 0) {
-		player->setVelocity(0);
-	} else {
-		player->setVelocity(player->getVelocity() - friction);
-	}
-	*/
+	if (Game::getInstance()->getCurrentTime() - lastUpdate >= updateTime) {
+		for (int i = 0; i < objects.size(); i++) {
+			if (objects[i]->getVelocity() - friction < 0) {
+				objects[i]->setVelocity(0);
+			}
+			else {
+				objects[i]->setVelocity(objects[i]->getVelocity() - friction);
+			}
+		}
 
+		lastUpdate = Game::getInstance()->getCurrentTime();
+	}
+}
+
+void PhysicsEngine::update() {
 	if (Game::getInstance()->getCurrentTime() - lastUpdate >= updateTime) {
 		for (int i = 0; i < objects.size(); i++) {
 			if (objects[i]->getVelocity() - friction < 0) {

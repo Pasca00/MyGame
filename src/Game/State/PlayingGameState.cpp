@@ -11,13 +11,15 @@ PlayingGameState::PlayingGameState() : GameState() {
 	background = new Background(bgFile, fileNames, 10);
 
 	SDL_Rect dstrect;
-	dstrect.x = 400;
+	dstrect.x = 700;
 	dstrect.y = Window::BASE_WINDOW_HEIGHT - 200;
 
 	player = new Player(100, dstrect, 1);
 
 	physicsEngine = new PhysicsEngine(1, 5, 1);
 	physicsEngine->attach(player);
+
+	camera = new Camera(player->getRenderRectAddress());
 }
 
 void PlayingGameState::enter() { }
@@ -31,7 +33,10 @@ void PlayingGameState::handleInput(Game* game, Input* input) {
 }
 
 void PlayingGameState::update() {
-	background->scrollLeft();
+	//camera->setFocusView(player->buildRenderRect());
+	camera->moveToFocus();
+
+	background->update(camera->getXDirection());
 
 	physicsEngine->applyFriction();
 	player->update();
@@ -39,5 +44,5 @@ void PlayingGameState::update() {
 
 void PlayingGameState::draw() {
 	background->draw();
-	player->draw();
+	player->drawToRelativePosition(camera->getRect());
 }

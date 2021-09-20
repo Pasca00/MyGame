@@ -20,9 +20,13 @@ class Player : public Movable {
 		void update();
 		void draw();
 
+		void drawToRelativePosition(SDL_Rect cameraPos);
+
 		SDL_Texture* getCurrentTexture();
 		SDL_Rect getRect();
+		SDL_Rect* getPosRectAddress();
 		SDL_Rect buildRenderRect();
+		SDL_Rect* getRenderRectAddress();
 
 		void setRect(SDL_Rect posRect);
 
