@@ -131,6 +131,7 @@
     <ClCompile Include="src\game\Game.cpp" />
     <ClCompile Include="src\game\input\InputCollector.cpp" />
     <ClCompile Include="src\game\main.cpp" />
+    <ClCompile Include="src\Game\Physics\CollisionEngine.cpp" />
     <ClCompile Include="src\Game\Physics\Movable.cpp" />
     <ClCompile Include="src\Game\Physics\PhysicsEngine.cpp" />
     <ClCompile Include="src\Game\Player\Player.cpp" />
@@ -154,6 +155,7 @@
   <ItemGroup>
     <ClInclude Include="src\game\Game.h" />
     <ClInclude Include="src\game\input\InputCollector.h" />
+    <ClInclude Include="src\Game\Physics\CollisionEngine.h" />
     <ClInclude Include="src\Game\Physics\Movable.h" />
     <ClInclude Include="src\Game\Physics\PhysicsEngine.h" />
     <ClInclude Include="src\Game\Player\Player.h" />

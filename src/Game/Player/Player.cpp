@@ -15,7 +15,7 @@ void Player::handleInput(Input* input) {
 }
 
 void Player::update() {
-	posRect.x += velocity * direction;
+	posRect.x += xVelocity * xDirection;
 
 	renderRect = buildRenderRect();
 	currentState_->update();
@@ -42,7 +42,7 @@ void Player::setRect(SDL_Rect posRect) {
 void Player::draw() {
 	SDL_Rect renderRect = buildRenderRect();
 
-	if (direction == DIRECTION_RIGHT) {
+	if (xDirection == DIRECTION_RIGHT) {
 		Game::getInstance()->getRenderer()->addToQueue(renderRect, currentState_->getCurrentTexture());
 	} else {
 		Game::getInstance()->getRenderer()->addToQueueFlipped(renderRect, currentState_->getCurrentTexture(), SDL_FLIP_HORIZONTAL);
@@ -53,7 +53,7 @@ void Player::drawToRelativePosition(SDL_Rect cameraPos) {
 	SDL_Rect renderRect = buildRenderRect();
 	renderRect.x -= cameraPos.x;
 
-	if (direction == DIRECTION_RIGHT) {
+	if (xDirection == DIRECTION_RIGHT) {
 		Game::getInstance()->getRenderer()->addToQueue(renderRect, currentState_->getCurrentTexture());
 	}
 	else {

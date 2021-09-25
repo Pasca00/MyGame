@@ -1,12 +1,17 @@
 #include "Movable.h"
 
 Movable::Movable(int velocity, int fallSpeed, int acceleration, int velocityCap, signed char direction) {
-	this->velocity = velocity;
-	this->fallSpeed = fallSpeed;
+	this->xVelocity = velocity;
+	this->yVelocity = fallSpeed;
 	this->acceleration = acceleration;
 	this->velocityCap = velocityCap;
 
-	this->direction = direction;
+	this->xDirection = direction;
+
+	this->collisionDown = false;
+	this->collisionUp = false;
+	this->collisionLeft = false;
+	this->collisionRight = false;
 }
 
 void Movable::setAcceleration(int acceleration) {
@@ -17,27 +22,59 @@ int Movable::getAcceleration() {
 	return acceleration;
 }
 
+void Movable::setLeftCollision(bool v) {
+	this->collisionLeft = v;
+}
+
+void Movable::setRightCollision(bool v) {
+	this->collisionRight = v;
+}
+
+void Movable::setDownCollision(bool v) {
+	this->collisionDown = v;
+}
+
+void Movable::setUpCollision(bool v) {
+	this->collisionUp = v;
+}
+
+bool Movable::collidesDown() {
+	return collisionDown;
+}
+
+bool Movable::collidesUp() {
+	return collisionUp;
+}
+
+bool Movable::collidesLeft() {
+	return collisionLeft;
+}
+
+bool Movable::collidesRight() {
+	return collisionRight;
+}
+
 void Movable::setDirection(signed char direction) {
-	this->direction = direction;
+	this->xDirection = direction;
 }
 
 signed char Movable::getDirection() {
-	return direction;
+	return xDirection;
 }
 
 void Movable::setVelocity(int velocity) {
-	this->velocity = velocity;
+	this->xVelocity = velocity;
 }
 
 int Movable::getVelocity() {
-	return velocity;
+	return xVelocity;
 }
 
 void Movable::accelerate() {
-	if (velocity + acceleration >= velocityCap) {
-		velocity = velocityCap;
+	if (xVelocity + acceleration >= velocityCap) {
+		xVelocity = velocityCap;
 	}
 	else {
-		velocity += acceleration;
+		xVelocity += acceleration;
 	}
 }

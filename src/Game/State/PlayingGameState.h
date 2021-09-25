@@ -9,6 +9,7 @@
 #include "../Visuals/View.h"
 #include "../Visuals/Animation.h"
 #include "../Visuals/Background.h"
+#include "../Physics/CollisionEngine.h"
 
 class PhysicsEngine;
 
@@ -17,6 +18,7 @@ class PlayingGameState : public GameState {
 		Camera* camera;
 		Player* player;
 		PhysicsEngine* physicsEngine;
+		CollisionEngine* collisionEngine;
 
 		Background* background;
 

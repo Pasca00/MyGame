@@ -22,11 +22,11 @@ WalkingPlayerState::WalkingPlayerState(Player* player) : PlayerState() {
 }
 
 void WalkingPlayerState::handleInput(Player* player, Input* input) {
-	if (player->getDirection() == DIRECTION_RIGHT && input->KEY_D == 0) {
+	if ((player->getDirection() == DIRECTION_RIGHT && input->KEY_D == 0) || player->collidesRight()) {
 		player->setState(player->idleState);
 	}
 
-	if (player->getDirection() == DIRECTION_LEFT && input->KEY_A == 0) {
+	if ((player->getDirection() == DIRECTION_LEFT && input->KEY_A == 0) || player->collidesLeft()) {
 		player->setState(player->idleState);
 	}
 }

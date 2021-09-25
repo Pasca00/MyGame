@@ -24,7 +24,9 @@ IdlePlayerState::IdlePlayerState() {
 void IdlePlayerState::handleInput(Player* player, Input* input) {
 	if (input->KEY_D) {
 		if (player->getDirection() == DIRECTION_RIGHT) {
-			player->setState(player->walkingState);
+			if (!player->collidesRight()) {
+				player->setState(player->walkingState);
+			}
 		} else {
 			player->setDirection(DIRECTION_RIGHT);
 		}
@@ -34,7 +36,9 @@ void IdlePlayerState::handleInput(Player* player, Input* input) {
 
 	if (input->KEY_A) {
 		if (player->getDirection() == DIRECTION_LEFT) {
-			player->setState(player->walkingState);
+			if (!player->collidesRight()) {
+				player->setState(player->walkingState);
+			}
 		} else {
 			player->setDirection(DIRECTION_LEFT);
 		}

@@ -31,14 +31,11 @@ bool LoadingGameState::loaderIsReady() {
 }
 
 void LoadingGameState::update() {
-	if (loaderIsReady()) {
-		std::cout << "started load\n";
+	if (loaderFuture._Is_ready()) {
 		loaderThread.join();
 		PlayingGameState* s_ = loaderFuture.get();
 		Game::getInstance()->requestTransition(s_);
 	}
-	std::cout << "ended Load\n";
-	loadingAnimation->update();
 }
 
 void LoadingGameState::draw() {

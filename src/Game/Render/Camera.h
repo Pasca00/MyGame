@@ -36,5 +36,6 @@ class Camera {
 		int8_t getXDirection();
 
 		SDL_Rect getRect();
+		SDL_Rect getFocusZone();
 };
 
