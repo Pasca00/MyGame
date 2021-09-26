@@ -4,25 +4,11 @@
 #include <thread>
 
 #include "GameState.h"
-#include "../Render/Camera.h"
-#include "../Player/Player.h"
-#include "../Visuals/View.h"
-#include "../Visuals/Animation.h"
-#include "../Visuals/Background.h"
-#include "../Physics/CollisionEngine.h"
-
-class PhysicsEngine;
+#include "../Level/Level.h"
 
 class PlayingGameState : public GameState {
 	private:
-		Camera* camera;
-		Player* player;
-		PhysicsEngine* physicsEngine;
-		CollisionEngine* collisionEngine;
-
-		Background* background;
-
-		std::vector<View*> tiles;
+		Level* level;
 
 	public:
 		PlayingGameState();

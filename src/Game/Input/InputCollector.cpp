@@ -12,6 +12,10 @@ Input InputCollector::getInput() {
 	return input;
 }
 
+void InputCollector::flushInput(Input* input) {
+	SDL_memset(input, 0, sizeof(Input));
+}
+
 void InputCollector::collectInput() {
 	SDL_PumpEvents();
 	SDL_GetMouseState(&(input.MOUSE_X), &(input.MOUSE_Y));

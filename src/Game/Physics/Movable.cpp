@@ -66,7 +66,7 @@ void Movable::setVelocity(int velocity) {
 	this->xVelocity = velocity;
 }
 
-int Movable::getVelocity() {
+int Movable::getXVelocity() {
 	return xVelocity;
 }
 

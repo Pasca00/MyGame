@@ -26,11 +26,11 @@ void PhysicsEngine::applyGravity() {
 void PhysicsEngine::applyFriction() {
 	if (Game::getInstance()->getCurrentTime() - lastUpdate >= updateTime) {
 		for (int i = 0; i < objects.size(); i++) {
-			if (objects[i]->getVelocity() - friction < 0) {
+			if (objects[i]->getXVelocity() - friction < 0) {
 				objects[i]->setVelocity(0);
 			}
 			else {
-				objects[i]->setVelocity(objects[i]->getVelocity() - friction);
+				objects[i]->setVelocity(objects[i]->getXVelocity() - friction);
 			}
 		}
 
@@ -41,11 +41,11 @@ void PhysicsEngine::applyFriction() {
 void PhysicsEngine::update() {
 	if (Game::getInstance()->getCurrentTime() - lastUpdate >= updateTime) {
 		for (int i = 0; i < objects.size(); i++) {
-			if (objects[i]->getVelocity() - friction < 0) {
+			if (objects[i]->getXVelocity() - friction < 0) {
 				objects[i]->setVelocity(0);
 			}
 			else {
-				objects[i]->setVelocity(objects[i]->getVelocity() - friction);
+				objects[i]->setVelocity(objects[i]->getXVelocity() - friction);
 			}
 		}
 

@@ -98,7 +98,7 @@ void Camera::moveToFocus() {
 }
 
 void Camera::renderViewToRelativePosition(View* view) {
-	if (viewIsOnScreen(view)) {
+	if (viewIsOnScreen(view) && view != NULL) {
 		SDL_Rect rendRect = view->dstrect;
 		rendRect.x -= rect.x;
 		renderer->addToQueue(rendRect, view->texture);

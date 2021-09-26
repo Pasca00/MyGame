@@ -70,6 +70,12 @@
     <Filter Include="Source Files\Game\Physics">
       <UniqueIdentifier>{7770f428-c784-4cec-9930-3018f19f7a0b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game\Level">
+      <UniqueIdentifier>{57d8be9f-d5e8-43a4-a645-43c43979f232}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\Level">
+      <UniqueIdentifier>{de5e3326-e3ab-4aaf-b9f6-c9d20fe88dbd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\game\main.cpp">
@@ -140,6 +146,15 @@
     </ClCompile>
     <ClCompile Include="src\Game\Physics\CollisionEngine.cpp">
       <Filter>Source Files\Game\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Level\Level.cpp">
+      <Filter>Source Files\Game\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Visuals\TileView.cpp">
+      <Filter>Source Files\Game\Visuals</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Visuals\InteractableView.cpp">
+      <Filter>Source Files\Game\Visuals</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -469,6 +484,15 @@
     </ClInclude>
     <ClInclude Include="src\Game\Physics\CollisionEngine.h">
       <Filter>Header Files\Game\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Level\Level.h">
+      <Filter>Header Files\Game\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Visuals\TileView.h">
+      <Filter>Header Files\Game\Visuals</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Visuals\InteractableView.h">
+      <Filter>Header Files\Game\Visuals</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

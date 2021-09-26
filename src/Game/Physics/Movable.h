@@ -24,7 +24,7 @@ class Movable {
 		signed char getDirection();
 
 		void setVelocity(int velocity);
-		int getVelocity();
+		int getXVelocity();
 
 		void setAcceleration(int acceleration);
 		int getAcceleration();

@@ -21,12 +21,12 @@ typedef struct Input {
 class InputCollector {
 	private:
 		Input input;
-		
 		void flushInputs();
-	
 	public:
 		InputCollector();
 		Input getInput();
 		void collectInput();
+
+		static void flushInput(Input* input);
 };
 

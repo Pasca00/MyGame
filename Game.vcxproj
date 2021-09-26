@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClCompile Include="src\game\Game.cpp" />
     <ClCompile Include="src\game\input\InputCollector.cpp" />
+    <ClCompile Include="src\Game\Level\Level.cpp" />
     <ClCompile Include="src\game\main.cpp" />
     <ClCompile Include="src\Game\Physics\CollisionEngine.cpp" />
     <ClCompile Include="src\Game\Physics\Movable.cpp" />
@@ -149,12 +150,15 @@
     <ClCompile Include="src\Game\Visuals\Background.cpp" />
     <ClCompile Include="src\Game\Visuals\ButtonView.cpp" />
     <ClCompile Include="src\Game\Visuals\FrameView.cpp" />
+    <ClCompile Include="src\Game\Visuals\InteractableView.cpp" />
+    <ClCompile Include="src\Game\Visuals\TileView.cpp" />
     <ClCompile Include="src\Game\Visuals\View.cpp" />
     <ClCompile Include="src\game\window\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\game\Game.h" />
     <ClInclude Include="src\game\input\InputCollector.h" />
+    <ClInclude Include="src\Game\Level\Level.h" />
     <ClInclude Include="src\Game\Physics\CollisionEngine.h" />
     <ClInclude Include="src\Game\Physics\Movable.h" />
     <ClInclude Include="src\Game\Physics\PhysicsEngine.h" />
@@ -173,6 +177,8 @@
     <ClInclude Include="src\Game\Visuals\Background.h" />
     <ClInclude Include="src\Game\Visuals\ButtonView.h" />
     <ClInclude Include="src\Game\Visuals\FrameView.h" />
+    <ClInclude Include="src\Game\Visuals\InteractableView.h" />
+    <ClInclude Include="src\Game\Visuals\TileView.h" />
     <ClInclude Include="src\Game\Visuals\View.h" />
     <ClInclude Include="src\game\window\Window.h" />
     <ClInclude Include="src\sdl\sdl2-2.0.14\include\begin_code.h" />
