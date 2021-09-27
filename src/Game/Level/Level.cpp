@@ -45,17 +45,11 @@ Level::Level(int h, int w) {
 	eKeys[1] = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(),
 		"C:/Users/alexp/Desktop/Game/resources/mini/e_key2.png");
 
-	SDL_QueryTexture(eKeys[0], NULL, NULL, &(dstrect.w), &(dstrect.h));
-	dstrect.w *= 2;
-	dstrect.h *= 2;
-
-	dstrect.y -= dstrect.h;
-
-	shrine->attachAnimation(new Animation(eKeys, dstrect, 350));
+	shrine->attachPromptAnimation(new Animation(eKeys, dstrect, 350));
 }
 
 void Level::handleInput(Input* input) {
-
+	shrine->onInteract(input);
 	player->handleInput(input);
 }
 

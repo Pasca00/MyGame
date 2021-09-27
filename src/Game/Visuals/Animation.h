@@ -16,6 +16,7 @@ class Animation {
 		Animation(std::vector<SDL_Texture*> textures, SDL_Rect dstrect, std::vector<uint32_t> frameTimes);
 		Animation(std::vector<SDL_Texture*> textures, SDL_Rect dstrect, uint32_t frameTimes);
 
+		void setRect(SDL_Rect dstrect);
 
 		FrameView* getCurrentFrame();
 		void update();

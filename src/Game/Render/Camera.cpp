@@ -55,6 +55,10 @@ void Camera::setFocusView(SDL_Rect* focusView) {
 }
 
 bool Camera::viewIsOnScreen(View* view) {
+	if (view == NULL) {
+		return false;
+	}
+
 	if (view->dstrect.x + view->dstrect.w >= rect.x && view->dstrect.x < rect.x + rect.w
 		&& view->dstrect.y >= rect.y && view->dstrect.y < rect.y + rect.h) {
 		return true;

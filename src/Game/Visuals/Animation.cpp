@@ -28,6 +28,12 @@ Animation::Animation(std::vector<SDL_Texture*> textures, SDL_Rect dstrect, uint3
 	}
 }
 
+void Animation::setRect(SDL_Rect dstrect) {
+	for (int i = 0; i < frames->size(); i++) {
+		(*frames)[i]->dstrect = dstrect;
+	}
+}
+
 void Animation::update() {
 	if (Game::getInstance()->getCurrentTime() - timeSinceLastFrame >= frames->at(currentFrame)->timeOnScreen) {
 		timeSinceLastFrame = Game::getInstance()->getCurrentTime();

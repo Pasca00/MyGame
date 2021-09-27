@@ -70,6 +70,10 @@ void InputCollector::collectInput() {
 						input.KEY_D = true;
 						break;
 
+					case SDLK_e:
+						input.KEY_E = true;
+						break;
+
 					case SDLK_SPACE:
 						input.KEY_SPACE = true;
 						break;
@@ -98,6 +102,10 @@ void InputCollector::collectInput() {
 
 					case SDLK_d:
 						input.KEY_D = false;
+						break;
+
+					case SDLK_e:
+						input.KEY_E = false;
 						break;
 
 					case SDLK_SPACE:

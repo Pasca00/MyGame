@@ -6,6 +6,7 @@ typedef struct Input {
 	bool KEY_A;
 	bool KEY_S;
 	bool KEY_D;
+	bool KEY_E;
 	bool KEY_SPACE;
 	bool KEY_ESCAPE;
 	
