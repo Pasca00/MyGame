@@ -28,14 +28,15 @@ Level::Level(int h, int w) {
 	background = new Background(bgFile, fileNames, 10);
 
 	createTileMap();
+	placeDecorations();
 
 	SDL_Texture* shrineTexture = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(),
 		"C:/Users/alexp/Desktop/Game/resources/misc/altar.png");
 	SDL_QueryTexture(shrineTexture, NULL, NULL, &(dstrect.w), &(dstrect.h));
 	dstrect.w *= 4;
 	dstrect.h *= 4;
-	dstrect.x = Window::BASE_WINDOW_WIDTH * 3;
-	dstrect.y = Window::BASE_WINDOW_HEIGHT - tileH - dstrect.h;
+	dstrect.x = 1200;
+	dstrect.y = tiles[0][0]->dstrect.y - dstrect.h + 10;
 
 	shrine = new InteractableView(player->getRenderRectAddress(), shrineTexture, dstrect);
 
@@ -46,6 +47,7 @@ Level::Level(int h, int w) {
 		"C:/Users/alexp/Desktop/Game/resources/mini/e_key2.png");
 
 	shrine->attachPromptAnimation(new Animation(eKeys, dstrect, 350));
+	
 }
 
 void Level::handleInput(Input* input) {
@@ -66,12 +68,15 @@ void Level::update() {
 
 void Level::draw() {
 	background->draw();
-	renderTileMap();
+	
 
+
+	renderDecorations();
 	camera->renderViewToRelativePosition(shrine);
 	if (shrine->targetIsInProximity()) {
 		camera->renderViewToRelativePosition(shrine->getCurrectPromptFrame());
 	}
+	renderTileMap();
 
 	player->drawToRelativePosition(camera->getRect());
 }
@@ -101,6 +106,38 @@ void Level::renderTileMap() {
 				camera->renderViewToRelativePosition(tiles[i][j]);
 			}
 		}
+	}
+}
+
+void Level::placeDecorations() {
+	SDL_Rect dstrect;
+	int height = tiles[0][0]->dstrect.y;
+
+	SDL_Texture* fenceTexture = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(),
+		"C:/Users/alexp/Desktop/Game/resources/misc/fence.png");
+	SDL_QueryTexture(fenceTexture, NULL, NULL, &(dstrect.w), &(dstrect.h));
+	dstrect.w *= 5;
+	dstrect.h *= 5;
+	dstrect.y = height - dstrect.h;
+	dstrect.x = 400;
+	decorations.push_back(new View(fenceTexture, dstrect));
+
+	SDL_Texture* grassTexture = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(),
+		"C:/Users/alexp/Desktop/Game/resources/misc/grass.png");
+	SDL_QueryTexture(fenceTexture, NULL, NULL, &(dstrect.w), &(dstrect.h));
+	dstrect.w *= 5;
+	dstrect.h *= 5;
+	dstrect.y = height - dstrect.h + 20;
+	dstrect.x = 0;
+	for (int i = 0; i < 20; i++) {
+		decorations.push_back(new View(grassTexture, dstrect));
+		dstrect.x += dstrect.w;
+	}
+}
+
+void Level::renderDecorations() {
+	for (int i = 0; i < decorations.size(); i++) {
+		camera->renderViewToRelativePosition(decorations[i]);
 	}
 }
 

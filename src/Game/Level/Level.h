@@ -30,8 +30,12 @@ class Level {
 
 		InteractableView* shrine;
 
+		std::vector<View*> decorations;
+
 		void createTileMap();
 		void renderTileMap();
+		void placeDecorations();
+		void renderDecorations();
 
 	public:
 		Level(int w, int h);
