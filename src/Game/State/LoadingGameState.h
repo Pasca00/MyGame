@@ -9,10 +9,8 @@ class LoadingGameState : public GameState {
 		Animation* loadingAnimation;
 
 		std::thread loaderThread;
-		std::promise<PlayingGameState*> loaderPromise;
-		std::future<PlayingGameState*> loaderFuture;
-
-		bool loaderIsReady;
+		std::atomic<PlayingGameState*> s_;
+		std::atomic<bool> loaderIsReady;
 
 	public:
 		LoadingGameState(Renderer* renderer);

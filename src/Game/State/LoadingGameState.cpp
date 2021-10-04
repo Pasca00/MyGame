@@ -1,4 +1,3 @@
-#include <exception>
 #include "LoadingGameState.h"
 #include "../Game.h"
 
@@ -11,19 +10,19 @@ LoadingGameState::LoadingGameState(Renderer* renderer) {
 
 	SDL_Rect dstrect;
 	dstrect.w = dstrect.h = 64;
-	dstrect.x = dstrect.y = 0;
+	dstrect.x = (Window::BASE_WINDOW_WIDTH - dstrect.w) / 2;
+	dstrect.y = (Window::BASE_WINDOW_HEIGHT- dstrect.h) / 2;
 
-	loadingAnimation = new Animation(textures, dstrect, 250);
+	loadingAnimation = new Animation(textures, dstrect, 200);
 }
 
 void LoadingGameState::enter() {
-	loaderIsReady = false;
-	loaderFuture = loaderPromise.get_future();
+	loaderIsReady.store(false);
 
 	loaderThread = std::thread([this] {
-		PlayingGameState* s_ = new PlayingGameState();
-		loaderPromise.set_value(s_);
-		loaderIsReady = true;
+		s_.store(new PlayingGameState());
+		std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+		loaderIsReady.store(true);
 	});
 }
 
@@ -34,14 +33,11 @@ void LoadingGameState::handleInput(Game* game, Input* input) {
 }
 
 void LoadingGameState::update() {
-	if (loaderIsReady) {
+	if (loaderIsReady.load()) {
 		loaderThread.join();
-		printf("here\n");
-		PlayingGameState* s_ = loaderFuture.get();
-		printf("here2\n");
-		Game::getInstance()->requestTransition(s_);
+		Game::getInstance()->requestTransition(s_.load());
 	}
-
+	
 	loadingAnimation->update();
 }
 
