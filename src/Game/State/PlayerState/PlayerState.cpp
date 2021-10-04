@@ -1,6 +1,9 @@
 #include "PlayerState.h"
 
-PlayerState::PlayerState() { }
+PlayerState::PlayerState() {
+	numberOfFrames = 0;
+	animation = NULL;
+}
 
 SDL_Texture* PlayerState::getCurrentTexture() {
 	return animation->getCurrentFrame()->texture;

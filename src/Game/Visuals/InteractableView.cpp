@@ -1,5 +1,6 @@
 #include "InteractableView.h"
 #include "../Input/InputCollector.h"
+#include "../Render/Camera.h"
 
 InteractableView::InteractableView(SDL_Rect* target, SDL_Texture* texture, SDL_Rect dstrect) : ButtonView(texture, dstrect) {
 	this->target = target;
@@ -10,8 +11,6 @@ InteractableView::InteractableView(SDL_Rect* target, SDL_Texture* texture, SDL_R
 	this->proximity.h = dstrect.h + 200;
 	this->proximity.x = dstrect.x - 100;
 	this->proximity.y = dstrect.y - 100;
-
-	this->onInteractListener = [] {};
 }
 
 void InteractableView::attachPromptAnimation(Animation* animation) {
@@ -20,7 +19,6 @@ void InteractableView::attachPromptAnimation(Animation* animation) {
 
 	promptDstrect.y = dstrect.y - promptDstrect.h;
 	promptDstrect.x = (dstrect.x + dstrect.x + dstrect.w - promptDstrect.w) / 2;
-	printf("%d %d\n", promptDstrect.x, dstrect.x);
 
 	animation->setRect(promptDstrect);
 
@@ -45,6 +43,13 @@ bool InteractableView::targetIsInProximity() {
 	}
 
 	return false;
+}
+
+void InteractableView::draw(Camera* camera) {
+	camera->renderViewToRelativePosition(this);
+	if (targetIsInProximity() && !interacted && promptAnimation != NULL) {
+		promptAnimation->getCurrentFrame()->draw(camera);
+	}
 }
 
 void InteractableView::update() {

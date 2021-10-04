@@ -12,18 +12,19 @@ class PhysicsEngine {
 		int g;
 		int maxFallSpeed;
 		int friction;
+		int airFriction;
 
 		Uint32 updateTime;
 		Uint32 lastUpdate;
 
 	public:
-		PhysicsEngine(int g, int maxFallSpeed, int friction);
+		PhysicsEngine(int g, int maxFallSpeed, int friction, int airFriction);
 
 		void attach(Movable* o);
 		void detatch(Movable* o);
 
-		void applyGravity();
-		void applyFriction();
+		void applyGravity(Movable* o);
+		void applyFriction(Movable* o);
 
 		void update();
 

@@ -11,11 +11,11 @@ Level::Level(int h, int w) {
 
 	SDL_Rect dstrect;
 	dstrect.x = 600;
-	dstrect.y = (h - 2) * tileH - 60;
+	dstrect.y = (h - 2) * tileH - 200;
 
 	this->player = new Player(100, dstrect, DIRECTION_RIGHT);
-	this->camera = new Camera(player->getRenderRectAddress());
-	this->physicsEngine = new PhysicsEngine(1, 5, 1);
+	this->camera = new Camera(player->getRectAddress());
+	this->physicsEngine = new PhysicsEngine(6, 20, 1, 1);
 	this->collisionEngine = new CollisionEngine();
 
 	physicsEngine->attach(player);
@@ -38,7 +38,7 @@ Level::Level(int h, int w) {
 	dstrect.x = 1200;
 	dstrect.y = tiles[0][0]->dstrect.y - dstrect.h + 10;
 
-	shrine = new InteractableView(player->getRenderRectAddress(), shrineTexture, dstrect);
+	shrine = new InteractableView(player->getRectAddress(), shrineTexture, dstrect);
 
 	std::vector<SDL_Texture*> eKeys(2, NULL);
 	eKeys[0] = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(),
@@ -47,6 +47,9 @@ Level::Level(int h, int w) {
 		"C:/Users/alexp/Desktop/Game/resources/mini/e_key2.png");
 
 	shrine->attachPromptAnimation(new Animation(eKeys, dstrect, 350));
+	shrine->setOnInteractListener([] {
+		std::cout << "Deez nuts... haahaa got em\n";
+	});
 	
 }
 
@@ -62,20 +65,18 @@ void Level::update() {
 
 	shrine->update();
 
-	physicsEngine->applyFriction();
+	physicsEngine->update();
+
+	collisionEngine->applyPlayerCollisionsOnTiles(player, tiles);
+
 	player->update();
 }
 
 void Level::draw() {
 	background->draw();
 	
-
-
 	renderDecorations();
-	camera->renderViewToRelativePosition(shrine);
-	if (shrine->targetIsInProximity()) {
-		camera->renderViewToRelativePosition(shrine->getCurrectPromptFrame());
-	}
+	shrine->draw(camera);
 	renderTileMap();
 
 	player->drawToRelativePosition(camera->getRect());
@@ -103,7 +104,7 @@ void Level::renderTileMap() {
 	for (int i = 0; i < h; i++) {
 		for (int j = 0; j < w; j++) {
 			if (tiles[i][j] != NULL) {
-				camera->renderViewToRelativePosition(tiles[i][j]);
+				tiles[i][j]->draw(camera);
 			}
 		}
 	}
@@ -137,7 +138,7 @@ void Level::placeDecorations() {
 
 void Level::renderDecorations() {
 	for (int i = 0; i < decorations.size(); i++) {
-		camera->renderViewToRelativePosition(decorations[i]);
+		decorations[i]->draw(camera);
 	}
 }
 

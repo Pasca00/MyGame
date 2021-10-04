@@ -12,14 +12,15 @@ class LoadingGameState : public GameState {
 		std::promise<PlayingGameState*> loaderPromise;
 		std::future<PlayingGameState*> loaderFuture;
 
+		bool loaderIsReady;
+
 	public:
 		LoadingGameState(Renderer* renderer);
 
 		void enter(/*should take level that needs to be loaded*/);
 
-		bool loaderIsReady();
-
-		void update();
-		void draw();
+		void handleInput(Game* game, Input* input) override;
+		void update() override;
+		void draw() override;
 };
 

@@ -2,6 +2,8 @@
 
 #include <SDL_image.h>
 
+class Camera;
+
 class View {
 	public:
 		SDL_Texture* texture;
@@ -9,5 +11,7 @@ class View {
 
 		View(SDL_Texture* texture, SDL_Rect destrect);
 		~View();
+
+		void draw(Camera* camera);
 };
 

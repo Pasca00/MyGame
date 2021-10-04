@@ -25,6 +25,7 @@ class InteractableView : public ButtonView {
 
 		void onInteract(Input* input);
 
+		void draw(Camera* camera);
 		void update();
 
 		FrameView* getCurrectPromptFrame();

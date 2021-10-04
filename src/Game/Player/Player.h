@@ -3,18 +3,23 @@
 #include "../State/PlayerState/PlayerState.h"
 #include "../State/PlayerState/IdlePlayerState.h"
 #include "../State/PlayerState/WalkingPlayerState.h"
+#include "../State/PlayerState/FallingPlayerState.h"
 #include "../Physics/Movable.h"
 
 class Player : public Movable {
 	private:
 		int health;
-		SDL_Rect posRect;
-		SDL_Rect renderRect;
+		//SDL_Rect posRect;
+		//SDL_Rect renderRect;
+
+		int textureW;
+		int textureH;
+		int sizeMultiplier;
 
 		PlayerState* currentState_;
 
 	public:
-		Player(int health, SDL_Rect posRect, int8_t direction);
+		Player(int health, SDL_Rect dstrect, int8_t direction);
 
 		void handleInput(Input* input);
 		void update();
@@ -23,16 +28,11 @@ class Player : public Movable {
 		void drawToRelativePosition(SDL_Rect cameraPos);
 
 		SDL_Texture* getCurrentTexture();
-		SDL_Rect getRect();
-		SDL_Rect* getPosRectAddress();
-		SDL_Rect buildRenderRect();
-		SDL_Rect* getRenderRectAddress();
-
-		void setRect(SDL_Rect posRect);
 
 		void setState(PlayerState* state);
 
 		IdlePlayerState* idleState;
 		WalkingPlayerState* walkingState;
+		FallingPlayerState* fallingState;
 };
 

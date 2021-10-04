@@ -3,8 +3,8 @@
 #include "../Player/Player.h"
 #include "../Render/Camera.h"
 #include "../Physics/CollisionEngine.h"
-#include "../Visuals/Background.h"
 #include "../Input/InputCollector.h"
+#include "../Visuals/Background.h"
 #include "../Visuals/TileView.h"
 #include "../Visuals/InteractableView.h"
 

@@ -1,12 +1,14 @@
 #include "Movable.h"
+#include "../Game.h"
 
-Movable::Movable(int velocity, int fallSpeed, int acceleration, int velocityCap, signed char direction) {
+Movable::Movable(int velocity, int fallSpeed, int acceleration, int velocityCap, signed char xDirection, signed char yDirection) {
 	this->xVelocity = velocity;
 	this->yVelocity = fallSpeed;
 	this->acceleration = acceleration;
 	this->velocityCap = velocityCap;
 
-	this->xDirection = direction;
+	this->xDirection = xDirection;
+	this->yDirection = yDirection;
 
 	this->collisionDown = false;
 	this->collisionUp = false;
@@ -54,20 +56,48 @@ bool Movable::collidesRight() {
 	return collisionRight;
 }
 
-void Movable::setDirection(signed char direction) {
+void Movable::setXDirection(signed char direction) {
 	this->xDirection = direction;
 }
 
-signed char Movable::getDirection() {
+signed char Movable::getXDirection() {
 	return xDirection;
 }
 
-void Movable::setVelocity(int velocity) {
-	this->xVelocity = velocity;
+void Movable::setXVelocity(int xVelocity) {
+	this->xVelocity = xVelocity;
 }
 
 int Movable::getXVelocity() {
 	return xVelocity;
+}
+
+void Movable::setYDirection(signed char yDirection) {
+	this->yDirection = yDirection;
+}
+
+signed char Movable::getYDirection() {
+	return yDirection;
+}
+
+void Movable::setYVelocity(int yVelocity) {
+	this->yVelocity = yVelocity;
+}
+
+int Movable::getYVelocity() {
+	return yVelocity;
+}
+
+void Movable::setRect(SDL_Rect dstrect) {
+	this->dstrect = dstrect;
+}
+
+SDL_Rect Movable::getRect() {
+	return dstrect;
+}
+
+SDL_Rect* Movable::getRectAddress() {
+	return &dstrect;
 }
 
 void Movable::accelerate() {

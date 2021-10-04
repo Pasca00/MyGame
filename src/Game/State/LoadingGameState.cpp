@@ -17,25 +17,32 @@ LoadingGameState::LoadingGameState(Renderer* renderer) {
 }
 
 void LoadingGameState::enter() {
+	loaderIsReady = false;
 	loaderFuture = loaderPromise.get_future();
 
 	loaderThread = std::thread([this] {
 		PlayingGameState* s_ = new PlayingGameState();
 		loaderPromise.set_value(s_);
+		loaderIsReady = true;
 	});
-
 }
 
-bool LoadingGameState::loaderIsReady() {
-	return loaderFuture.wait_for(std::chrono::seconds(0)) == std::future_status::ready;
+void LoadingGameState::handleInput(Game* game, Input* input) {
+	if (input->KEY_ESCAPE || input->QUIT) {
+		game->setRunning(false);
+	}
 }
 
 void LoadingGameState::update() {
-	if (loaderFuture._Is_ready()) {
+	if (loaderIsReady) {
 		loaderThread.join();
+		printf("here\n");
 		PlayingGameState* s_ = loaderFuture.get();
+		printf("here2\n");
 		Game::getInstance()->requestTransition(s_);
 	}
+
+	loadingAnimation->update();
 }
 
 void LoadingGameState::draw() {

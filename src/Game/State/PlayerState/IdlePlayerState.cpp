@@ -23,26 +23,36 @@ IdlePlayerState::IdlePlayerState() {
 
 void IdlePlayerState::handleInput(Player* player, Input* input) {
 	if (input->KEY_D) {
-		if (player->getDirection() == DIRECTION_RIGHT) {
+		if (player->getXDirection() == DIRECTION_RIGHT) {
 			if (!player->collidesRight()) {
 				player->setState(player->walkingState);
 			}
 		} else {
-			player->setDirection(DIRECTION_RIGHT);
+			player->setXDirection(DIRECTION_RIGHT);
 		}
 
 		return;
 	}
 
 	if (input->KEY_A) {
-		if (player->getDirection() == DIRECTION_LEFT) {
+		if (player->getXDirection() == DIRECTION_LEFT) {
 			if (!player->collidesRight()) {
 				player->setState(player->walkingState);
 			}
 		} else {
-			player->setDirection(DIRECTION_LEFT);
+			player->setXDirection(DIRECTION_LEFT);
 		}
 		
+		return;
+	}
+
+	if (!player->collidesDown()) {
+		player->setState(player->fallingState);
+		return;
+	}
+
+	if (input->KEY_SPACE) {
+		player->setYVelocity(-20);
 		return;
 	}
 }

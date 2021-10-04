@@ -141,6 +141,7 @@
     <ClCompile Include="src\game\state\GameState.cpp" />
     <ClCompile Include="src\Game\State\LoadingGameState.cpp" />
     <ClCompile Include="src\game\state\MainMenuGameState.cpp" />
+    <ClCompile Include="src\Game\State\PlayerState\FallingPlayerState.cpp" />
     <ClCompile Include="src\Game\State\PlayerState\IdlePlayerState.cpp" />
     <ClCompile Include="src\Game\State\PlayerState\PlayerState.cpp" />
     <ClCompile Include="src\Game\State\PlayerState\WalkingPlayerState.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="src\game\state\GameState.h" />
     <ClInclude Include="src\Game\State\LoadingGameState.h" />
     <ClInclude Include="src\game\state\MainMenuGameState.h" />
+    <ClInclude Include="src\Game\State\PlayerState\FallingPlayerState.h" />
     <ClInclude Include="src\Game\State\PlayerState\IdlePlayerState.h" />
     <ClInclude Include="src\Game\State\PlayerState\PlayerState.h" />
     <ClInclude Include="src\Game\State\PlayerState\WalkingPlayerState.h" />

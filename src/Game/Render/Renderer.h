@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include <SDL.h>
+//#include <SDL.h>
 
 #include "../Window/Window.h"
 #include "../Visuals/View.h"
@@ -26,8 +26,6 @@ class Renderer {
 
 		void clearScreen();
 		void renderQueue();
-
-		void updateColors();
 
 		SDL_Renderer* getSDLRenderer();
 };

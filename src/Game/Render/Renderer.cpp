@@ -22,7 +22,7 @@ void Renderer::addToQueue(View* view) {
 }
 
 void Renderer::addToQueue(Player* player) {
-	SDL_RenderCopy(renderer, player->getCurrentTexture(), NULL, &(player->getRect()));
+	SDL_RenderCopy(renderer, player->getCurrentTexture(), NULL, player->getRectAddress());
 }
 
 void Renderer::clearScreen() {
@@ -31,14 +31,6 @@ void Renderer::clearScreen() {
 
 void Renderer::renderQueue() {
 	SDL_RenderPresent(renderer);
-}
-
-void Renderer::updateColors() {
-	drawR += 1;
-	drawG += 2;
-	drawB -= 1;
-	
-	SDL_SetRenderDrawColor(renderer, drawR, drawG, drawB, SDL_ALPHA_OPAQUE);
 }
 
 SDL_Renderer* Renderer::getSDLRenderer() {

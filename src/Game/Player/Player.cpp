@@ -1,12 +1,20 @@
 #include "Player.h"
 #include "../Game.h"
 
-Player::Player(int health, SDL_Rect posRect, int8_t direction) : Movable(0, 0, 3, 6, DIRECTION_RIGHT) {
-	this->health = 100;
-	this->posRect = posRect;
+Player::Player(int health, SDL_Rect dstrect, int8_t direction) : Movable(0, 0, 3, 6, DIRECTION_RIGHT, DIRECTION_DOWN) {
+	this->health = health;
+
+	this->textureW = 45;
+	this->textureH = 71;
+
+	this->dstrect = dstrect;
+
+	this->dstrect.w = textureW * 3;
+	this->dstrect.h = textureH * 3;
 
 	this->idleState = new IdlePlayerState();
 	this->walkingState = new WalkingPlayerState(this);
+	this->fallingState = new FallingPlayerState();
 	this->currentState_ = idleState;
 }
 
@@ -15,42 +23,27 @@ void Player::handleInput(Input* input) {
 }
 
 void Player::update() {
-	posRect.x += xVelocity * xDirection;
+	if (!collidesLeft() && !collidesRight()) {
+		dstrect.x += xVelocity * xDirection;
+	}
 
-	renderRect = buildRenderRect();
+	if (!collidesDown() && !collidesUp()) {
+		dstrect.y += yVelocity * yDirection;
+	}
+
 	currentState_->update();
 }
 
-SDL_Rect Player::buildRenderRect() {
-	SDL_Rect rect;
-	rect.x = this->posRect.x;
-	rect.y = this->posRect.y;
-	rect.w = currentState_->getCurrentFrame()->dstrect.w;
-	rect.h = currentState_->getCurrentFrame()->dstrect.h;
-
-	return rect;
-}
-
-SDL_Rect* Player::getRenderRectAddress() {
-	return &renderRect;
-}
-
-void Player::setRect(SDL_Rect posRect) {
-	this->posRect = posRect;
-}
-
 void Player::draw() {
-	SDL_Rect renderRect = buildRenderRect();
-
 	if (xDirection == DIRECTION_RIGHT) {
-		Game::getInstance()->getRenderer()->addToQueue(renderRect, currentState_->getCurrentTexture());
+		Game::getInstance()->getRenderer()->addToQueue(dstrect, currentState_->getCurrentTexture());
 	} else {
-		Game::getInstance()->getRenderer()->addToQueueFlipped(renderRect, currentState_->getCurrentTexture(), SDL_FLIP_HORIZONTAL);
+		Game::getInstance()->getRenderer()->addToQueueFlipped(dstrect, currentState_->getCurrentTexture(), SDL_FLIP_HORIZONTAL);
 	}
 }
 
 void Player::drawToRelativePosition(SDL_Rect cameraPos) {
-	SDL_Rect renderRect = buildRenderRect();
+	SDL_Rect renderRect = dstrect;
 	renderRect.x -= cameraPos.x;
 
 	if (xDirection == DIRECTION_RIGHT) {
@@ -63,14 +56,6 @@ void Player::drawToRelativePosition(SDL_Rect cameraPos) {
 
 SDL_Texture* Player::getCurrentTexture() {
 	return currentState_->getCurrentTexture();
-}
-
-SDL_Rect Player::getRect() {
-	return posRect;
-}
-
-SDL_Rect* Player::getPosRectAddress() {
-	return &posRect;
 }
 
 void Player::setState(PlayerState* state) {
