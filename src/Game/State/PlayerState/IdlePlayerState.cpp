@@ -55,6 +55,8 @@ void IdlePlayerState::handleInput(Player* player, Input* input) {
 		player->setYVelocity(-20);
 		return;
 	}
+
+	player->stopAccelerating();
 }
 
 void IdlePlayerState::update() {

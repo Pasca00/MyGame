@@ -25,6 +25,7 @@ class PhysicsEngine {
 
 		void applyGravity(Movable* o);
 		void applyFriction(Movable* o);
+		void accelerate(Movable* o);
 
 		void update();
 

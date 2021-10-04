@@ -9,8 +9,6 @@
 class Player : public Movable {
 	private:
 		int health;
-		//SDL_Rect posRect;
-		//SDL_Rect renderRect;
 
 		int textureW;
 		int textureH;

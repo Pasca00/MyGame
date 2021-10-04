@@ -10,6 +10,8 @@ Movable::Movable(int velocity, int fallSpeed, int acceleration, int velocityCap,
 	this->xDirection = xDirection;
 	this->yDirection = yDirection;
 
+	this->accelerating = false;
+
 	this->collisionDown = false;
 	this->collisionUp = false;
 	this->collisionLeft = false;
@@ -38,6 +40,18 @@ void Movable::setDownCollision(bool v) {
 
 void Movable::setUpCollision(bool v) {
 	this->collisionUp = v;
+}
+
+void Movable::startAccelerating() {
+	accelerating = true;
+}
+
+void Movable::stopAccelerating() {
+	accelerating = false;
+}
+
+bool Movable::isAccelerating() {
+	return accelerating;
 }
 
 bool Movable::collidesDown() {
@@ -86,6 +100,14 @@ void Movable::setYVelocity(int yVelocity) {
 
 int Movable::getYVelocity() {
 	return yVelocity;
+}
+
+void Movable::setXVelocityCap(int xVelocityCap) {
+	this->velocityCap = xVelocityCap;
+}
+
+int Movable::getXVelocityCap() {
+	return velocityCap;
 }
 
 void Movable::setRect(SDL_Rect dstrect) {

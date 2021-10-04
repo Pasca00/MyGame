@@ -18,6 +18,8 @@ class Movable {
 
 		SDL_Rect dstrect;
 
+		bool accelerating;
+
 		bool collisionLeft;
 		bool collisionRight;
 		bool collisionDown;
@@ -38,6 +40,9 @@ class Movable {
 		void setYVelocity(int yVelocity);
 		int getYVelocity();
 
+		void setXVelocityCap(int xVelocityCap);
+		int getXVelocityCap();
+
 		void setRect(SDL_Rect dstrect);
 		SDL_Rect getRect();
 		SDL_Rect* getRectAddress();
@@ -49,6 +54,10 @@ class Movable {
 		void setRightCollision(bool v);
 		void setDownCollision(bool v);
 		void setUpCollision(bool v);
+
+		void startAccelerating();
+		void stopAccelerating();
+		bool isAccelerating();
 
 		bool collidesLeft();
 		bool collidesRight();

@@ -42,6 +42,8 @@ void WalkingPlayerState::handleInput(Player* player, Input* input) {
 		player->setXVelocity(20);
 		return;
 	}
+
+	player->startAccelerating();
 }
 
 void WalkingPlayerState::update() {

@@ -36,9 +36,21 @@ void PhysicsEngine::applyFriction(Movable* o) {
 	}
 }
 
+void PhysicsEngine::accelerate(Movable* o) {
+	if (o->isAccelerating()) {
+		if (o->getXVelocity() + o->getAcceleration() >= o->getXVelocityCap()) {
+			o->setXVelocity(o->getXVelocityCap());
+		}
+		else {
+			o->setXVelocity(o->getXVelocity() + o->getAcceleration());
+		}
+	}
+}
+
 void PhysicsEngine::update() {
 	if (Game::getInstance()->getCurrentTime() - lastUpdate >= updateTime) {
 		for (int i = 0; i < objects.size(); i++) {
+			accelerate(objects[i]);
 			applyFriction(objects[i]);
 			applyGravity(objects[i]);
 		}
