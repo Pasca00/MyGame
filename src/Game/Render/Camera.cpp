@@ -23,7 +23,7 @@ Camera::Camera() {
 	renderer = Game::getInstance()->getRenderer();
 }
 
-Camera::Camera(SDL_Rect* focusView) {
+Camera::Camera(SDL_Rect* focusView, int leftBound, int rightBound) {
 	rect.w = Window::BASE_WINDOW_WIDTH;
 	rect.h = Window::BASE_WINDOW_HEIGHT;
 	rect.x = rect.y = 0;
@@ -36,6 +36,9 @@ Camera::Camera(SDL_Rect* focusView) {
 	this->focusView = focusView;
 
 	xSpeed = 6;
+
+	this->leftBound = leftBound;
+	this->rightBound = rightBound;
 
 	xAxisDirection = CAMERA_STATIONARY;
 	yAxisDirection = CAMERA_STATIONARY;
@@ -69,12 +72,22 @@ bool Camera::viewIsOnScreen(View* view) {
 
 void Camera::setDirection() {
 	if (focusView->x < focusZone.x) {
-		xAxisDirection = CAMERA_DIRECTION_LEFT;
+		if (rect.x == leftBound) {
+			xAxisDirection = CAMERA_STATIONARY;
+		} else {
+			xAxisDirection = CAMERA_DIRECTION_LEFT;
+		}
+
 		return;
 	}
 
 	if (focusView->x + focusView->w >= focusZone.x + focusZone.w) {
-		xAxisDirection = CAMERA_DIRECTION_RIGHT;
+		if (rect.x == rightBound - rect.w) {
+			xAxisDirection = CAMERA_STATIONARY;
+		} else {
+			xAxisDirection = CAMERA_DIRECTION_RIGHT;
+		}
+
 		return;
 	}
 
@@ -83,6 +96,17 @@ void Camera::setDirection() {
 
 void Camera::moveToFocus() {
 	setDirection();
+
+	if (rect.x + xSpeed * xAxisDirection < leftBound) {
+		rect.x = leftBound;
+		focusZone.x = rect.x + (rect.w - focusZone.w) / 2;
+		return;
+	} else if (rect.x + rect.w + xSpeed * xAxisDirection >= rightBound) {
+		rect.x = rightBound - rect.w;
+		focusZone.x = rect.x + (rect.w - focusZone.w) / 2;
+		return;
+	}
+
 	rect.x += xSpeed * xAxisDirection;
 	focusZone.x += xSpeed * xAxisDirection;
 

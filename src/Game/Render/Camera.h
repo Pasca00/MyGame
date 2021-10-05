@@ -17,6 +17,9 @@ class Camera {
 
 		int xSpeed;
 
+		int leftBound;
+		int rightBound;
+
 		int8_t xAxisDirection;
 		int8_t yAxisDirection;
 
@@ -24,7 +27,7 @@ class Camera {
 
 	public:
 		Camera();
-		Camera(SDL_Rect* focusView);
+		Camera(SDL_Rect* focusView, int leftBound, int rightBound);
 		void setFocusView(SDL_Rect* focusView);
 
 		bool viewIsOnScreen(View* view);

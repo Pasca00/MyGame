@@ -34,7 +34,7 @@ void LoadingGameState::handleInput(Game* game, Input* input) {
 
 void LoadingGameState::update() {
 	if (loaderIsReady.load()) {
-		loaderThread.join();
+		loaderThread.detach();
 		Game::getInstance()->requestTransition(s_.load());
 	}
 	

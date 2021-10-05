@@ -52,7 +52,7 @@ void IdlePlayerState::handleInput(Player* player, Input* input) {
 	}
 
 	if (input->KEY_SPACE) {
-		player->setYVelocity(-20);
+		player->setYVelocity(-30);
 		return;
 	}
 

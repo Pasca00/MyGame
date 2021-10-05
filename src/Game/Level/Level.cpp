@@ -14,7 +14,7 @@ Level::Level(int h, int w) {
 	dstrect.y = (h - 2) * tileH - 200;
 
 	this->player = new Player(100, dstrect, DIRECTION_RIGHT);
-	this->camera = new Camera(player->getRectAddress());
+	this->camera = new Camera(player->getRectAddress(), 0, w * tileW);
 	this->physicsEngine = new PhysicsEngine(6, 20, 1, 1);
 	this->collisionEngine = new CollisionEngine();
 
