@@ -9,6 +9,7 @@ typedef struct Input {
 	bool KEY_E;
 	bool KEY_SPACE;
 	bool KEY_ESCAPE;
+	bool KEY_SHIFT;
 	
 	bool LEFT_MOUSE_CLICK;
 	bool RIGHT_MOUSE_CLICK;

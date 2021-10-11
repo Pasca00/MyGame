@@ -15,7 +15,8 @@ class Camera {
 		SDL_Rect *focusView;
 		SDL_Rect focusZone;
 
-		int xSpeed;
+		int xMinSpeed;
+		int xRelativeSpeed;
 
 		int leftBound;
 		int rightBound;

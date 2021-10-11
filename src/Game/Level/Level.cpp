@@ -1,6 +1,7 @@
 #include "Level.h"
 
 #include "../Physics/PhysicsEngine.h"
+#include "../Physics/TimeEngine.h"
 #include "../Window/Window.h"
 
 Level::Level(int h, int w) {
@@ -15,9 +16,10 @@ Level::Level(int h, int w) {
 
 	this->player = new Player(100, dstrect, DIRECTION_RIGHT);
 	this->camera = new Camera(player->getRectAddress(), 0, w * tileW);
-	this->physicsEngine = new PhysicsEngine(6, 20, 1, 1);
-	this->collisionEngine = new CollisionEngine();
-
+	this->timeEngine = TimeEngine::getInstance();
+	this->physicsEngine = new PhysicsEngine(3, 20, 1, 1, timeEngine->getPhysicsMultilpierAddress());
+	this->collisionEngine = new CollisionEngine(0, w * tileW);
+	
 	physicsEngine->attach(player);
 
 	std::vector<const char*> fileNames(2);
@@ -29,45 +31,25 @@ Level::Level(int h, int w) {
 
 	createTileMap();
 	placeDecorations();
-
-	SDL_Texture* shrineTexture = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(),
-		"C:/Users/alexp/Desktop/Game/resources/misc/altar.png");
-	SDL_QueryTexture(shrineTexture, NULL, NULL, &(dstrect.w), &(dstrect.h));
-	dstrect.w *= 4;
-	dstrect.h *= 4;
-	dstrect.x = 1200;
-	dstrect.y = tiles[0][0]->dstrect.y - dstrect.h + 10;
-
-	shrine = new InteractableView(player->getRectAddress(), shrineTexture, dstrect);
-
-	std::vector<SDL_Texture*> eKeys(2, NULL);
-	eKeys[0] = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(),
-		"C:/Users/alexp/Desktop/Game/resources/mini/e_key1.png");
-	eKeys[1] = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(),
-		"C:/Users/alexp/Desktop/Game/resources/mini/e_key2.png");
-
-	shrine->attachPromptAnimation(new Animation(eKeys, dstrect, 350));
-	shrine->setOnInteractListener([] {
-		std::cout << "Deez nuts... haahaa got em\n";
-	});
-	
+	placeInteractables();
 }
 
 void Level::handleInput(Input* input) {
-	shrine->onInteract(input);
+	feedInputToInteractables(input);
 	player->handleInput(input);
 }
 
 void Level::update() {
-	camera->moveToFocus();
 
 	background->update(camera->getXDirection());
 
-	shrine->update();
+	updateInteractables();
+
+	collisionEngine->applyPlayerCollisionsOnTiles(player, tiles);
 
 	physicsEngine->update();
 
-	collisionEngine->applyPlayerCollisionsOnTiles(player, tiles);
+	camera->moveToFocus();
 
 	player->update();
 }
@@ -76,7 +58,7 @@ void Level::draw() {
 	background->draw();
 	
 	renderDecorations();
-	shrine->draw(camera);
+	renderInteractables();
 	renderTileMap();
 
 	player->drawToRelativePosition(camera->getRect());
@@ -136,9 +118,69 @@ void Level::placeDecorations() {
 	}
 }
 
+void Level::placeInteractables() {
+	SDL_Rect dstrect;
+	memset(&dstrect, 0, sizeof(SDL_Rect));
+
+	std::vector<SDL_Texture*> eKeys(2, NULL);
+	eKeys[0] = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(),
+		"C:/Users/alexp/Desktop/Game/resources/mini/e_key1.png");
+	eKeys[1] = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(),
+		"C:/Users/alexp/Desktop/Game/resources/mini/e_key2.png");
+
+	SDL_Texture* shrineTexture = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(),
+		"C:/Users/alexp/Desktop/Game/resources/misc/altar.png");
+	SDL_QueryTexture(shrineTexture, NULL, NULL, &(dstrect.w), &(dstrect.h));
+	dstrect.w *= 4;
+	dstrect.h *= 4;
+	dstrect.x = 1200;
+	dstrect.y = tiles[0][0]->dstrect.y - dstrect.h + 10;
+
+	InteractableView* shrine = new InteractableView(player->getRectAddress(), shrineTexture, dstrect);
+	shrine->attachPromptAnimation(new Animation(eKeys, dstrect, 350));
+	shrine->setOnInteractListener([this] {
+		printf("deez nuts lmao\n");
+	});
+	interactables.push_back(shrine);
+
+	SDL_Texture* carriageTexture = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(),
+		"C:/Users/alexp/Desktop/Game/resources/misc/carriage.png");
+	SDL_QueryTexture(carriageTexture, NULL, NULL, &(dstrect.w), &(dstrect.h));
+	dstrect.w *= 6;
+	dstrect.h *= 6;
+	dstrect.x = 0;
+	dstrect.y = tiles[0][0]->dstrect.y - dstrect.h;
+
+	InteractableView* carriage = new InteractableView(player->getRectAddress(), carriageTexture, dstrect);
+	carriage->attachPromptAnimation(new Animation(eKeys, dstrect, 350));
+	carriage->setOnInteractListener([] {
+		printf("add Money\n");
+	});
+	
+	interactables.push_back(carriage);
+}
+
 void Level::renderDecorations() {
 	for (int i = 0; i < decorations.size(); i++) {
 		decorations[i]->draw(camera);
+	}
+}
+
+void Level::renderInteractables() {
+	for (int i = 0; i < interactables.size(); i++) {
+		interactables[i]->draw(camera);
+	}
+}
+
+void Level::updateInteractables() {
+	for (int i = 0; i < interactables.size(); i++) {
+		interactables[i]->update();
+	}
+}
+
+void Level::feedInputToInteractables(Input* input) {
+	for (int i = 0; i < interactables.size(); i++) {
+		interactables[i]->onInteract(input);
 	}
 }
 

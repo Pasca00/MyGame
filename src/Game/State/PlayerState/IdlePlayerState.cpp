@@ -1,5 +1,6 @@
 #include "IdlePlayerState.h"
 #include "../../Game.h"
+#include "../../Physics/TimeEngine.h"
 
 IdlePlayerState::IdlePlayerState() {
 	numberOfFrames = 6;
@@ -19,6 +20,7 @@ IdlePlayerState::IdlePlayerState() {
 	SDL_Rect rect;
 	memset(&rect, 0, sizeof(SDL_Rect));
 	animation = new Animation(textures, dimensions, 250);
+	animation->setTimeMultiplier(TimeEngine::getInstance()->getAnimationMultiplierAddress());
 }
 
 void IdlePlayerState::handleInput(Player* player, Input* input) {
@@ -52,7 +54,7 @@ void IdlePlayerState::handleInput(Player* player, Input* input) {
 	}
 
 	if (input->KEY_SPACE) {
-		player->setYVelocity(-30);
+		player->setYVelocity(-35);
 		return;
 	}
 

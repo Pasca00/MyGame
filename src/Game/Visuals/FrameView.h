@@ -2,8 +2,7 @@
 
 #include "View.h"
 
-class FrameView : public View{
-
+class FrameView : public View {
 	public:
 		Uint32 timeOnScreen;
 

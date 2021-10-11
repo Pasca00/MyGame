@@ -1,7 +1,9 @@
 #include "Player.h"
 #include "../Game.h"
+#include "../Physics/TimeEngine.h"
 
-Player::Player(int health, SDL_Rect dstrect, int8_t direction) : Movable(0, 0, 3, 6, DIRECTION_RIGHT, DIRECTION_DOWN) {
+Player::Player(int health, SDL_Rect dstrect, int8_t direction) 
+	: Movable(0, 0, 3, 6, DIRECTION_RIGHT, DIRECTION_DOWN) {
 	this->health = health;
 
 	this->textureW = 45;
@@ -12,6 +14,8 @@ Player::Player(int health, SDL_Rect dstrect, int8_t direction) : Movable(0, 0, 3
 	this->dstrect.w = textureW * 3;
 	this->dstrect.h = textureH * 3;
 
+	this->sizeMultiplier = 1;
+
 	this->idleState = new IdlePlayerState();
 	this->walkingState = new WalkingPlayerState(this);
 	this->fallingState = new FallingPlayerState();
@@ -19,18 +23,16 @@ Player::Player(int health, SDL_Rect dstrect, int8_t direction) : Movable(0, 0, 3
 }
 
 void Player::handleInput(Input* input) {
+	if (input->KEY_SHIFT) {
+		TimeEngine::getInstance()->slowDown();
+	} else {
+		TimeEngine::getInstance()->returnToNormal();
+	}
+
 	currentState_->handleInput(this, input);
 }
 
 void Player::update() {
-	if (!collidesLeft() && !collidesRight()) {
-		dstrect.x += xVelocity * xDirection;
-	}
-
-	if (!collidesDown() && !collidesUp()) {
-		dstrect.y += yVelocity * yDirection;
-	}
-
 	currentState_->update();
 }
 

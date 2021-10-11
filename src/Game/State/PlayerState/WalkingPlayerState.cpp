@@ -1,5 +1,6 @@
 #include "WalkingPlayerState.h"
 #include "../../Game.h"
+#include "../../Physics/TimeEngine.h"
 
 WalkingPlayerState::WalkingPlayerState(Player* player) : PlayerState() {
 	this->player = player;
@@ -19,6 +20,7 @@ WalkingPlayerState::WalkingPlayerState(Player* player) : PlayerState() {
 	}
 
 	animation = new Animation(textures, dimensions, 150);
+	animation->setTimeMultiplier(TimeEngine::getInstance()->getAnimationMultiplierAddress());
 }
 
 void WalkingPlayerState::handleInput(Player* player, Input* input) {
@@ -38,8 +40,8 @@ void WalkingPlayerState::handleInput(Player* player, Input* input) {
 	}
 
 	if (input->KEY_SPACE) {
-		player->setYVelocity(-30);
-		player->setXVelocity(30);
+		player->setYVelocity(-35);
+		player->setXVelocity(10);
 		return;
 	}
 
@@ -47,7 +49,6 @@ void WalkingPlayerState::handleInput(Player* player, Input* input) {
 }
 
 void WalkingPlayerState::update() {
-	player->accelerate();
 	animation->update();
 }
 

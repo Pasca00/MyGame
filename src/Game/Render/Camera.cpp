@@ -15,7 +15,7 @@ Camera::Camera() {
 
 	SDL_memset(&focusView, 0, sizeof(SDL_Rect));
 
-	xSpeed = 15;
+	xMinSpeed = 15;
 
 	xAxisDirection = CAMERA_STATIONARY;
 	yAxisDirection = CAMERA_STATIONARY;
@@ -35,7 +35,8 @@ Camera::Camera(SDL_Rect* focusView, int leftBound, int rightBound) {
 
 	this->focusView = focusView;
 
-	xSpeed = 6;
+	xMinSpeed = 7;
+	xRelativeSpeed = 0;
 
 	this->leftBound = leftBound;
 	this->rightBound = rightBound;
@@ -81,8 +82,8 @@ void Camera::setDirection() {
 		return;
 	}
 
-	if (focusView->x + focusView->w >= focusZone.x + focusZone.w) {
-		if (rect.x == rightBound - rect.w) {
+	if (focusView->x + focusView->w > focusZone.x + focusZone.w) {
+		if (rect.x + rect.w == rightBound) {
 			xAxisDirection = CAMERA_STATIONARY;
 		} else {
 			xAxisDirection = CAMERA_DIRECTION_RIGHT;
@@ -97,30 +98,33 @@ void Camera::setDirection() {
 void Camera::moveToFocus() {
 	setDirection();
 
-	if (rect.x + xSpeed * xAxisDirection < leftBound) {
+	if (rect.x + xMinSpeed * xAxisDirection < leftBound) {
 		rect.x = leftBound;
 		focusZone.x = rect.x + (rect.w - focusZone.w) / 2;
 		return;
-	} else if (rect.x + rect.w + xSpeed * xAxisDirection >= rightBound) {
+	} else if (rect.x + rect.w + xMinSpeed * xAxisDirection >= rightBound) {
 		rect.x = rightBound - rect.w;
 		focusZone.x = rect.x + (rect.w - focusZone.w) / 2;
 		return;
 	}
 
-	rect.x += xSpeed * xAxisDirection;
-	focusZone.x += xSpeed * xAxisDirection;
-
 	if (xAxisDirection == DIRECTION_LEFT) {
-		if (focusZone.x < focusView->x) {
-			int delta = focusView->x - focusZone.x;
-			focusZone.x += delta;
-			rect.x += delta;
+		if (focusZone.x + xMinSpeed * xAxisDirection < focusView->x) {
+			int dist = focusZone.x - focusView->x;
+			focusZone.x -= dist;
+			rect.x -= dist;
+		} else {
+			focusZone.x += xMinSpeed * xAxisDirection;
+			rect.x += xMinSpeed * xAxisDirection;
 		}
 	} else if (xAxisDirection == DIRECTION_RIGHT) {
-		if (focusZone.x + focusZone.w > focusView->x + focusView->w) {
-			int delta = focusZone.x + focusZone.w - focusView->x - focusView->w - 1;
-			focusZone.x -= delta;
-			rect.x -= delta;
+		if (focusZone.x + focusZone.w + xMinSpeed * xAxisDirection > focusView->x + focusView->w) {
+			int dist = focusView->x + focusView->w - (focusZone.x + focusZone.w);
+			focusZone.x += dist;
+			rect.x += dist;
+		} else {
+			focusZone.x += xMinSpeed * xAxisDirection;
+			rect.x += xMinSpeed * xAxisDirection;
 		}
 	}
 }

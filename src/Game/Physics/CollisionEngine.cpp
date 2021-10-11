@@ -1,6 +1,9 @@
 #include "CollisionEngine.h"
 
-CollisionEngine::CollisionEngine() { }
+CollisionEngine::CollisionEngine(int leftBound, int rightBound) {
+	this->leftBound = leftBound;
+	this->rightBound = rightBound;
+}
 
 void CollisionEngine::checkCollision(Movable* p, View* v) {
 	SDL_Rect* rect = p->getRectAddress();
@@ -41,11 +44,24 @@ void CollisionEngine::checkCollision(Movable* p, View* v) {
 	}
 }
 
-void CollisionEngine::applyPlayerCollisionsOnTiles(Movable* p, std::vector< std::vector<TileView*> > tiles) {
+void CollisionEngine::checkBoundsCollision(Movable* o) {
+	SDL_Rect* rect = o->getRectAddress();
+	if (rect->x + o->getXVelocity() * o->getXDirection() < leftBound) {
+		o->setLeftCollision(true);
+		rect->x = leftBound;
+	} else if (rect->x + rect->w + o->getXVelocity() * o->getXDirection() >= rightBound) {
+		o->setRightCollision(true);
+		rect->x = rightBound - rect->w - 1;
+	}
+}
+
+void CollisionEngine::applyPlayerCollisionsOnTiles(Movable* p, std::vector< std::vector<TileView*> >& tiles) {
 	p->setLeftCollision(false);
 	p->setRightCollision(false);
 	p->setUpCollision(false);
 	p->setDownCollision(false);
+
+	checkBoundsCollision(p);
 
 	for (int i = 0; i < tiles.size(); i++) {
 		for (int j = 0; j < tiles[i].size(); j++) {

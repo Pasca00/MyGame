@@ -7,8 +7,8 @@ InteractableView::InteractableView(SDL_Rect* target, SDL_Texture* texture, SDL_R
 	this->interacted = false;
 	this->promptAnimation = NULL;
 
-	this->proximity.w = dstrect.w + 200;
-	this->proximity.h = dstrect.h + 200;
+	this->proximity.w = dstrect.w + 100;
+	this->proximity.h = dstrect.h + 100;
 	this->proximity.x = dstrect.x - 100;
 	this->proximity.y = dstrect.y - 100;
 }

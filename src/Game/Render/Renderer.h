@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-//#include <SDL.h>
 
 #include "../Window/Window.h"
 #include "../Visuals/View.h"

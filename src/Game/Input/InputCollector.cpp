@@ -80,7 +80,10 @@ void InputCollector::collectInput() {
 
 					case SDLK_ESCAPE:
 						input.KEY_ESCAPE = true;
-						input.QUIT = true;
+						break;
+
+					case SDLK_LSHIFT:
+						input.KEY_SHIFT = true;
 						break;
 				}
 
@@ -114,6 +117,10 @@ void InputCollector::collectInput() {
 
 					case SDLK_ESCAPE:
 						input.KEY_ESCAPE = false;
+						break;
+
+					case SDLK_LSHIFT:
+						input.KEY_SHIFT = false;
 						break;
 				}
 

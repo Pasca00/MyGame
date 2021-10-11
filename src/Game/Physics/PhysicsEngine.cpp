@@ -2,11 +2,13 @@
 
 #include "PhysicsEngine.h"
 
-PhysicsEngine::PhysicsEngine(int g, int maxFallSpeed, int friction, int airFriction) {
+PhysicsEngine::PhysicsEngine(int g, int maxFallSpeed, int friction, int airFriction, int* timeMultiplier) {
 	this->g = g;
 	this->maxFallSpeed = maxFallSpeed;
 	this->friction = friction;
 	this->airFriction = airFriction;
+
+	this->timeMultiplier = timeMultiplier;
 
 	this->updateTime = BASE_PHYSICS_UPDATE_TIME;
 	this->lastUpdate = 0;
@@ -36,6 +38,18 @@ void PhysicsEngine::applyFriction(Movable* o) {
 	}
 }
 
+void PhysicsEngine::moveObject(Movable* o) {
+	SDL_Rect* rect = o->getRectAddress();
+
+	if (!o->collidesLeft() && !o->collidesRight()) {
+		rect->x += o->getXVelocity() * o->getXDirection();
+	}
+
+	if (!o->collidesDown() && !o->collidesUp()) {
+		rect->y += o->getYVelocity() * o->getYDirection();
+	}
+}
+
 void PhysicsEngine::accelerate(Movable* o) {
 	if (o->isAccelerating()) {
 		if (o->getXVelocity() + o->getAcceleration() >= o->getXVelocityCap()) {
@@ -48,11 +62,12 @@ void PhysicsEngine::accelerate(Movable* o) {
 }
 
 void PhysicsEngine::update() {
-	if (Game::getInstance()->getCurrentTime() - lastUpdate >= updateTime) {
+	if (Game::getInstance()->getCurrentTime() - lastUpdate >= updateTime * (*timeMultiplier)) {
 		for (int i = 0; i < objects.size(); i++) {
 			accelerate(objects[i]);
 			applyFriction(objects[i]);
 			applyGravity(objects[i]);
+			moveObject(objects[i]);
 		}
 
 		lastUpdate = Game::getInstance()->getCurrentTime();

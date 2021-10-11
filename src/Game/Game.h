@@ -28,8 +28,6 @@ class Game {
 
 		Uint32 startTime;
 		Uint32 currentTime;
-		// Should probably keep track of time
-		// in each separate game state
 
 		Game();
 

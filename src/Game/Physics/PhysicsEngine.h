@@ -3,7 +3,7 @@
 #include "../Game.h"
 #include "Movable.h"
 
-#define BASE_PHYSICS_UPDATE_TIME 25
+#define BASE_PHYSICS_UPDATE_TIME 10
 
 class PhysicsEngine {
 	private:
@@ -14,11 +14,13 @@ class PhysicsEngine {
 		int friction;
 		int airFriction;
 
+		int* timeMultiplier;
+
 		Uint32 updateTime;
 		Uint32 lastUpdate;
 
 	public:
-		PhysicsEngine(int g, int maxFallSpeed, int friction, int airFriction);
+		PhysicsEngine(int g, int maxFallSpeed, int friction, int airFriction, int* timeMultiplier);
 
 		void attach(Movable* o);
 		void detatch(Movable* o);
@@ -26,6 +28,7 @@ class PhysicsEngine {
 		void applyGravity(Movable* o);
 		void applyFriction(Movable* o);
 		void accelerate(Movable* o);
+		void moveObject(Movable* o);
 
 		void update();
 

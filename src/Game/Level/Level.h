@@ -9,6 +9,7 @@
 #include "../Visuals/InteractableView.h"
 
 class PhysicsEngine;
+class TimeEngine;
 
 class Level {
 	private:
@@ -22,20 +23,25 @@ class Level {
 		
 		Camera* camera;
 		PhysicsEngine* physicsEngine;
+		TimeEngine* timeEngine;
 		CollisionEngine* collisionEngine;
 
 		Background* background;
 
 		std::vector< std::vector<TileView*> > tiles;
 
-		InteractableView* shrine;
-
+		std::vector<InteractableView*> interactables;
 		std::vector<View*> decorations;
 
 		void createTileMap();
 		void renderTileMap();
 		void placeDecorations();
+		void placeInteractables();
 		void renderDecorations();
+		void renderInteractables();
+
+		void updateInteractables();
+		void feedInputToInteractables(Input* input);
 
 	public:
 		Level(int w, int h);

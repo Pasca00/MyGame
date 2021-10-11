@@ -1,5 +1,6 @@
 #include "FallingPlayerState.h"
 #include "../../Game.h"
+#include "../../Physics/TimeEngine.h"
 
 FallingPlayerState::FallingPlayerState() {
 	numberOfFrames = 6;
@@ -19,6 +20,7 @@ FallingPlayerState::FallingPlayerState() {
 	SDL_Rect rect;
 	memset(&rect, 0, sizeof(SDL_Rect));
 	animation = new Animation(textures, dimensions, 250);
+	animation->setTimeMultiplier(TimeEngine::getInstance()->getAnimationMultiplierAddress());
 }
 
 void FallingPlayerState::handleInput(Player* player, Input* input) {

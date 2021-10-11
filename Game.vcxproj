@@ -135,6 +135,7 @@
     <ClCompile Include="src\Game\Physics\CollisionEngine.cpp" />
     <ClCompile Include="src\Game\Physics\Movable.cpp" />
     <ClCompile Include="src\Game\Physics\PhysicsEngine.cpp" />
+    <ClCompile Include="src\Game\Physics\TimeEngine.cpp" />
     <ClCompile Include="src\Game\Player\Player.cpp" />
     <ClCompile Include="src\Game\Render\Camera.cpp" />
     <ClCompile Include="src\game\render\Renderer.cpp" />
