@@ -9,7 +9,7 @@ Window::Window() {
 	width = BASE_HEIGHT;
 
 	window = SDL_CreateWindow(GAME_TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-								BASE_WIDTH, BASE_HEIGHT, SDL_WINDOW_SHOWN);
+								BASE_WIDTH, BASE_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
 }
 
 void Window::resize(int width, int height) {

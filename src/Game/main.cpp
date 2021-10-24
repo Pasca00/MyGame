@@ -12,18 +12,20 @@ int main(int argc, char* args[]) {
 	Uint32 oldTime = game->getCurrentTime(), deltaTime;
 	double accumulator = 0;
 
+	Input input;
+
 	while (game->isRunning()) {
 		game->changeState();
-		Input input = game->collectInput();
+		input = game->collectInput();
 
 		deltaTime = game->getCurrentTime() - oldTime;
 		oldTime = game->getCurrentTime();
 		accumulator += deltaTime;
-		while (accumulator > 1.0/60.0) {
-			game->handleInput(input);
+		/*while (accumulator > 1.0/60.0) {
 			accumulator -= 1.0 / 60.0;
-		}
+		}*/
 
+		game->handleInput(input);
 		game->update();
 		game->renderClearScreen();
 		game->renderQueue();

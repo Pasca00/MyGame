@@ -73,12 +73,12 @@
     <LibraryPath>C:\Users\alexp\Desktop\Game\src\SDL\SDL2-2.0.14\lib\x64;C:\Users\alexp\Desktop\Game\src\SDL\SDL2_image-2.0.5\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\alexp\Desktop\Game\src\SDL\SDL2-2.0.14\include;C:\Users\alexp\Desktop\Game\src\SDL\SDL2_image-2.0.5\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\alexp\Desktop\Game\src\SDL\SDL2_image-2.0.5\lib\x64;C:\Users\alexp\Desktop\Game\src\SDL\SDL2-2.0.14\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\alexp\Desktop\Game\src\SDL\SDL2-2.0.14\include;C:\Users\alexp\Desktop\Game\src\SDL\SDL2_image-2.0.5\include;C:\Users\alexp\Desktop\Game\src\SDL\glew-2.1.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\alexp\Desktop\Game\src\SDL\SDL2_image-2.0.5\lib\x64;C:\Users\alexp\Desktop\Game\src\SDL\SDL2-2.0.14\lib\x64;C:\Users\alexp\Desktop\Game\src\SDL\glew-2.1.0\lib\Release\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Users\alexp\Desktop\Game\src\SDL\SDL2-2.0.14\include;C:\Users\alexp\Desktop\Game\src\SDL\SDL2_image-2.0.5\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\alexp\Desktop\Game\src\SDL\SDL2_image-2.0.5\lib\x64;C:\Users\alexp\Desktop\Game\src\SDL\SDL2-2.0.14\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\alexp\Desktop\Game\src\SDL\SDL2-2.0.14\include;C:\Users\alexp\Desktop\Game\src\SDL\SDL2_image-2.0.5\include;C:\Users\alexp\Desktop\Game\src\SDL\glew-2.1.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\alexp\Desktop\Game\src\SDL\SDL2_image-2.0.5\lib\x64;C:\Users\alexp\Desktop\Game\src\SDL\SDL2-2.0.14\lib\x64;C:\Users\alexp\Desktop\Game\src\SDL\glew-2.1.0\lib\Release\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -113,7 +113,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32s.lib;opengl32.lib;glu32.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>
       </EntryPointSymbol>
       <SubSystem>Console</SubSystem>
@@ -121,7 +121,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Link>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32s.lib;opengl32.lib;glu32.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>
       </EntryPointSymbol>
       <SubSystem>Console</SubSystem>
@@ -151,6 +151,7 @@
     <ClCompile Include="src\Game\Visuals\Animation.cpp" />
     <ClCompile Include="src\Game\Visuals\Background.cpp" />
     <ClCompile Include="src\Game\Visuals\ButtonView.cpp" />
+    <ClCompile Include="src\Game\Visuals\Filter.cpp" />
     <ClCompile Include="src\Game\Visuals\FrameView.cpp" />
     <ClCompile Include="src\Game\Visuals\InteractableView.cpp" />
     <ClCompile Include="src\Game\Visuals\TileView.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="src\Game\Visuals\Animation.h" />
     <ClInclude Include="src\Game\Visuals\Background.h" />
     <ClInclude Include="src\Game\Visuals\ButtonView.h" />
+    <ClInclude Include="src\Game\Visuals\Filter.h" />
     <ClInclude Include="src\Game\Visuals\FrameView.h" />
     <ClInclude Include="src\Game\Visuals\InteractableView.h" />
     <ClInclude Include="src\Game\Visuals\TileView.h" />

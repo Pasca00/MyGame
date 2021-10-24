@@ -44,7 +44,7 @@ MainMenuGameState::MainMenuGameState(Renderer* renderer) : GameState() {
 void MainMenuGameState::handleInput(Game* game, Input* input) {
 	if (input->KEY_ESCAPE || input->QUIT || input->KEY_SPACE) {
 		game->setRunning(false);
-		
+
 		return;
 	}
 

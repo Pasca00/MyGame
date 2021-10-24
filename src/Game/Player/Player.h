@@ -6,6 +6,8 @@
 #include "../State/PlayerState/FallingPlayerState.h"
 #include "../Physics/Movable.h"
 
+class Level;
+
 class Player : public Movable {
 	private:
 		int health;
@@ -19,7 +21,7 @@ class Player : public Movable {
 	public:
 		Player(int health, SDL_Rect dstrect, int8_t direction);
 
-		void handleInput(Input* input);
+		void handleInput(Level* level, Input* input);
 		void update();
 		void draw();
 

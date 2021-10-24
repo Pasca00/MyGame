@@ -17,7 +17,7 @@ Level::Level(int h, int w) {
 	this->player = new Player(100, dstrect, DIRECTION_RIGHT);
 	this->camera = new Camera(player->getRectAddress(), 0, w * tileW);
 	this->timeEngine = TimeEngine::getInstance();
-	this->physicsEngine = new PhysicsEngine(3, 20, 1, 1, timeEngine->getPhysicsMultilpierAddress());
+	this->physicsEngine = new PhysicsEngine(2, 20, 1, 1, timeEngine->getPhysicsMultilpierAddress());
 	this->collisionEngine = new CollisionEngine(0, w * tileW);
 	
 	physicsEngine->attach(player);
@@ -32,11 +32,38 @@ Level::Level(int h, int w) {
 	createTileMap();
 	placeDecorations();
 	placeInteractables();
+
+	dstrect.x = dstrect.y = 0;
+	dstrect.w = Window::BASE_WINDOW_WIDTH;
+	dstrect.h = Window::BASE_WINDOW_HEIGHT;
+
+	SDL_Texture* lightBlueTexture = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(),
+		"C:/Users/alexp/Desktop/Game/resources/filters/blue_filter.png");
+	lightBlueFilter = new Filter(lightBlueTexture, dstrect, SDL_BLENDMODE_MUL);
+
+	SDL_Texture* maskTexture = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(),
+		"C:/Users/alexp/Desktop/Game/resources/filters/mask.png");
+	mask = new Filter(maskTexture, dstrect, SDL_BLENDMODE_MOD);
+
+	std::vector<SDL_Texture*> iceWraithTextures(7, NULL);
+	for (int i = 0; i < 7; i++) {
+		char filepath[100];
+		sprintf(filepath, "C:/Users/alexp/Desktop/Game/resources/enemies/ice_spirit%d.png", i + 1);
+		iceWraithTextures[i] = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(), filepath);
+	}
+	SDL_QueryTexture(iceWraithTextures[0], NULL, NULL, &dstrect.w, &dstrect.h);
+	dstrect.w *= 5;
+	dstrect.h *= 5;
+	dstrect.x = 2000;
+	dstrect.y = Window::BASE_WINDOW_HEIGHT - tileH - dstrect.h;
+	iceWraith = new Animation(iceWraithTextures, dstrect, 250);
+
+	iceWraith->setTimeMultiplier(timeEngine->getAnimationMultiplierAddress());
 }
 
 void Level::handleInput(Input* input) {
 	feedInputToInteractables(input);
-	player->handleInput(input);
+	player->handleInput(this, input);
 }
 
 void Level::update() {
@@ -51,6 +78,8 @@ void Level::update() {
 
 	camera->moveToFocus();
 
+	iceWraith->update();
+
 	player->update();
 }
 
@@ -60,6 +89,11 @@ void Level::draw() {
 	renderDecorations();
 	renderInteractables();
 	renderTileMap();
+
+	iceWraith->getCurrentFrame()->draw(camera);
+
+	lightBlueFilter->draw(camera);
+	mask->draw(camera);
 
 	player->drawToRelativePosition(camera->getRect());
 }

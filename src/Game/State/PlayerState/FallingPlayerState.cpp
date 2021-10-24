@@ -24,6 +24,8 @@ FallingPlayerState::FallingPlayerState() {
 }
 
 void FallingPlayerState::handleInput(Player* player, Input* input) {
+	player->stopAccelerating();
+
 	if (player->collidesDown()) {
 		player->setState(player->idleState);
 	}

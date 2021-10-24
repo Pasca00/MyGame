@@ -1,9 +1,10 @@
 #include "Player.h"
 #include "../Game.h"
+#include "../Level/Level.h"
 #include "../Physics/TimeEngine.h"
 
 Player::Player(int health, SDL_Rect dstrect, int8_t direction) 
-	: Movable(0, 0, 3, 6, DIRECTION_RIGHT, DIRECTION_DOWN) {
+	: Movable(0, 30, 0, 3, 6, DIRECTION_RIGHT, DIRECTION_DOWN) {
 	this->health = health;
 
 	this->textureW = 45;
@@ -22,11 +23,15 @@ Player::Player(int health, SDL_Rect dstrect, int8_t direction)
 	this->currentState_ = idleState;
 }
 
-void Player::handleInput(Input* input) {
+void Player::handleInput(Level* level, Input* input) {
 	if (input->KEY_SHIFT) {
 		TimeEngine::getInstance()->slowDown();
+		level->lightBlueFilter->fadeIn();
+		level->mask->fadeIn();
 	} else {
 		TimeEngine::getInstance()->returnToNormal();
+		level->lightBlueFilter->fadeOut();
+		level->mask->fadeOut();
 	}
 
 	currentState_->handleInput(this, input);

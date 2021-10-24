@@ -17,6 +17,7 @@ class Camera {
 
 		int xMinSpeed;
 		int xRelativeSpeed;
+		int newMaxDistance;
 
 		int leftBound;
 		int rightBound;
@@ -33,9 +34,11 @@ class Camera {
 
 		bool viewIsOnScreen(View* view);
 		void setDirection();
+		void updateSpeed();
 		void moveToFocus();
 
 		void renderViewToRelativePosition(View* view);
+		void renderViewToAbsolutePosition(View* view);
 
 		int8_t getXDirection();
 

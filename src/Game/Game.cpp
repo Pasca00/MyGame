@@ -9,6 +9,7 @@ class LoadingGameState;
 Game::Game() {
 	running = true;
 	window = new Window();
+	//setupGL();
 	renderer = new Renderer(window);
 	state_ = new MainMenuGameState(renderer);
 	inputCollector = new InputCollector();
@@ -20,6 +21,29 @@ Game::Game() {
 
 	startTime = SDL_GetTicks();
 	currentTime = startTime;
+}
+
+void Game::setupGL() {
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 1);
+	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 5);
+	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 5);
+	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 5);
+	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+
+	glCullFace(GL_BACK);
+	glFrontFace(GL_CCW);
+	glEnable(GL_CULL_FACE);
+
+	SDL_GLContext context = SDL_GL_CreateContext(window->getWindow());
+
+	if (context == NULL) {
+		printf("error initializing GL context\n");
+	}
+
+	glClearColor(1.f, 0.f, 1.f, 0.f);
+	glViewport(0, 0, Window::BASE_WINDOW_WIDTH, Window::BASE_WINDOW_HEIGHT);
 }
 
 bool Game::isRunning() {
@@ -39,6 +63,7 @@ Game* Game::getInstance() {
 }
 
 Input Game::collectInput() {
+	//inputCollector->flushInputs();
 	inputCollector->collectInput();
 	return inputCollector->getInput();
 }

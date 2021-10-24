@@ -1,4 +1,5 @@
 #include "Renderer.h"
+#include "../Game.h"
 
 Renderer::Renderer(Window* window) {
 	drawR = 0;

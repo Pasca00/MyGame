@@ -1,6 +1,12 @@
 #pragma once
+
 #include <string>
 #include <iostream>
+
+#include <gl/glew.h>
+#include <SDL_opengl.h>
+#include <gl/GL.h>
+#include <gl/GLU.h>
 
 #include <SDL.h>
 #include <SDL_image.h>
@@ -29,7 +35,10 @@ class Game {
 		Uint32 startTime;
 		Uint32 currentTime;
 
+		SDL_GLContext glContext;
+
 		Game();
+		void setupGL();
 
 	public:
 		static Game* getInstance();

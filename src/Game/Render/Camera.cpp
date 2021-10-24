@@ -3,6 +3,14 @@
 
 #include "../Game.h"
 
+int min(int a1, int a2) {
+	return (a1 < a2) ? a1 : a2;
+}
+
+int max(int a1, int a2) {
+	return (a1 > a2) ? a1 : a2;
+}
+
 Camera::Camera() {
 	rect.w = Window::BASE_WINDOW_WIDTH;
 	rect.h = Window::BASE_WINDOW_HEIGHT;
@@ -35,7 +43,7 @@ Camera::Camera(SDL_Rect* focusView, int leftBound, int rightBound) {
 
 	this->focusView = focusView;
 
-	xMinSpeed = 7;
+	xMinSpeed = 15;
 	xRelativeSpeed = 0;
 
 	this->leftBound = leftBound;
@@ -53,8 +61,18 @@ void Camera::setFocusView(SDL_Rect* focusView) {
 
 		focusZone.w = 250;
 		focusZone.h = 250;
-		focusZone.x = (rect.w - focusZone.w) / 2 + rect.x;
-		focusZone.y = (rect.h - focusZone.h) / 2 + rect.y;
+		//focusZone.x = (rect.w - focusZone.w - camera.x) / 2 + rect.x;
+		//focusZone.y = (rect.h - focusZone.h - camera.y) / 2 + rect.y;
+
+		if (xAxisDirection == DIRECTION_LEFT) {
+			newMaxDistance = focusZone.x - focusView->x;
+		}
+		else if (xAxisDirection == DIRECTION_RIGHT) {
+			newMaxDistance = focusZone.x + focusZone.x - focusView->x - focusView->w;
+		}
+		else {
+			newMaxDistance = 0;
+		}
 	}
 }
 
@@ -95,8 +113,24 @@ void Camera::setDirection() {
 	xAxisDirection = CAMERA_STATIONARY;
 }
 
+void Camera::updateSpeed() {
+	long d;
+	if (xAxisDirection == DIRECTION_LEFT) {
+		d = focusZone.x - focusView->x;
+	} else if (xAxisDirection == DIRECTION_RIGHT) {
+		d = focusZone.x + focusZone.x - focusView->x - focusView->w;
+	} else {
+		d = 0;
+	}
+	
+	// TODO: newMaxDistance is always 0 because of the way the focusZone's coordinates
+	//		 are calculated.
+	xMinSpeed = max(7, min(20, (-1.0f/newMaxDistance) * d * d + 100 * d - 500));
+}
+
 void Camera::moveToFocus() {
 	setDirection();
+	//updateSpeed();
 
 	if (rect.x + xMinSpeed * xAxisDirection < leftBound) {
 		rect.x = leftBound;
@@ -135,6 +169,10 @@ void Camera::renderViewToRelativePosition(View* view) {
 		rendRect.x -= rect.x;
 		renderer->addToQueue(rendRect, view->texture);
 	}
+}
+
+void Camera::renderViewToAbsolutePosition(View* view) {
+	renderer->addToQueue(view);
 }
 
 int8_t Camera::getXDirection() {

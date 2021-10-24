@@ -40,8 +40,9 @@ void WalkingPlayerState::handleInput(Player* player, Input* input) {
 	}
 
 	if (input->KEY_SPACE) {
-		player->setYVelocity(-35);
-		player->setXVelocity(10);
+		player->jump();
+		player->setXVelocity(7);
+		player->stopAccelerating();
 		return;
 	}
 

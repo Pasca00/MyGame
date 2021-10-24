@@ -11,6 +11,7 @@ class Movable {
 	protected:
 		int xVelocity;
 		int yVelocity;
+		int jumpSpeed;
 		int acceleration;
 		int velocityCap;
 		signed char xDirection;
@@ -26,7 +27,7 @@ class Movable {
 		bool collisionUp;
 
 	public:
-		Movable(int velocity, int fallSpeed, int acceleration, int velocityCap, signed char direction, signed char yDirection);
+		Movable(int velocity, int jumpSpeed, int fallSpeed, int acceleration, int velocityCap, signed char direction, signed char yDirection);
 
 		void setXDirection(signed char xDirection);
 		signed char getXDirection();
@@ -65,5 +66,6 @@ class Movable {
 		bool collidesUp();
 
 		void accelerate();
+		void jump();
 };
 

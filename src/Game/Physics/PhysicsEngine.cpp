@@ -31,10 +31,13 @@ void PhysicsEngine::applyGravity(Movable* o) {
 }
 
 void PhysicsEngine::applyFriction(Movable* o) {
-	if (o->getXVelocity() - friction < 0) {
-		o->setXVelocity(0);
-	} else {
-		o->setXVelocity(o->getXVelocity() - friction);
+	if (o->collidesDown()) {
+		if (o->getXVelocity() - friction < 0) {
+			o->setXVelocity(0);
+		}
+		else {
+			o->setXVelocity(o->getXVelocity() - friction);
+		}
 	}
 }
 

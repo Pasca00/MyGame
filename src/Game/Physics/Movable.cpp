@@ -1,11 +1,13 @@
 #include "Movable.h"
 #include "../Game.h"
 
-Movable::Movable(int velocity, int fallSpeed, int acceleration, int velocityCap, signed char xDirection, signed char yDirection) {
+Movable::Movable(int velocity, int jumpSpeed, int fallSpeed, int acceleration, int velocityCap, signed char xDirection, signed char yDirection) {
 	this->xVelocity = velocity;
 	this->yVelocity = fallSpeed;
+	this->jumpSpeed = jumpSpeed;
 	this->acceleration = acceleration;
 	this->velocityCap = velocityCap;
+
 
 	this->xDirection = xDirection;
 	this->yDirection = yDirection;
@@ -129,4 +131,8 @@ void Movable::accelerate() {
 	else {
 		xVelocity += acceleration;
 	}
+}
+
+void Movable::jump() {
+	yVelocity = -jumpSpeed;
 }

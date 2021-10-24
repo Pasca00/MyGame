@@ -24,6 +24,8 @@ IdlePlayerState::IdlePlayerState() {
 }
 
 void IdlePlayerState::handleInput(Player* player, Input* input) {
+	player->stopAccelerating();
+
 	if (input->KEY_D) {
 		if (player->getXDirection() == DIRECTION_RIGHT) {
 			if (!player->collidesRight()) {
@@ -54,11 +56,9 @@ void IdlePlayerState::handleInput(Player* player, Input* input) {
 	}
 
 	if (input->KEY_SPACE) {
-		player->setYVelocity(-35);
+		player->jump();
 		return;
 	}
-
-	player->stopAccelerating();
 }
 
 void IdlePlayerState::update() {

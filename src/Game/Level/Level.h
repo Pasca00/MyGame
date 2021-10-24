@@ -7,6 +7,7 @@
 #include "../Visuals/Background.h"
 #include "../Visuals/TileView.h"
 #include "../Visuals/InteractableView.h"
+#include "../Visuals/Filter.h"
 
 class PhysicsEngine;
 class TimeEngine;
@@ -33,6 +34,8 @@ class Level {
 		std::vector<InteractableView*> interactables;
 		std::vector<View*> decorations;
 
+		Animation* iceWraith;
+
 		void createTileMap();
 		void renderTileMap();
 		void placeDecorations();
@@ -44,11 +47,13 @@ class Level {
 		void feedInputToInteractables(Input* input);
 
 	public:
+		Filter* lightBlueFilter;
+		Filter* mask;
+
 		Level(int w, int h);
 
 		void handleInput(Input* input);
 		void update();
 		void draw();
-
 };
 
