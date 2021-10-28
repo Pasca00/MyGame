@@ -24,12 +24,14 @@ WalkingPlayerState::WalkingPlayerState(Player* player) : PlayerState() {
 }
 
 void WalkingPlayerState::handleInput(Player* player, Input* input) {
-	if ((player->getXDirection() == DIRECTION_RIGHT && input->KEY_D == 0) || player->collidesRight()) {
+	if ((player->getXDirection() == DIRECTION_RIGHT && input->KEY_D == 0) 
+		|| player->getXDirection() == DIRECTION_RIGHT && player->collidesRight()) {
 		player->setState(player->idleState);
 		return;
 	}
 
-	if ((player->getXDirection() == DIRECTION_LEFT && input->KEY_A == 0) || player->collidesLeft()) {
+	if ((player->getXDirection() == DIRECTION_LEFT && input->KEY_A == 0) 
+		|| player->getXDirection() == DIRECTION_RIGHT && player->collidesLeft()) {
 		player->setState(player->idleState);
 		return;
 	}
@@ -44,6 +46,10 @@ void WalkingPlayerState::handleInput(Player* player, Input* input) {
 		player->setXVelocity(7);
 		player->stopAccelerating();
 		return;
+	}
+
+	if (input->LEFT_MOUSE_CLICK) {
+		player->setState(player->attackState);
 	}
 
 	player->startAccelerating();

@@ -50,6 +50,10 @@ void IdlePlayerState::handleInput(Player* player, Input* input) {
 		return;
 	}
 
+	if (input->LEFT_MOUSE_CLICK) {
+		player->setState(player->attackState);
+	}
+
 	if (!player->collidesDown()) {
 		player->setState(player->fallingState);
 		return;

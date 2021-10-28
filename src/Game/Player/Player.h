@@ -4,6 +4,7 @@
 #include "../State/PlayerState/IdlePlayerState.h"
 #include "../State/PlayerState/WalkingPlayerState.h"
 #include "../State/PlayerState/FallingPlayerState.h"
+#include "../State/PlayerState/AttackPlayerState.h"
 #include "../Physics/Movable.h"
 
 class Level;
@@ -34,5 +35,6 @@ class Player : public Movable {
 		IdlePlayerState* idleState;
 		WalkingPlayerState* walkingState;
 		FallingPlayerState* fallingState;
+		AttackPlayerState* attackState;
 };
 

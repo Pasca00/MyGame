@@ -7,20 +7,19 @@ Player::Player(int health, SDL_Rect dstrect, int8_t direction)
 	: Movable(0, 30, 0, 3, 6, DIRECTION_RIGHT, DIRECTION_DOWN) {
 	this->health = health;
 
-	this->textureW = 45;
-	this->textureH = 71;
-
 	this->dstrect = dstrect;
-
-	this->dstrect.w = textureW * 3;
-	this->dstrect.h = textureH * 3;
 
 	this->sizeMultiplier = 1;
 
 	this->idleState = new IdlePlayerState();
 	this->walkingState = new WalkingPlayerState(this);
 	this->fallingState = new FallingPlayerState();
+	this->attackState = new AttackPlayerState(this);
 	this->currentState_ = idleState;
+
+	SDL_QueryTexture(currentState_->getCurrentFrame()->texture, NULL, NULL, &this->textureW, &this->textureH);
+	this->dstrect.w = textureW * 3;
+	this->dstrect.h = textureH * 3;
 }
 
 void Player::handleInput(Level* level, Input* input) {
@@ -66,5 +65,6 @@ SDL_Texture* Player::getCurrentTexture() {
 }
 
 void Player::setState(PlayerState* state) {
+	state->resetAnimation();
 	this->currentState_ = state;
 }

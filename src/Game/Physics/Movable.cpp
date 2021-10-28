@@ -135,4 +135,5 @@ void Movable::accelerate() {
 
 void Movable::jump() {
 	yVelocity = -jumpSpeed;
+	//xVelocity += 7;
 }

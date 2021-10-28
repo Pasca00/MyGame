@@ -165,6 +165,12 @@
     <ClCompile Include="src\Game\Visuals\Filter.cpp">
       <Filter>Source Files\Game\Visuals</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\State\PlayerState\AttackPlayerState.cpp">
+      <Filter>Source Files\Game\State\PlayerStates</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Player\Entity.cpp">
+      <Filter>Source Files\Game\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\sdl\sdl2-2.0.14\include\begin_code.h">
@@ -508,6 +514,12 @@
     </ClInclude>
     <ClInclude Include="src\Game\Visuals\Filter.h">
       <Filter>Header Files\Game\Visuals</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\State\PlayerState\AttackPlayerState.h">
+      <Filter>Header Files\Game\State\PlayerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Player\Entity.h">
+      <Filter>Header Files\Game\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

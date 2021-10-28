@@ -2,7 +2,7 @@
 #include "../Game.h"
 
 Animation::Animation(std::vector<SDL_Texture*> textures, std::vector<SDL_Rect> dstrect, uint32_t frameTimes) {
-	timeSinceLastFrame = 0;
+	timeSinceLastFrame = Game::getInstance()->getCurrentTime();
 	currentFrame = 0;
 	frames = new std::vector<FrameView*>(textures.size(), NULL);
 	for (int i = 0; i < textures.size(); i++) {
@@ -10,6 +10,8 @@ Animation::Animation(std::vector<SDL_Texture*> textures, std::vector<SDL_Rect> d
 	}
 
 	this->timeMultiplier = new int(1);
+
+	done = false;
 }
 
 Animation::Animation(std::vector<SDL_Texture*> textures, SDL_Rect dstrect, std::vector<uint32_t> frameTimes) {
@@ -21,6 +23,8 @@ Animation::Animation(std::vector<SDL_Texture*> textures, SDL_Rect dstrect, std::
 	}
 
 	this->timeMultiplier = new int(1);
+
+	done = false;
 }
 
 Animation::Animation(std::vector<SDL_Texture*> textures, SDL_Rect dstrect, uint32_t frameTimes) {
@@ -32,12 +36,24 @@ Animation::Animation(std::vector<SDL_Texture*> textures, SDL_Rect dstrect, uint3
 	}
 
 	this->timeMultiplier = new int(1);
+
+	done = false;
 }
 
 void Animation::setRect(SDL_Rect dstrect) {
 	for (int i = 0; i < frames->size(); i++) {
 		(*frames)[i]->dstrect = dstrect;
 	}
+}
+
+void Animation::reset() {
+	timeSinceLastFrame = Game::getInstance()->getCurrentTime();
+	currentFrame = 0;
+	done = false;
+}
+
+bool Animation::isDone() {
+	return done;
 }
 
 void Animation::setTimeMultiplier(int* timeMultiplier) {
@@ -49,8 +65,20 @@ void Animation::update() {
 	if (Game::getInstance()->getCurrentTime() - timeSinceLastFrame >= frames->at(currentFrame)->timeOnScreen * (*timeMultiplier)) {
 		timeSinceLastFrame = Game::getInstance()->getCurrentTime();
 		currentFrame++;
-		currentFrame %= frames->size();
+		
+		if (currentFrame == frames->size()) {
+			currentFrame = 0;
+			done = true;
+		}
 	}
+}
+
+int Animation::getSize() {
+	return frames->size();
+}
+
+int Animation::getCurrentFrameIndex() {
+	return currentFrame;
 }
 
 FrameView* Animation::getCurrentFrame() {
