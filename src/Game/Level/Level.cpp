@@ -3,8 +3,11 @@
 #include "../Physics/PhysicsEngine.h"
 #include "../Physics/TimeEngine.h"
 #include "../Window/Window.h"
+#include "../Visuals/TextureBag/TextureBag.h"
 
 Level::Level(int h, int w) {
+	bag_ = TextureBag::getInstance();
+
 	this->tileH = this->tileW = 96;
 
 	this->w = w;
@@ -33,32 +36,8 @@ Level::Level(int h, int w) {
 	placeDecorations();
 	placeInteractables();
 
-	dstrect.x = dstrect.y = 0;
-	dstrect.w = Window::BASE_WINDOW_WIDTH;
-	dstrect.h = Window::BASE_WINDOW_HEIGHT;
-
-	SDL_Texture* lightBlueTexture = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(),
-		"C:/Users/alexp/Desktop/Game/resources/filters/blue_filter.png");
-	lightBlueFilter = new Filter(lightBlueTexture, dstrect, SDL_BLENDMODE_MUL);
-
-	SDL_Texture* maskTexture = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(),
-		"C:/Users/alexp/Desktop/Game/resources/filters/mask.png");
-	mask = new Filter(maskTexture, dstrect, SDL_BLENDMODE_MOD);
-
-	std::vector<SDL_Texture*> iceWraithTextures(7, NULL);
-	for (int i = 0; i < 7; i++) {
-		char filepath[100];
-		sprintf(filepath, "C:/Users/alexp/Desktop/Game/resources/enemies/ice_spirit%d.png", i + 1);
-		iceWraithTextures[i] = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(), filepath);
-	}
-	SDL_QueryTexture(iceWraithTextures[0], NULL, NULL, &dstrect.w, &dstrect.h);
-	dstrect.w *= 5;
-	dstrect.h *= 5;
-	dstrect.x = 2000;
-	dstrect.y = Window::BASE_WINDOW_HEIGHT - tileH - dstrect.h;
-	iceWraith = new Animation(iceWraithTextures, dstrect, 250);
-
-	iceWraith->setTimeMultiplier(timeEngine->getAnimationMultiplierAddress());
+	lightBlueFilter = new Filter(bag_->filters["lightBlueFilter"], SDL_BLENDMODE_MUL);
+	mask = new Filter(bag_->filters["circularMask"], SDL_BLENDMODE_MOD);
 }
 
 void Level::handleInput(Input* input) {
@@ -78,8 +57,6 @@ void Level::update() {
 
 	camera->moveToFocus();
 
-	iceWraith->update();
-
 	player->update();
 }
 
@@ -90,29 +67,22 @@ void Level::draw() {
 	renderInteractables();
 	renderTileMap();
 
-	iceWraith->getCurrentFrame()->draw(camera);
-
 	lightBlueFilter->draw(camera);
 	mask->draw(camera);
 
 	player->drawToRelativePosition(camera->getRect());
+
+	player->drawHealthbar();
 }
 
 void Level::createTileMap() {
-	SDL_Rect dstrect;
-	dstrect.w = tileW;
-	dstrect.h = tileH;
-	dstrect.x = 0;
-	dstrect.y = Window::BASE_WINDOW_HEIGHT - tileH;
-
-	SDL_Texture* tileTexture = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(),
-		"C:/Users/alexp/Desktop/Game/resources/tiles/tile1.png");
-
+	int x = 0;
+	int y = Window::BASE_WINDOW_HEIGHT - tileH;
 	tiles = std::vector< std::vector<TileView*> >(h, std::vector<TileView*>(w, NULL));
 
 	for (int i = 0; i < w; i++) {
-		tiles[0][i] = new TileView(tileTexture, dstrect, false);
-		dstrect.x += tileW;
+		tiles[0][i] = new TileView(bag_->tileTextures["basicTile"], false, x, y, 3);
+		x += tileW;
 	}
 }
 
@@ -127,66 +97,53 @@ void Level::renderTileMap() {
 }
 
 void Level::placeDecorations() {
-	SDL_Rect dstrect;
-	int height = tiles[0][0]->dstrect.y;
+	SDL_Rect rect;
 
-	SDL_Texture* fenceTexture = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(),
-		"C:/Users/alexp/Desktop/Game/resources/misc/fence.png");
-	SDL_QueryTexture(fenceTexture, NULL, NULL, &(dstrect.w), &(dstrect.h));
-	dstrect.w *= 5;
-	dstrect.h *= 5;
-	dstrect.y = height - dstrect.h;
-	dstrect.x = 400;
-	decorations.push_back(new View(fenceTexture, dstrect));
+	SDL_Texture* woodenFence = bag_->decorationsTextures["woodenFence"];
+	SDL_QueryTexture(woodenFence, NULL, NULL, &rect.w, &rect.h);
+	rect.w *= 5;
+	rect.h *= 5;
+	rect.y = tiles[0][0]->dstrect.y - rect.h + 10;
+	rect.x = 500;
+	decorations.push_back(new View(woodenFence, rect));
 
-	SDL_Texture* grassTexture = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(),
-		"C:/Users/alexp/Desktop/Game/resources/misc/grass.png");
-	SDL_QueryTexture(fenceTexture, NULL, NULL, &(dstrect.w), &(dstrect.h));
-	dstrect.w *= 5;
-	dstrect.h *= 5;
-	dstrect.y = height - dstrect.h + 20;
-	dstrect.x = 0;
+	SDL_Texture* grass = bag_->decorationsTextures["grass"];
+	SDL_QueryTexture(grass, NULL, NULL, &rect.w, &rect.h);
+	rect.w *= 4;
+	rect.h *= 4;
+	rect.y = tiles[0][0]->dstrect.y - rect.h + 10;
+	rect.x = 0;
+
 	for (int i = 0; i < 20; i++) {
-		decorations.push_back(new View(grassTexture, dstrect));
-		dstrect.x += dstrect.w;
+		decorations.push_back(new View(grass, rect));
+		rect.x += rect.w;
 	}
 }
 
 void Level::placeInteractables() {
-	SDL_Rect dstrect;
-	memset(&dstrect, 0, sizeof(SDL_Rect));
+	int x = 0;
+	int y = 0;
 
-	std::vector<SDL_Texture*> eKeys(2, NULL);
-	eKeys[0] = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(),
-		"C:/Users/alexp/Desktop/Game/resources/mini/e_key1.png");
-	eKeys[1] = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(),
-		"C:/Users/alexp/Desktop/Game/resources/mini/e_key2.png");
+	std::vector<SDL_Texture*> eKeys{
+		bag_->miniTextures["eKeyUp"],
+		bag_->miniTextures["eKeyDown"]
+	};
 
-	SDL_Texture* shrineTexture = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(),
-		"C:/Users/alexp/Desktop/Game/resources/misc/altar.png");
-	SDL_QueryTexture(shrineTexture, NULL, NULL, &(dstrect.w), &(dstrect.h));
-	dstrect.w *= 4;
-	dstrect.h *= 4;
-	dstrect.x = 1200;
-	dstrect.y = tiles[0][0]->dstrect.y - dstrect.h + 10;
+	x = 1200;
+	y = tiles[0][0]->dstrect.y;
 
-	InteractableView* shrine = new InteractableView(player->getRectAddress(), shrineTexture, dstrect);
-	shrine->attachPromptAnimation(new Animation(eKeys, dstrect, 350));
+	InteractableView* shrine = new InteractableView(player->getRectAddress(), bag_->decorationsTextures["altar"], x, y, 4);
+	shrine->attachPromptAnimation(new Animation(eKeys, {0, 0, 0, 0}, 350));
 	shrine->setOnInteractListener([this] {
 		printf("deez nuts lmao\n");
 	});
 	interactables.push_back(shrine);
 
-	SDL_Texture* carriageTexture = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(),
-		"C:/Users/alexp/Desktop/Game/resources/misc/carriage.png");
-	SDL_QueryTexture(carriageTexture, NULL, NULL, &(dstrect.w), &(dstrect.h));
-	dstrect.w *= 6;
-	dstrect.h *= 6;
-	dstrect.x = 0;
-	dstrect.y = tiles[0][0]->dstrect.y - dstrect.h;
+	x = 0;
+	y = tiles[0][0]->dstrect.y;
 
-	InteractableView* carriage = new InteractableView(player->getRectAddress(), carriageTexture, dstrect);
-	carriage->attachPromptAnimation(new Animation(eKeys, dstrect, 350));
+	InteractableView* carriage = new InteractableView(player->getRectAddress(), bag_->decorationsTextures["carriage"], x, y, 6);
+	carriage->attachPromptAnimation(new Animation(eKeys, {0, 0, 0, 0}, 350));
 	carriage->setOnInteractListener([] {
 		printf("add Money\n");
 	});

@@ -2,10 +2,13 @@
 #include "../Input/InputCollector.h"
 #include "../Render/Camera.h"
 
-InteractableView::InteractableView(SDL_Rect* target, SDL_Texture* texture, SDL_Rect dstrect) : ButtonView(texture, dstrect) {
+InteractableView::InteractableView(SDL_Rect* target, SDL_Texture* texture, int x, int y, int sizeMultiplier) 
+	: ButtonView(texture, x, y, sizeMultiplier) {
 	this->target = target;
 	this->interacted = false;
 	this->promptAnimation = NULL;
+
+	this->dstrect.y -= this->dstrect.h;
 
 	this->proximity.w = dstrect.w + 100;
 	this->proximity.h = dstrect.h + 100;

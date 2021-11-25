@@ -9,8 +9,10 @@ class LoadingGameState : public GameState {
 		Animation* loadingAnimation;
 
 		std::thread loaderThread;
-		std::atomic<PlayingGameState*> s_;
-		std::atomic<bool> loaderIsReady;
+		PlayingGameState* s_;
+		bool loaderIsReady;
+
+		std::mutex m;
 
 	public:
 		LoadingGameState(Renderer* renderer);

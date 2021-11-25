@@ -76,6 +76,12 @@
     <Filter Include="Header Files\Game\Level">
       <UniqueIdentifier>{de5e3326-e3ab-4aaf-b9f6-c9d20fe88dbd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game\Visuals\TextureBag">
+      <UniqueIdentifier>{4ff95151-d752-44e5-affd-53db474758ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Visuals\TextureBag">
+      <UniqueIdentifier>{be1ee1eb-67d9-44f4-8f97-f2443eeed27e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\game\main.cpp">
@@ -167,6 +173,9 @@
     </ClCompile>
     <ClCompile Include="src\Game\State\PlayerState\AttackPlayerState.cpp">
       <Filter>Source Files\Game\State\PlayerStates</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Player\Entity.cpp">
+      <Filter>Source Files\Game\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -514,6 +523,9 @@
     </ClInclude>
     <ClInclude Include="src\Game\State\PlayerState\AttackPlayerState.h">
       <Filter>Header Files\Game\State\PlayerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Player\Entity.h">
+      <Filter>Header Files\Game\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

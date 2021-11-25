@@ -16,7 +16,7 @@ class Filter : public View {
 		Uint8 alphaValue;
 
 	public:
-		Filter(SDL_Texture* texture, SDL_Rect rect, SDL_BlendMode mode);
+		Filter(SDL_Texture* texture, SDL_BlendMode mode);
 
 		void draw(Camera* camera);
 

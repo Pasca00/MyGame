@@ -19,12 +19,26 @@ class Player : public Movable {
 
 		PlayerState* currentState_;
 
+		class Healthbar {
+		private:
+			Player* player;
+
+		public:
+			Healthbar(Player* player);
+
+			void setHealth(int health);
+
+			View* container;
+			View* health;
+		} *healthbar;
+
 	public:
 		Player(int health, SDL_Rect dstrect, int8_t direction);
 
 		void handleInput(Level* level, Input* input);
 		void update();
 		void draw();
+		void drawHealthbar();
 
 		void drawToRelativePosition(SDL_Rect cameraPos);
 

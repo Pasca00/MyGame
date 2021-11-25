@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <thread>
 
 #include "../Window/Window.h"
 #include "../Visuals/View.h"

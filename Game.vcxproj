@@ -155,6 +155,7 @@
     <ClCompile Include="src\Game\Visuals\Filter.cpp" />
     <ClCompile Include="src\Game\Visuals\FrameView.cpp" />
     <ClCompile Include="src\Game\Visuals\InteractableView.cpp" />
+    <ClCompile Include="src\Game\Visuals\TextureBag\TextureBag.cpp" />
     <ClCompile Include="src\Game\Visuals\TileView.cpp" />
     <ClCompile Include="src\Game\Visuals\View.cpp" />
     <ClCompile Include="src\game\window\Window.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="src\Game\Visuals\Filter.h" />
     <ClInclude Include="src\Game\Visuals\FrameView.h" />
     <ClInclude Include="src\Game\Visuals\InteractableView.h" />
+    <ClInclude Include="src\Game\Visuals\TextureBag\TextureBag.h" />
     <ClInclude Include="src\Game\Visuals\TileView.h" />
     <ClInclude Include="src\Game\Visuals\View.h" />
     <ClInclude Include="src\game\window\Window.h" />

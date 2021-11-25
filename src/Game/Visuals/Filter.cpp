@@ -1,8 +1,8 @@
 #include "Filter.h"
 #include "../Render/Camera.h"
 
-Filter::Filter(SDL_Texture* texture, SDL_Rect rect, SDL_BlendMode mode) 
-	: View(texture, rect){
+Filter::Filter(SDL_Texture* texture, SDL_BlendMode mode) {
+	this->texture = texture;
 
 	this->alphaValue = 0;
 	this->alphaStep = 20;
@@ -11,6 +11,9 @@ Filter::Filter(SDL_Texture* texture, SDL_Rect rect, SDL_BlendMode mode)
 
 	SDL_SetTextureBlendMode(texture, mode);
 	SDL_SetTextureAlphaMod(texture, alphaValue);
+
+	SDL_Rect dstrect = { 0, 0, Window::BASE_WINDOW_WIDTH, Window::BASE_WINDOW_HEIGHT};
+	this->dstrect = dstrect;
 }
 
 void Filter::fadeIn() {
