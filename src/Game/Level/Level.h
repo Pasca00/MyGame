@@ -11,9 +11,12 @@
 
 class PhysicsEngine;
 class TimeEngine;
+class TextureBag;
 
 class Level {
 	private:
+		TextureBag* bag_;
+
 		int tileW;
 		int tileH;
 

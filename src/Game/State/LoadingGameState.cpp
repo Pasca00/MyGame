@@ -19,11 +19,11 @@ LoadingGameState::LoadingGameState(Renderer* renderer) {
 void LoadingGameState::enter() {
 	loaderIsReady = false;
 
-	loaderThread = std::thread([this] {
-		s_.store(new PlayingGameState());
+	/*oaderThread = std::thread([this] {
+		s_ = new PlayingGameState();
 		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-		loaderIsReady.store(true);
-	});
+		loaderIsReady = true;
+	});*/
 }
 
 void LoadingGameState::handleInput(Game* game, Input* input) {
@@ -33,12 +33,15 @@ void LoadingGameState::handleInput(Game* game, Input* input) {
 }
 
 void LoadingGameState::update() {
-	if (loaderIsReady.load()) {
-		loaderThread.join();
-		Game::getInstance()->requestTransition(s_.load());
-	}
-
 	loadingAnimation->update();
+	
+	s_ = new PlayingGameState();
+	Game::getInstance()->requestTransition(s_);
+
+	//if (loaderIsReady) {
+	//	loaderThread.join();
+	//	Game::getInstance()->requestTransition(s_);
+	//}
 }
 
 void LoadingGameState::draw() {

@@ -8,6 +8,7 @@ class TileView : public View {
 
 	public:
 		TileView(SDL_Texture* texture, SDL_Rect destrect, bool passable);
+		TileView(SDL_Texture* texture, bool passable, int x, int y, int sizeMultiplier);
 
 		bool isPassable();
 };

@@ -1,23 +1,17 @@
 #include "WalkingPlayerState.h"
 #include "../../Game.h"
 #include "../../Physics/TimeEngine.h"
+#include "../../Visuals/TextureBag/TextureBag.h"
 
 WalkingPlayerState::WalkingPlayerState(Player* player) : PlayerState() {
 	this->player = player;
 
-	numberOfFrames = 7;
+	std::vector<SDL_Texture*>& textures = TextureBag::getInstance()->getInstance()->playerTextures["walking"];
+	SDL_Rect dimensions;
 
-	std::vector<SDL_Texture*> textures(numberOfFrames, NULL);
-	std::vector<SDL_Rect> dimensions(numberOfFrames);
-	for (int i = 0; i < numberOfFrames; i++) {
-		char filePath[100];
-		sprintf(filePath, "C:/Users/alexp/Desktop/Game/resources/Player/player_walking%d.png", i + 1);
-		textures[i] = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(), filePath);
-
-		SDL_QueryTexture(textures[i], NULL, NULL, &(dimensions[i].w), &(dimensions[i].h));
-		dimensions[i].w *= 3;
-		dimensions[i].h *= 3;
-	}
+	SDL_QueryTexture(textures[0], NULL, NULL, &(dimensions.w), &(dimensions.h));
+	dimensions.w *= 3;
+	dimensions.h *= 3;
 
 	animation = new Animation(textures, dimensions, 150);
 	animation->setTimeMultiplier(TimeEngine::getInstance()->getAnimationMultiplierAddress());

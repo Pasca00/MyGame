@@ -1,5 +1,8 @@
 #pragma once
-class Entity
-{
+class Entity {
+	private:
+		
+	public:
+
 };
 

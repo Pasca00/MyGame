@@ -10,6 +10,9 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_thread.h>
+
+#include <thread>
 
 #include "State/GameState.h"
 #include "State/LoadingGameState.h"
@@ -36,6 +39,8 @@ class Game {
 		Uint32 currentTime;
 
 		SDL_GLContext glContext;
+
+		std::mutex mtx;
 
 		Game();
 		void setupGL();
