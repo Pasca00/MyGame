@@ -7,6 +7,14 @@ ButtonView::ButtonView(SDL_Texture *texture, SDL_Rect dstrect) : View(texture, d
 	onClickListener = NULL;
 }
 
+ButtonView::ButtonView(SDL_Texture* texture, int x, int y, int sizeMultiplier)
+	: View(texture, x, y, sizeMultiplier) {
+	onHoverListener = NULL;
+	onHoverReleaseListener = NULL;
+
+	onClickListener = NULL;
+}
+
 void ButtonView::setOnHoverListener(std::function<void()> onHoverListener, std::function<void()> onHoverReleaseListener) {
 	this->onHoverListener = onHoverListener;
 	this->onHoverReleaseListener = onHoverReleaseListener;

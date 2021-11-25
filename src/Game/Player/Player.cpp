@@ -2,6 +2,7 @@
 #include "../Game.h"
 #include "../Level/Level.h"
 #include "../Physics/TimeEngine.h"
+#include "../Visuals/TextureBag/TextureBag.h"
 
 Player::Player(int health, SDL_Rect dstrect, int8_t direction) 
 	: Movable(0, 30, 0, 3, 6, DIRECTION_RIGHT, DIRECTION_DOWN) {
@@ -20,6 +21,8 @@ Player::Player(int health, SDL_Rect dstrect, int8_t direction)
 	SDL_QueryTexture(currentState_->getCurrentFrame()->texture, NULL, NULL, &this->textureW, &this->textureH);
 	this->dstrect.w = textureW * 3;
 	this->dstrect.h = textureH * 3;
+
+	healthbar = new Healthbar(this);
 }
 
 void Player::handleInput(Level* level, Input* input) {
@@ -67,4 +70,18 @@ SDL_Texture* Player::getCurrentTexture() {
 void Player::setState(PlayerState* state) {
 	state->resetAnimation();
 	this->currentState_ = state;
+}
+
+Player::Healthbar::Healthbar(Player* player) {
+	this->player = player;
+
+	this->container = new View(TextureBag::getInstance()->miniTextures["healthbarContainer"], 20, 20, 1.4f);
+	this->health = new View(TextureBag::getInstance()->miniTextures["healthbarHealth"], 20, 20, 1.4f);
+}
+
+void Player::Healthbar::setHealth(int health) { }
+
+void Player::drawHealthbar() {
+	Game::getInstance()->getRenderer()->addToQueue(healthbar->health);
+	Game::getInstance()->getRenderer()->addToQueue(healthbar->container);
 }

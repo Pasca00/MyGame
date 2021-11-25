@@ -13,6 +13,7 @@ class ButtonView : public View {
 
 	public:
 		ButtonView(SDL_Texture* texture, SDL_Rect destrect);
+		ButtonView(SDL_Texture* texture, int x, int y, int sizeMultiplier);
 
 		void setOnHoverListener(std::function<void()> onHoverListener, std::function<void()> onHoverReleaseListener);
 		void setOnClickListener(std::function<void()> onClickListener);

@@ -9,9 +9,8 @@ class AttackPlayerState : public PlayerState {
 		Player* player;
 
 		Animation* firstAttackAnimation;
-
 		Animation* secondAttackAnimation;
-		int numberOfFramesSecondAttack;
+
 		bool secondAttackRequested;
 
 	public:
