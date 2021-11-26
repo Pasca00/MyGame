@@ -113,7 +113,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
-      <AdditionalDependencies>glew32s.lib;opengl32.lib;glu32.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;glew32s.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>
       </EntryPointSymbol>
       <SubSystem>Console</SubSystem>
@@ -121,7 +121,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Link>
-      <AdditionalDependencies>glew32s.lib;opengl32.lib;glu32.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;glew32s.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>
       </EntryPointSymbol>
       <SubSystem>Console</SubSystem>
@@ -152,6 +152,7 @@
     <ClCompile Include="src\Game\Visuals\Animation.cpp" />
     <ClCompile Include="src\Game\Visuals\Background.cpp" />
     <ClCompile Include="src\Game\Visuals\ButtonView.cpp" />
+    <ClCompile Include="src\Game\Visuals\Core\Texture.cpp" />
     <ClCompile Include="src\Game\Visuals\Filter.cpp" />
     <ClCompile Include="src\Game\Visuals\FrameView.cpp" />
     <ClCompile Include="src\Game\Visuals\InteractableView.cpp" />
@@ -180,9 +181,11 @@
     <ClInclude Include="src\Game\State\PlayerState\WalkingPlayerState.h" />
     <ClInclude Include="src\Game\State\PlayingGameState.h" />
     <ClInclude Include="src\game\state\State.h" />
+    <ClInclude Include="src\Game\stb_image.h" />
     <ClInclude Include="src\Game\Visuals\Animation.h" />
     <ClInclude Include="src\Game\Visuals\Background.h" />
     <ClInclude Include="src\Game\Visuals\ButtonView.h" />
+    <ClInclude Include="src\Game\Visuals\Core\Texture.h" />
     <ClInclude Include="src\Game\Visuals\Filter.h" />
     <ClInclude Include="src\Game\Visuals\FrameView.h" />
     <ClInclude Include="src\Game\Visuals\InteractableView.h" />

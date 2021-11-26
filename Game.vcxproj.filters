@@ -82,6 +82,12 @@
     <Filter Include="Source Files\Game\Visuals\TextureBag">
       <UniqueIdentifier>{be1ee1eb-67d9-44f4-8f97-f2443eeed27e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game\Visuals\Core">
+      <UniqueIdentifier>{4c65fa7c-fe77-4a46-b9b6-32cc9be69105}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Visuals\Core">
+      <UniqueIdentifier>{8bd92a24-595b-4596-ad10-021ef15f0627}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\game\main.cpp">
@@ -174,8 +180,11 @@
     <ClCompile Include="src\Game\State\PlayerState\AttackPlayerState.cpp">
       <Filter>Source Files\Game\State\PlayerStates</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\Player\Entity.cpp">
-      <Filter>Source Files\Game\Player</Filter>
+    <ClCompile Include="src\Game\Visuals\TextureBag\TextureBag.cpp">
+      <Filter>Source Files\Game\Visuals\TextureBag</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Visuals\Core\Texture.cpp">
+      <Filter>Source Files\Game\Visuals\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -524,8 +533,14 @@
     <ClInclude Include="src\Game\State\PlayerState\AttackPlayerState.h">
       <Filter>Header Files\Game\State\PlayerStates</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\Player\Entity.h">
-      <Filter>Header Files\Game\Player</Filter>
+    <ClInclude Include="src\Game\Visuals\TextureBag\TextureBag.h">
+      <Filter>Header Files\Game\Visuals\TextureBag</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\stb_image.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Visuals\Core\Texture.h">
+      <Filter>Header Files\Game\Visuals\Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

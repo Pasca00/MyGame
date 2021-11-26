@@ -14,6 +14,8 @@ int main(int argc, char* args[]) {
 
 	Input input;
 
+	
+
 	while (game->isRunning()) {
 		game->changeState();
 		input = game->collectInput();

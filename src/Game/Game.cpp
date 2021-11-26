@@ -9,12 +9,12 @@ class LoadingGameState;
 Game::Game() {
 	running = true;
 	window = new Window();
-	//setupGL();
-	renderer = new Renderer(window);
-	state_ = new MainMenuGameState(renderer);
+	setupGL();
+	//renderer = new Renderer(window);
+	//state_ = new MainMenuGameState(renderer);
 	inputCollector = new InputCollector();
 
-	loadingScreen = new LoadingGameState(renderer);
+	//loadingScreen = new LoadingGameState(renderer);
 
 	transitionRequested = false;
 	nextState = NULL;
@@ -24,22 +24,24 @@ Game::Game() {
 }
 
 void Game::setupGL() {
+	GLenum error = GL_NO_ERROR;
+
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 1);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	
+
 	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
 	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
 	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
-	SDL_GLContext context = SDL_GL_CreateContext(window->getWindow());
+	glContext = SDL_GL_CreateContext(window->getWindow());
 
-	if (context == NULL) {
-		printf("error initializing GL context\n");
-	}
+	//GLenum GLEW_error = glewInit();
 
-	glClearColor(1.f, 0.f, 1.f, 0.f);
-	glViewport(0, 0, Window::BASE_WINDOW_WIDTH, Window::BASE_WINDOW_HEIGHT);
 }
 
 bool Game::isRunning() {
@@ -59,13 +61,15 @@ Game* Game::getInstance() {
 }
 
 Input Game::collectInput() {
-	//inputCollector->flushInputs();
 	inputCollector->collectInput();
 	return inputCollector->getInput();
 }
 
 void Game::handleInput(Input input) {
-	state_->handleInput(this, &input);
+	if (input.QUIT || input.KEY_ESCAPE) {
+		running = false;
+	}
+	//state_->handleInput(this, &input);
 }
 
 void Game::requestTransition(GameState* nextState) {
@@ -89,16 +93,20 @@ Window* Game::getWindow() {
 }
 
 void Game::renderClearScreen() {
-	renderer->clearScreen();
+	//renderer->clearScreen();
+	glClearColor(0.2f, 0.2f, 0.9f, 1.f);
+	glClear(GL_COLOR_BUFFER_BIT);
+	SDL_GL_SwapWindow(window->getWindow());
 }
 
 void Game::renderQueue() {
-	state_->draw();
-	renderer->renderQueue();
+	//state_->draw();
+	//renderer->renderQueue();
 }
 
 void Game::update() {
-	state_->update();
+	glViewport(0, 0, Window::BASE_WINDOW_WIDTH, Window::BASE_WINDOW_HEIGHT);
+	//state_->update();
 }
 
 Uint32 Game::getCurrentTime() {

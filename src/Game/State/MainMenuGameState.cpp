@@ -32,11 +32,6 @@ MainMenuGameState::MainMenuGameState(Renderer* renderer) : GameState() {
 
 	playButtonView->setOnClickListener(
 		[] {
-			// TODO:
-			// Should make it so that LoadingGameState receives the
-			// level that it needs to load and does it in its own thread
-			// member object. But since the game has a single level,
-			// I'll leave it like this for now.
 			Game::getInstance()->loadLevel();
 		});
 }

@@ -3,14 +3,14 @@
 #include <string>
 #include <iostream>
 
+#define GLEW_STATIC
 #include <gl/glew.h>
 #include <SDL_opengl.h>
-#include <gl/GL.h>
 #include <gl/GLU.h>
+#include <gl/GL.h>
 
 #include <SDL.h>
 #include <SDL_image.h>
-#include <SDL_thread.h>
 
 #include <thread>
 
@@ -39,8 +39,6 @@ class Game {
 		Uint32 currentTime;
 
 		SDL_GLContext glContext;
-
-		std::mutex mtx;
 
 		Game();
 		void setupGL();
