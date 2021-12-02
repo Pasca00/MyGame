@@ -88,6 +88,9 @@
     <Filter Include="Source Files\Game\Visuals\Core">
       <UniqueIdentifier>{8bd92a24-595b-4596-ad10-021ef15f0627}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Shaders">
+      <UniqueIdentifier>{928bf8fc-f465-46c1-a350-859706ec701e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\game\main.cpp">
@@ -184,6 +187,12 @@
       <Filter>Source Files\Game\Visuals\TextureBag</Filter>
     </ClCompile>
     <ClCompile Include="src\Game\Visuals\Core\Texture.cpp">
+      <Filter>Source Files\Game\Visuals\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Visuals\Core\Quad.cpp">
+      <Filter>Source Files\Game\Visuals\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Visuals\Core\Shader.cpp">
       <Filter>Source Files\Game\Visuals\Core</Filter>
     </ClCompile>
   </ItemGroup>
@@ -542,5 +551,19 @@
     <ClInclude Include="src\Game\Visuals\Core\Texture.h">
       <Filter>Header Files\Game\Visuals\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Game\Visuals\Core\Quad.h">
+      <Filter>Header Files\Game\Visuals\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Visuals\Core\Shader.h">
+      <Filter>Header Files\Game\Visuals\Core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Shaders\TestFragmentShader.glsl">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\TestVertexShader.glsl">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

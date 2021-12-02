@@ -10,7 +10,6 @@
 #include <gl/GL.h>
 
 #include <SDL.h>
-#include <SDL_image.h>
 
 #include <thread>
 
@@ -19,6 +18,10 @@
 
 #include "Window/Window.h"
 #include "Render/Renderer.h"
+
+#include "Visuals/Core/Texture.h"
+#include "Visuals/Core/Quad.h"
+#include "Visuals/Core/Shader.h"
 
 class Game {
 	private: 
@@ -38,7 +41,13 @@ class Game {
 		Uint32 startTime;
 		Uint32 currentTime;
 
+		Texture* playBttn;
+		std::vector<float> vertices;
+
 		SDL_GLContext glContext;
+
+		Quad* quad;
+		Shader* shader;
 
 		Game();
 		void setupGL();

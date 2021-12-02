@@ -3,9 +3,6 @@
 #define GLEW_STATIC
 #include <gl/glew.h>
 
-#define STB_IMAGE_IMPLEMENTATION
-#include "../../stb_image.h"
-
 class Texture {
 	private:
 		int width;
@@ -27,4 +24,10 @@ class Texture {
 		Texture(const char* filepath);
 
 		void loadImage(const char* filepath);
+
+		int getWidth();
+		int getHeight();
+		int getChannels();
+
+		GLuint getTextureID();
 };

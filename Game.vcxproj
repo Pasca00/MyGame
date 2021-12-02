@@ -152,6 +152,8 @@
     <ClCompile Include="src\Game\Visuals\Animation.cpp" />
     <ClCompile Include="src\Game\Visuals\Background.cpp" />
     <ClCompile Include="src\Game\Visuals\ButtonView.cpp" />
+    <ClCompile Include="src\Game\Visuals\Core\Quad.cpp" />
+    <ClCompile Include="src\Game\Visuals\Core\Shader.cpp" />
     <ClCompile Include="src\Game\Visuals\Core\Texture.cpp" />
     <ClCompile Include="src\Game\Visuals\Filter.cpp" />
     <ClCompile Include="src\Game\Visuals\FrameView.cpp" />
@@ -185,6 +187,8 @@
     <ClInclude Include="src\Game\Visuals\Animation.h" />
     <ClInclude Include="src\Game\Visuals\Background.h" />
     <ClInclude Include="src\Game\Visuals\ButtonView.h" />
+    <ClInclude Include="src\Game\Visuals\Core\Quad.h" />
+    <ClInclude Include="src\Game\Visuals\Core\Shader.h" />
     <ClInclude Include="src\Game\Visuals\Core\Texture.h" />
     <ClInclude Include="src\Game\Visuals\Filter.h" />
     <ClInclude Include="src\Game\Visuals\FrameView.h" />
@@ -280,6 +284,10 @@
     <ClInclude Include="src\sdl\sdl2-2.0.14\include\SDL_video.h" />
     <ClInclude Include="src\sdl\sdl2-2.0.14\include\SDL_vulkan.h" />
     <ClInclude Include="src\sdl\sdl2_image-2.0.5\include\SDL_image.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Shaders\TestFragmentShader.glsl" />
+    <None Include="src\Shaders\TestVertexShader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
