@@ -41,13 +41,12 @@ class Game {
 		Uint32 startTime;
 		Uint32 currentTime;
 
-		Texture* playBttn;
-		std::vector<float> vertices;
-
 		SDL_GLContext glContext;
-
+		
+		Texture* playBttn;
 		Quad* quad;
 		Shader* shader;
+		View* player;
 
 		Game();
 		void setupGL();

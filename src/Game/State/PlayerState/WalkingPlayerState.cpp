@@ -6,14 +6,14 @@
 WalkingPlayerState::WalkingPlayerState(Player* player) : PlayerState() {
 	this->player = player;
 
-	std::vector<SDL_Texture*>& textures = TextureBag::getInstance()->getInstance()->playerTextures["walking"];
+	std::vector<Texture*>& textures = TextureBag::getInstance()->getInstance()->playerTextures["walking"];
 	SDL_Rect dimensions;
 
-	SDL_QueryTexture(textures[0], NULL, NULL, &(dimensions.w), &(dimensions.h));
+	//SDL_QueryTexture(textures[0], NULL, NULL, &(dimensions.w), &(dimensions.h));
 	dimensions.w *= 3;
 	dimensions.h *= 3;
 
-	animation = new Animation(textures, dimensions, 150);
+	animation = new Animation(textures, 150, 0, 0, 3);
 	animation->setTimeMultiplier(TimeEngine::getInstance()->getAnimationMultiplierAddress());
 }
 

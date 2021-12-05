@@ -1,6 +1,5 @@
 #include "Texture.h"
 
-#define STB_IMAGE_IMPLEMENTATION
 #include "../../stb_image.h"
 
 const GLint pixelFormat[5] = { 0, GL_RED, GL_RG, GL_RGB, GL_RGBA };
@@ -32,19 +31,20 @@ Texture::Texture(const char* filepath) : Texture() {
 
 void Texture::loadImage(const char* filepath) {
     textureMinFilter = GL_NEAREST_MIPMAP_NEAREST;
-    textureMagFilter = GL_NEAREST_MIPMAP_NEAREST;
+    textureMagFilter = GL_NEAREST;
 
     glGenTextures(1, &textureID);
-    glBindTexture(targetType, textureID);
+    glBindTexture(GL_TEXTURE_2D, textureID);
     
-    glTexParameteri(targetType, GL_TEXTURE_MIN_FILTER, textureMinFilter);
-    glTexParameteri(targetType, GL_TEXTURE_MAG_FILTER, textureMagFilter);
-    glTexParameteri(targetType, GL_TEXTURE_WRAP_S, wrappingMode);
-    glTexParameteri(targetType, GL_TEXTURE_WRAP_T, wrappingMode);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, textureMinFilter);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, textureMagFilter);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
     imageData = stbi_load(filepath, &width, &height, &channels, 0);
 
-    glTexImage2D(targetType, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
+    glTexImage2D(targetType, 0, internalFormat[0][channels], width, height, 0, pixelFormat[channels], GL_UNSIGNED_BYTE, imageData);
     glGenerateMipmap(targetType);
     glBindTexture(targetType, 0);
 

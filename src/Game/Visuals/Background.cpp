@@ -11,7 +11,7 @@ Background::Background(const char* backgroundTextureFile, std::vector<const char
 	if (backgroundTextureFile == NULL) {
 		staticBackground = NULL;
 	} else {
-		SDL_Texture* t_ = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(), backgroundTextureFile);
+		Texture* t_ = new Texture(backgroundTextureFile);
 		staticBackground = new View(t_, rect);
 	}
 
@@ -19,7 +19,7 @@ Background::Background(const char* backgroundTextureFile, std::vector<const char
 	parallaxLayers = std::vector<std::vector<View*>>(numberOfLayers);
 	for (int i = 0; i < numberOfLayers; i++) {
 		parallaxLayers[i] = std::vector<View*>(numberOfScenes * (i + 1), NULL);
-		SDL_Texture* t_ = IMG_LoadTexture(Game::getInstance()->getRenderer()->getSDLRenderer(), layerTexturesFiles[i]);
+		Texture* t_ = new Texture(layerTexturesFiles[i]);
 		rect.x = 0;
 		for (int j = 0; j < parallaxLayers[i].size(); j++) {
 			parallaxLayers[i][j] = new View(t_, rect);

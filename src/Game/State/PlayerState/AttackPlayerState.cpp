@@ -8,17 +8,17 @@ AttackPlayerState::AttackPlayerState(Player* player) {
 	this->player = player;
 	secondAttackRequested = false;
 
-	std::vector<SDL_Texture*>& textures = TextureBag::getInstance()->playerTextures["firstAttack"];
+	std::vector<Texture*>& textures = TextureBag::getInstance()->playerTextures["firstAttack"];
 	SDL_Rect dimensions;
-	SDL_QueryTexture(textures[0], NULL, NULL, &dimensions.w, &dimensions.h);
+	//SDL_QueryTexture(textures[0], NULL, NULL, &dimensions.w, &dimensions.h);
 	dimensions.w *= 3;
 	dimensions.h *= 3;
 
-	firstAttackAnimation = new Animation(textures, dimensions, 90);
+	firstAttackAnimation = new Animation(textures, 90, 0, 0, 3);
 	firstAttackAnimation->setTimeMultiplier(TimeEngine::getInstance()->getAnimationMultiplierAddress());
 
-	std::vector<SDL_Texture*>& secondAttackTextures = TextureBag::getInstance()->playerTextures["secondAttack"];
-	secondAttackAnimation = new Animation(secondAttackTextures, dimensions, 90);
+	std::vector<Texture*>& secondAttackTextures = TextureBag::getInstance()->playerTextures["secondAttack"];
+	secondAttackAnimation = new Animation(secondAttackTextures, 90, 0, 0, 3);
 	secondAttackAnimation->setTimeMultiplier(TimeEngine::getInstance()->getAnimationMultiplierAddress());
 
 	animation = firstAttackAnimation;

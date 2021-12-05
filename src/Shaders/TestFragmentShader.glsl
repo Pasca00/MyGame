@@ -5,5 +5,10 @@ in vec2 tex_coord;
 uniform sampler2D in_texture;
 
 void main() {
-	gl_FragColor = vec4(0.5f, 0.22f, 0.21f, 1.f); 
+	//gl_FragColor = vec4(0.5f, 0.22f, 0.21f, 1.f);
+	gl_FragColor = texture2D(in_texture, tex_coord);
+
+	if (gl_FragColor.a == 0.f) {
+		discard;
+	}
 }

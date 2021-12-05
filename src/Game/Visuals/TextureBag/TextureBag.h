@@ -21,18 +21,18 @@ class TextureBag {
 	public:
 		static TextureBag* getInstance();
 
-		std::unordered_map<std::string, SDL_Texture*> backgroundLayers;
+		std::unordered_map<std::string, Texture*> backgroundLayers;
 
-		std::unordered_map<std::string, SDL_Texture*> tileTextures;
+		std::unordered_map<std::string, Texture*> tileTextures;
 
-		std::unordered_map<std::string, std::vector<SDL_Texture*>> playerTextures;
+		std::unordered_map<std::string, std::vector<Texture*>> playerTextures;
 
-		std::unordered_map<std::string, SDL_Texture*> miniTextures;
+		std::unordered_map<std::string, Texture*> miniTextures;
 
-		std::unordered_map<std::string, SDL_Texture*> decorationsTextures;
+		std::unordered_map<std::string, Texture*> decorationsTextures;
 
-		std::unordered_map<std::string, SDL_Texture*> enemyTextures;
+		std::unordered_map<std::string, Texture*> enemyTextures;
 
-		std::unordered_map<std::string, SDL_Texture*> filters;
+		std::unordered_map<std::string, Texture*> filters;
 };
 

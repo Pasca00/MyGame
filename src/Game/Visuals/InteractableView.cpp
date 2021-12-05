@@ -2,7 +2,7 @@
 #include "../Input/InputCollector.h"
 #include "../Render/Camera.h"
 
-InteractableView::InteractableView(SDL_Rect* target, SDL_Texture* texture, int x, int y, int sizeMultiplier) 
+InteractableView::InteractableView(SDL_Rect* target, Texture* texture, int x, int y, int sizeMultiplier) 
 	: ButtonView(texture, x, y, sizeMultiplier) {
 	this->target = target;
 	this->interacted = false;
@@ -18,7 +18,7 @@ InteractableView::InteractableView(SDL_Rect* target, SDL_Texture* texture, int x
 
 void InteractableView::attachPromptAnimation(Animation* animation) {
 	SDL_Rect promptDstrect;
-	SDL_QueryTexture(animation->getCurrentFrame()->texture, NULL, NULL, &(promptDstrect.w), &(promptDstrect.h));
+	//SDL_QueryTexture(animation->getCurrentFrame()->texture, NULL, NULL, &(promptDstrect.w), &(promptDstrect.h));
 
 	promptDstrect.y = dstrect.y - promptDstrect.h;
 	promptDstrect.x = (dstrect.x + dstrect.x + dstrect.w - promptDstrect.w) / 2;

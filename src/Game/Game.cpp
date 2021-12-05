@@ -1,7 +1,9 @@
 #include "Game.h"
 
 #include "State/MainMenuGameState.h"
-#include "glm/gtc/matrix_transform.hpp"
+
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 
 Game* Game::instance = NULL;
 
@@ -11,9 +13,11 @@ Game::Game() {
 	running = true;
 	window = new Window();
 	setupGL();
-	//renderer = new Renderer(window);
+
+	renderer = new Renderer();
 	//state_ = new MainMenuGameState(renderer);
 	inputCollector = new InputCollector();
+
 
 	//loadingScreen = new LoadingGameState(renderer);
 
@@ -23,21 +27,14 @@ Game::Game() {
 	startTime = SDL_GetTicks();
 	currentTime = startTime;
 
-	playBttn = new Texture("C:/Users/alexp/Desktop/Game/resources/play_button.png");
+	stbi_set_flip_vertically_on_load(true);
 
-	std::vector<Vertex> vertices = {
-		Vertex(glm::vec3(0.f, 0.f, 0.f), glm::vec3(1), glm::vec2(0.f, 0.f)),
-		Vertex(glm::vec3(1.f, 0.f, 0.f), glm::vec3(1), glm::vec2(1.f, 0.f)),
-		Vertex(glm::vec3(1.f, 1.f, 0.f), glm::vec3(1), glm::vec2(1.f, 1.f)),
-	};
-
-	std::vector<unsigned int> indices = {
-		0, 1, 2
-	};
-
-	quad = new Quad(vertices, indices);
 	std::string filename = "C:/Users/alexp/Desktop/Game/src/Shaders/Test";
 	shader = new Shader(filename);
+
+	playBttn = new Texture("C:/Users/alexp/Desktop/Game/resources/Player/player_idle1.png");
+
+	player = new View(playBttn, 0, 0, 3);
 }
 
 void Game::setupGL() {
@@ -46,18 +43,16 @@ void Game::setupGL() {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-
-	glewExperimental = GL_TRUE;
-
-	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
-	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
-	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
+	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 5);
+	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 5);
+	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 5);
+	SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 5);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
+	glewExperimental = GL_TRUE;
 	glContext = SDL_GL_CreateContext(window->getWindow());
-	
+
 	error = glewInit();
 	if (error != GLEW_OK) {
 		std::cout << "ERROR ON GLEW INIT " << glewGetErrorString(error) << std::endl;
@@ -113,33 +108,21 @@ Window* Game::getWindow() {
 }
 
 void Game::renderClearScreen() {
-	glClearColor(0.2f, 0.2f, 0.9f, 1.f);
-	glClear(GL_COLOR_BUFFER_BIT);
-	SDL_GL_SwapWindow(window->getWindow());
+	/*glClearColor(0.2f, 0.2f, 0.9f, 1.f);
+	glClear(GL_COLOR_BUFFER_BIT);*/
+
+	renderer->clearScreen();
 }
 
 void Game::renderQueue() {
+	glViewport(0, 0, Window::BASE_WINDOW_WIDTH, Window::BASE_WINDOW_HEIGHT);
+
+	renderer->draw(player, shader);
 	//state_->draw();
 	//renderer->renderQueue();
-	glm::mat4 modelMatrix(1);
-	
-	shader->use();
-	shader->setModelMatrix(modelMatrix);
-	shader->setProjectionMatrix(glm::ortho(0.0f, 4.0f, 0.0f, 3.0f, 0.1f, 100.0f));
-
-	//glActiveTexture(playBttn->getTextureID());
-
-	glBindVertexArray(quad->getVAO());
-	glDrawElementsBaseVertex(GL_TRIANGLES, 3, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * 3), 0);
-	GLenum error = glGetError();
-	if (error == GL_INVALID_ENUM) {
-		printf("error\n");
-	}
-	glBindVertexArray(0);
 }
 
 void Game::update() {
-	glViewport(0, 0, Window::BASE_WINDOW_WIDTH, Window::BASE_WINDOW_HEIGHT);
 	//state_->update();
 }
 

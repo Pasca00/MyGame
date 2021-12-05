@@ -42,7 +42,7 @@ class Player : public Movable {
 
 		void drawToRelativePosition(SDL_Rect cameraPos);
 
-		SDL_Texture* getCurrentTexture();
+		Texture* getCurrentTexture();
 
 		void setState(PlayerState* state);
 

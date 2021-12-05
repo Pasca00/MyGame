@@ -31,6 +31,8 @@ int main(int argc, char* args[]) {
 		game->update();
 		game->renderClearScreen();
 		game->renderQueue();
+
+		SDL_GL_SwapWindow(game->getWindow()->getWindow());
 	}
 
 	return 0;

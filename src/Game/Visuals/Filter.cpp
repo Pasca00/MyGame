@@ -1,7 +1,7 @@
 #include "Filter.h"
 #include "../Render/Camera.h"
 
-Filter::Filter(SDL_Texture* texture, SDL_BlendMode mode) {
+Filter::Filter(Texture* texture, SDL_BlendMode mode) {
 	this->texture = texture;
 
 	this->alphaValue = 0;
@@ -9,8 +9,8 @@ Filter::Filter(SDL_Texture* texture, SDL_BlendMode mode) {
 	this->fade = FADE_NULL;
 	this->isActive = false;
 
-	SDL_SetTextureBlendMode(texture, mode);
-	SDL_SetTextureAlphaMod(texture, alphaValue);
+	//SDL_SetTextureBlendMode(texture, mode);
+	//SDL_SetTextureAlphaMod(texture, alphaValue);
 
 	SDL_Rect dstrect = { 0, 0, Window::BASE_WINDOW_WIDTH, Window::BASE_WINDOW_HEIGHT};
 	this->dstrect = dstrect;
@@ -43,7 +43,7 @@ void Filter::draw(Camera* camera) {
 			alphaValue += alphaStep;
 		}
 
-		SDL_SetTextureAlphaMod(texture, alphaValue);
+		//SDL_SetTextureAlphaMod(texture, alphaValue);
 	} else if (fade == FADE_OUT) {
 		if (alphaValue < alphaStep) {
 			alphaValue = 0;
@@ -54,7 +54,7 @@ void Filter::draw(Camera* camera) {
 			alphaValue -= alphaStep;
 		}
 
-		SDL_SetTextureAlphaMod(texture, alphaValue);
+		//SDL_SetTextureAlphaMod(texture, alphaValue);
 	}
 	
 	camera->renderViewToAbsolutePosition(this);

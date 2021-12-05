@@ -16,7 +16,7 @@ class InteractableView : public ButtonView {
 		std::function<void()> onInteractListener;
 
 	public:
-		InteractableView(SDL_Rect* target, SDL_Texture* texture, int x, int y, int sizeMultiplier);
+		InteractableView(SDL_Rect* target, Texture* texture, int x, int y, int sizeMultiplier);
 
 		void attachPromptAnimation(Animation* animation);
 		bool targetIsInProximity();

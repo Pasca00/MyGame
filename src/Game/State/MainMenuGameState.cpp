@@ -2,7 +2,7 @@
 #include "../Game.h"
 
 MainMenuGameState::MainMenuGameState(Renderer* renderer) : GameState() {
-	SDL_Texture* mainMenuWallpaperTexture = IMG_LoadTexture(renderer->getSDLRenderer(), "C:/Users/alexp/Desktop/Game/resources/main_wallpaper.png");
+	Texture* mainMenuWallpaperTexture = new Texture("C: / Users / alexp / Desktop / Game / resources / main_wallpaper.png");
 
 	SDL_Rect dstrect;
 	dstrect.x = dstrect.y = 0;
@@ -11,11 +11,11 @@ MainMenuGameState::MainMenuGameState(Renderer* renderer) : GameState() {
 
 	wallpaperView = new View(mainMenuWallpaperTexture, dstrect);
 
-	SDL_Texture* playButtonTexture = IMG_LoadTexture(renderer->getSDLRenderer(), "C:/Users/alexp/Desktop/Game/resources/play_button.png");
+	Texture* playButtonTexture = new Texture("C:/Users/alexp/Desktop/Game/resources/play_button.png");
 	
 	std::cout << SDL_GetError() << std::endl;
 
-	SDL_QueryTexture(playButtonTexture, NULL, NULL, &(dstrect.w), &(dstrect.h));
+	//SDL_QueryTexture(playButtonTexture, NULL, NULL, &(dstrect.w), &(dstrect.h));
 	dstrect.w *= 2;
 	dstrect.h *= 2;
 	dstrect.y = Window::BASE_WINDOW_HEIGHT / 2 - dstrect.h / 2;
@@ -24,10 +24,10 @@ MainMenuGameState::MainMenuGameState(Renderer* renderer) : GameState() {
 	playButtonView = new ButtonView(playButtonTexture, dstrect);
 	playButtonView->setOnHoverListener(
 		[this]() {
-			SDL_SetTextureColorMod(playButtonView->texture, 150, 150, 150);
+			
 		},
 		[this]() {
-			SDL_SetTextureColorMod(playButtonView->texture, 255, 255, 255);
+			
 		});
 
 	playButtonView->setOnClickListener(

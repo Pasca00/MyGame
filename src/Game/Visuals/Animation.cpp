@@ -1,7 +1,7 @@
 #include "Animation.h"
 #include "../Game.h"
 
-Animation::Animation(std::vector<SDL_Texture*> textures, std::vector<SDL_Rect> dstrect, uint32_t frameTimes) {
+Animation::Animation(std::vector<Texture*> textures, std::vector<SDL_Rect> dstrect, uint32_t frameTimes) {
 	timeSinceLastFrame = Game::getInstance()->getCurrentTime();
 	currentFrame = 0;
 	frames = new std::vector<FrameView*>(textures.size(), NULL);
@@ -14,12 +14,12 @@ Animation::Animation(std::vector<SDL_Texture*> textures, std::vector<SDL_Rect> d
 	done = false;
 }
 
-Animation::Animation(std::vector<SDL_Texture*> textures, SDL_Rect dstrect, std::vector<uint32_t> frameTimes) {
+Animation::Animation(std::vector<Texture*> textures, std::vector<uint32_t> frameTimes, float x, float y, float sizeMultiplier) {
 	timeSinceLastFrame = 0;
 	currentFrame = 0;
 	frames = new std::vector<FrameView*>(textures.size(), NULL);
 	for (int i = 0; i < textures.size(); i++) {
-		(*frames)[i] = (new FrameView(textures[i], dstrect, frameTimes[i]));
+		(*frames)[i] = (new FrameView(textures[i], frameTimes[i], x, y, sizeMultiplier));
 	}
 
 	this->timeMultiplier = new int(1);
@@ -27,12 +27,12 @@ Animation::Animation(std::vector<SDL_Texture*> textures, SDL_Rect dstrect, std::
 	done = false;
 }
 
-Animation::Animation(std::vector<SDL_Texture*> textures, SDL_Rect dstrect, uint32_t frameTimes) {
+Animation::Animation(std::vector<Texture*> textures, uint32_t frameTimes, float x, float y, float sizeMultiplier) {
 	timeSinceLastFrame = 0;
 	currentFrame = 0;
 	frames = new std::vector<FrameView*>(textures.size(), NULL);
 	for (int i = 0; i < textures.size(); i++) {
-		(*frames)[i] = (new FrameView(textures[i], dstrect, frameTimes));
+		(*frames)[i] = (new FrameView(textures[i], frameTimes, x, y, sizeMultiplier));
 	}
 
 	this->timeMultiplier = new int(1);

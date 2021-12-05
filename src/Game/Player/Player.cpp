@@ -18,7 +18,7 @@ Player::Player(int health, SDL_Rect dstrect, int8_t direction)
 	this->attackState = new AttackPlayerState(this);
 	this->currentState_ = idleState;
 
-	SDL_QueryTexture(currentState_->getCurrentFrame()->texture, NULL, NULL, &this->textureW, &this->textureH);
+	//SDL_QueryTexture(currentState_->getCurrentFrame()->texture, NULL, NULL, &this->textureW, &this->textureH);
 	this->dstrect.w = textureW * 3;
 	this->dstrect.h = textureH * 3;
 
@@ -63,7 +63,7 @@ void Player::drawToRelativePosition(SDL_Rect cameraPos) {
 	}
 }
 
-SDL_Texture* Player::getCurrentTexture() {
+Texture* Player::getCurrentTexture() {
 	return currentState_->getCurrentTexture();
 }
 

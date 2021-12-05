@@ -36,8 +36,8 @@ Level::Level(int h, int w) {
 	placeDecorations();
 	placeInteractables();
 
-	lightBlueFilter = new Filter(bag_->filters["lightBlueFilter"], SDL_BLENDMODE_MUL);
-	mask = new Filter(bag_->filters["circularMask"], SDL_BLENDMODE_MOD);
+	//lightBlueFilter = new Filter(bag_->filters["lightBlueFilter"], SDL_BLENDMODE_MUL);
+	//mask = new Filter(bag_->filters["circularMask"], SDL_BLENDMODE_MOD);
 }
 
 void Level::handleInput(Input* input) {
@@ -99,20 +99,20 @@ void Level::renderTileMap() {
 void Level::placeDecorations() {
 	SDL_Rect rect;
 
-	SDL_Texture* woodenFence = bag_->decorationsTextures["woodenFence"];
-	SDL_QueryTexture(woodenFence, NULL, NULL, &rect.w, &rect.h);
+	Texture* woodenFence = bag_->decorationsTextures["woodenFence"];
+	/*SDL_QueryTexture(woodenFence, NULL, NULL, &rect.w, &rect.h);
 	rect.w *= 5;
 	rect.h *= 5;
 	rect.y = tiles[0][0]->dstrect.y - rect.h + 10;
 	rect.x = 500;
-	decorations.push_back(new View(woodenFence, rect));
+	decorations.push_back(new View(woodenFence, rect));*/
 
-	SDL_Texture* grass = bag_->decorationsTextures["grass"];
-	SDL_QueryTexture(grass, NULL, NULL, &rect.w, &rect.h);
+	Texture* grass = bag_->decorationsTextures["grass"];
+	/*SDL_QueryTexture(grass, NULL, NULL, &rect.w, &rect.h);
 	rect.w *= 4;
 	rect.h *= 4;
 	rect.y = tiles[0][0]->dstrect.y - rect.h + 10;
-	rect.x = 0;
+	rect.x = 0;*/
 
 	for (int i = 0; i < 20; i++) {
 		decorations.push_back(new View(grass, rect));
@@ -124,7 +124,7 @@ void Level::placeInteractables() {
 	int x = 0;
 	int y = 0;
 
-	std::vector<SDL_Texture*> eKeys{
+	std::vector<Texture*> eKeys{
 		bag_->miniTextures["eKeyUp"],
 		bag_->miniTextures["eKeyDown"]
 	};
@@ -133,7 +133,7 @@ void Level::placeInteractables() {
 	y = tiles[0][0]->dstrect.y;
 
 	InteractableView* shrine = new InteractableView(player->getRectAddress(), bag_->decorationsTextures["altar"], x, y, 4);
-	shrine->attachPromptAnimation(new Animation(eKeys, {0, 0, 0, 0}, 350));
+	shrine->attachPromptAnimation(new Animation(eKeys, 350, 0, 0));
 	shrine->setOnInteractListener([this] {
 		printf("deez nuts lmao\n");
 	});
@@ -143,7 +143,7 @@ void Level::placeInteractables() {
 	y = tiles[0][0]->dstrect.y;
 
 	InteractableView* carriage = new InteractableView(player->getRectAddress(), bag_->decorationsTextures["carriage"], x, y, 6);
-	carriage->attachPromptAnimation(new Animation(eKeys, {0, 0, 0, 0}, 350));
+	carriage->attachPromptAnimation(new Animation(eKeys, 350, 0, 0));
 	carriage->setOnInteractListener([] {
 		printf("add Money\n");
 	});

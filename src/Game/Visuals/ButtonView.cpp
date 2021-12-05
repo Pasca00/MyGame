@@ -1,13 +1,13 @@
 #include "ButtonView.h"
 
-ButtonView::ButtonView(SDL_Texture *texture, SDL_Rect dstrect) : View(texture, dstrect) {
+ButtonView::ButtonView(Texture *texture, SDL_Rect dstrect) : View(texture, dstrect) {
 	onHoverListener = NULL;
 	onHoverReleaseListener = NULL;
 
 	onClickListener = NULL;
 }
 
-ButtonView::ButtonView(SDL_Texture* texture, int x, int y, int sizeMultiplier)
+ButtonView::ButtonView(Texture* texture, int x, int y, int sizeMultiplier)
 	: View(texture, x, y, sizeMultiplier) {
 	onHoverListener = NULL;
 	onHoverReleaseListener = NULL;

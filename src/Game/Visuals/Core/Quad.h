@@ -19,12 +19,12 @@ class Quad {
 		std::vector<Vertex> vertices;
 		std::vector<unsigned int> indices;
 
-		unsigned int VAO;
-		unsigned int VBO[2];
-
-		void initBuffers();
+		GLuint VAO;
+		GLuint VBO[2];
 
 	public:
 		Quad(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices);
 		unsigned int getVAO();
+
+		std::vector<unsigned int> getIndices();
 };
