@@ -184,6 +184,7 @@
     <ClInclude Include="src\Game\State\PlayingGameState.h" />
     <ClInclude Include="src\game\state\State.h" />
     <ClInclude Include="src\Game\stb_image.h" />
+    <ClInclude Include="src\Game\Utils\Paths.h" />
     <ClInclude Include="src\Game\Visuals\Animation.h" />
     <ClInclude Include="src\Game\Visuals\Background.h" />
     <ClInclude Include="src\Game\Visuals\ButtonView.h" />

@@ -5,8 +5,6 @@
 
 class Texture {
 	private:
-		int width;
-		int height;
 		int channels;
 
 		GLuint targetType;
@@ -30,4 +28,7 @@ class Texture {
 		int getChannels();
 
 		GLuint getTextureID();
+
+		int width;
+		int height;
 };

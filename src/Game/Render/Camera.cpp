@@ -169,6 +169,8 @@ void Camera::renderViewToRelativePosition(View* view) {
 		rendRect.x -= rect.x;
 		renderer->addToQueue(rendRect, view->texture);
 	}
+
+	renderer->draw(view, NULL);
 }
 
 void Camera::renderViewToAbsolutePosition(View* view) {

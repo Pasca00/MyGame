@@ -43,6 +43,27 @@ void Renderer::addToQueue(Player* player) {
 
 void Renderer::draw(View* view, Shader* shader) {
 	glm::mat4 modelMatrix(1);
+	modelMatrix = glm::translate(modelMatrix, view->pos);
+	modelMatrix = glm::scale(modelMatrix, glm::vec3(view->texture->getWidth() * view->sizeMultiplier, view->texture->getHeight() * view->sizeMultiplier, 0));
+
+	shader->use();
+	shader->setModelMatrix(modelMatrix);
+	shader->setProjectionMatrix(projectionMatrix);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, view->texture->getTextureID());
+
+	glBindVertexArray(quad->getVAO());
+
+	glDrawArrays(GL_QUADS, 0, quad->getIndices().size());
+
+	glBindVertexArray(0);
+}
+
+void Renderer::drawToRelativePosition(View* view, Shader* shader, glm::vec3 cameraPos) {
+	glm::mat4 modelMatrix(1);
+	modelMatrix = glm::translate(modelMatrix, view->pos);
+	modelMatrix = glm::translate(modelMatrix, -cameraPos);
 	modelMatrix = glm::scale(modelMatrix, glm::vec3(view->texture->getWidth() * view->sizeMultiplier, view->texture->getHeight() * view->sizeMultiplier, 0));
 
 	shader->use();

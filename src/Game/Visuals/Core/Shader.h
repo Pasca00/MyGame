@@ -15,7 +15,7 @@ class Shader {
 		const char* fShaderCode;
 
 	public:
-		Shader(std::string& name);
+		Shader(const char* basePath, std::string& name);
 
 		void use();
 		void compile();
@@ -24,6 +24,8 @@ class Shader {
 
 		void setModelMatrix(glm::mat4& modelMatrix);
 		void setProjectionMatrix(glm::mat4& projectionMatrix);
+
+		void setTimeUniform(float time);
 
 		GLuint getProgram();
 

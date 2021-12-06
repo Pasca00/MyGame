@@ -91,6 +91,9 @@
     <Filter Include="Source Files\Shaders">
       <UniqueIdentifier>{928bf8fc-f465-46c1-a350-859706ec701e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game\Utils">
+      <UniqueIdentifier>{e3e601b3-c420-407d-81be-845f7f5cfe93}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\game\main.cpp">
@@ -556,6 +559,9 @@
     </ClInclude>
     <ClInclude Include="src\Game\Visuals\Core\Shader.h">
       <Filter>Header Files\Game\Visuals\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Utils\Paths.h">
+      <Filter>Header Files\Game\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

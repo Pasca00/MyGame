@@ -29,6 +29,7 @@ class Renderer {
 		void addToQueue(Player* player);
 
 		void draw(View* view, Shader* shader);
+		void drawToRelativePosition(View* view, Shader* shader, glm::vec3 cameraPos);
 
 		void clearScreen();
 		void renderQueue();

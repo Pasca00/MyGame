@@ -1,6 +1,7 @@
 #include "Game.h"
 
 #include "State/MainMenuGameState.h"
+#include "Utils/Paths.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -13,11 +14,11 @@ Game::Game() {
 	running = true;
 	window = new Window();
 	setupGL();
+	stbi_set_flip_vertically_on_load(true);
 
 	renderer = new Renderer();
-	//state_ = new MainMenuGameState(renderer);
+	state_ = new MainMenuGameState();
 	inputCollector = new InputCollector();
-
 
 	//loadingScreen = new LoadingGameState(renderer);
 
@@ -27,14 +28,7 @@ Game::Game() {
 	startTime = SDL_GetTicks();
 	currentTime = startTime;
 
-	stbi_set_flip_vertically_on_load(true);
-
-	std::string filename = "C:/Users/alexp/Desktop/Game/src/Shaders/Test";
-	shader = new Shader(filename);
-
-	playBttn = new Texture("C:/Users/alexp/Desktop/Game/resources/Player/player_idle1.png");
-
-	player = new View(playBttn, 0, 0, 3);
+	baseTextureShader = new Shader(SHADERS::BASE_SHADE_PATH, std::string("Test"));
 }
 
 void Game::setupGL() {
@@ -84,7 +78,7 @@ void Game::handleInput(Input input) {
 	if (input.QUIT || input.KEY_ESCAPE) {
 		running = false;
 	}
-	//state_->handleInput(this, &input);
+	state_->handleInput(this, &input);
 }
 
 void Game::requestTransition(GameState* nextState) {
@@ -108,22 +102,16 @@ Window* Game::getWindow() {
 }
 
 void Game::renderClearScreen() {
-	/*glClearColor(0.2f, 0.2f, 0.9f, 1.f);
-	glClear(GL_COLOR_BUFFER_BIT);*/
-
 	renderer->clearScreen();
 }
 
 void Game::renderQueue() {
 	glViewport(0, 0, Window::BASE_WINDOW_WIDTH, Window::BASE_WINDOW_HEIGHT);
-
-	renderer->draw(player, shader);
-	//state_->draw();
-	//renderer->renderQueue();
+	state_->draw();
 }
 
 void Game::update() {
-	//state_->update();
+	state_->update();
 }
 
 Uint32 Game::getCurrentTime() {

@@ -33,7 +33,7 @@ bool ButtonView::hasClickListener() {
 }
 
 bool ButtonView::mouseIsHovering(int x, int y) {
-	if (x >= dstrect.x && x <= dstrect.x + dstrect.w && y >= dstrect.y && y <= dstrect.y + dstrect.h) {
+	if ((float)x >= pos.x && (float)x <= pos.x + texture->width * sizeMultiplier && (float)y >= pos.y && (float)y <= pos.y + texture->height * sizeMultiplier) {
 		return true;
 	}
 

@@ -42,11 +42,6 @@ class Game {
 		Uint32 currentTime;
 
 		SDL_GLContext glContext;
-		
-		Texture* playBttn;
-		Quad* quad;
-		Shader* shader;
-		View* player;
 
 		Game();
 		void setupGL();
@@ -74,5 +69,7 @@ class Game {
 		void loadLevel();
 		void requestTransition(GameState* nextState);
 		void changeState();
+
+		Shader* baseTextureShader;
 };
 

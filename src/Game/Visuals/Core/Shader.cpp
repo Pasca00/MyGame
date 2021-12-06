@@ -1,7 +1,7 @@
 #include "Shader.h"
 #include "../../glm/gtc/type_ptr.hpp"
 
-Shader::Shader(std::string& name) {
+Shader::Shader(const char* basePath, std::string& name) {
 	this->name = name;
 
 	std::string vertexCode;
@@ -10,8 +10,10 @@ Shader::Shader(std::string& name) {
 	std::ifstream vShaderFile;
 	std::ifstream fShaderFile;
 
-	std::string vFileName = name;
-	std::string fFileName = name;
+	std::string fullPath = std::string(basePath).append(name);
+
+	std::string vFileName = fullPath;
+	std::string fFileName = fullPath;
 
 	vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 	fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
@@ -98,4 +100,8 @@ void Shader::setModelMatrix(glm::mat4& modelMatrix) {
 
 void Shader::setProjectionMatrix(glm::mat4& projectionMatrix) {
 	glUniformMatrix4fv(getUniformLocation("Projection"), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+}
+
+void Shader::setTimeUniform(float time) {
+	glUniform1f(getUniformLocation("time"), time);
 }

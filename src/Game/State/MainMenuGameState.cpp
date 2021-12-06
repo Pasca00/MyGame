@@ -1,27 +1,22 @@
 #include "MainMenuGameState.h"
 #include "../Game.h"
 
-MainMenuGameState::MainMenuGameState(Renderer* renderer) : GameState() {
-	Texture* mainMenuWallpaperTexture = new Texture("C: / Users / alexp / Desktop / Game / resources / main_wallpaper.png");
+MainMenuGameState::MainMenuGameState() : GameState() {
+	Texture* mainMenuWallpaperTexture = new Texture("C:/Users/alexp/Desktop/Game/resources/main_wallpaper.png");
 
 	SDL_Rect dstrect;
 	dstrect.x = dstrect.y = 0;
 	dstrect.w = Window::BASE_WINDOW_WIDTH;
 	dstrect.h = Window::BASE_WINDOW_HEIGHT;
 
-	wallpaperView = new View(mainMenuWallpaperTexture, dstrect);
+	wallpaperView = new View(mainMenuWallpaperTexture, 0, 0, 3);
 
 	Texture* playButtonTexture = new Texture("C:/Users/alexp/Desktop/Game/resources/play_button.png");
+
+	float y = (float)Window::BASE_WINDOW_HEIGHT / 2 - (playButtonTexture->getHeight() * 2) / 2;
+	float x = (float)Window::BASE_WINDOW_WIDTH / 2 - (playButtonTexture->getWidth() * 2) / 2;
 	
-	std::cout << SDL_GetError() << std::endl;
-
-	//SDL_QueryTexture(playButtonTexture, NULL, NULL, &(dstrect.w), &(dstrect.h));
-	dstrect.w *= 2;
-	dstrect.h *= 2;
-	dstrect.y = Window::BASE_WINDOW_HEIGHT / 2 - dstrect.h / 2;
-	dstrect.x = Window::BASE_WINDOW_WIDTH / 2 - dstrect.w / 2;
-
-	playButtonView = new ButtonView(playButtonTexture, dstrect);
+	playButtonView = new ButtonView(playButtonTexture, x, y, 2);
 	playButtonView->setOnHoverListener(
 		[this]() {
 			
@@ -58,8 +53,8 @@ void MainMenuGameState::handleInput(Game* game, Input* input) {
 }
 
 void MainMenuGameState::draw() {
-	Game::getInstance()->getRenderer()->addToQueue(wallpaperView);
-	Game::getInstance()->getRenderer()->addToQueue(playButtonView);
+	Game::getInstance()->getRenderer()->draw(wallpaperView, Game::getInstance()->baseTextureShader);
+	Game::getInstance()->getRenderer()->draw(playButtonView, Game::getInstance()->baseTextureShader);
 }
 
 void MainMenuGameState::update() { }
