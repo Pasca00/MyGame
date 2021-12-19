@@ -21,5 +21,5 @@ View::~View() {
 }
 
 void View::draw(Camera* camera) {
-	camera->renderViewToRelativePosition(this);
+	camera->drawViewToRelativePosition(this);
 }

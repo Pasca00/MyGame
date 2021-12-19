@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL.h>
+#include "../glm/glm.hpp"
 
 #define DIRECTION_RIGHT 1
 #define DIRECTION_LEFT -1
@@ -9,15 +10,18 @@
 
 class Movable {
 	protected:
-		int xVelocity;
-		int yVelocity;
-		int jumpSpeed;
-		int acceleration;
-		int velocityCap;
+		float xVelocity;
+		float yVelocity;
+		float jumpSpeed;
+		float acceleration;
+		float velocityCap;
 		signed char xDirection;
 		signed char yDirection;
 
 		SDL_Rect dstrect;
+
+		glm::vec3 position;
+		glm::vec3 position2;
 
 		bool accelerating;
 
@@ -27,7 +31,7 @@ class Movable {
 		bool collisionUp;
 
 	public:
-		Movable(int velocity, int jumpSpeed, int fallSpeed, int acceleration, int velocityCap, signed char direction, signed char yDirection);
+		Movable(float velocity, float jumpSpeed, float fallSpeed, float acceleration, float velocityCap, signed char direction, signed char yDirection);
 
 		void setXDirection(signed char xDirection);
 		signed char getXDirection();
@@ -47,6 +51,11 @@ class Movable {
 		void setRect(SDL_Rect dstrect);
 		SDL_Rect getRect();
 		SDL_Rect* getRectAddress();
+
+		glm::vec3 getPosition();
+		glm::vec3 getPosition2();
+		glm::vec3* getPositionPtr();
+		glm::vec3* getPosition2Ptr();
 
 		void setAcceleration(int acceleration);
 		int getAcceleration();

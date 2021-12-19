@@ -3,16 +3,16 @@
 #include "../Game.h"
 
 Background::Background(const char* backgroundTextureFile, std::vector<const char*> layerTexturesFiles, int numberOfScenes) {
-	SDL_Rect rect;
-	rect.x = rect.y = 0;
-	rect.w = Window::BASE_WINDOW_WIDTH;
-	rect.h = Window::BASE_WINDOW_HEIGHT;
+	float x = 0;
+	float y = 0;
+	float w = (float) Window::BASE_WINDOW_WIDTH;
+	float h = (float) Window::BASE_WINDOW_HEIGHT;
 
 	if (backgroundTextureFile == NULL) {
 		staticBackground = NULL;
 	} else {
 		Texture* t_ = new Texture(backgroundTextureFile);
-		staticBackground = new View(t_, rect);
+		staticBackground = new View(t_, 0, 0, 3);
 	}
 
 	int numberOfLayers = layerTexturesFiles.size();
@@ -20,10 +20,10 @@ Background::Background(const char* backgroundTextureFile, std::vector<const char
 	for (int i = 0; i < numberOfLayers; i++) {
 		parallaxLayers[i] = std::vector<View*>(numberOfScenes * (i + 1), NULL);
 		Texture* t_ = new Texture(layerTexturesFiles[i]);
-		rect.x = 0;
+		x = 0;
 		for (int j = 0; j < parallaxLayers[i].size(); j++) {
-			parallaxLayers[i][j] = new View(t_, rect);
-			rect.x += rect.w;
+			parallaxLayers[i][j] = new View(t_, x, y, 3);
+			x += w;
 		}
 	}
 
@@ -52,12 +52,12 @@ void Background::scrollRight() {
 
 void Background::draw() {
 	if (staticBackground != NULL) {
-		Game::getInstance()->getRenderer()->addToQueue(staticBackground);
+		Game::getInstance()->getRenderer()->draw(staticBackground, Game::getInstance()->baseTextureShader);
 	}
 
 	for (int i = 0; i < parallaxLayers.size(); i++) {
 		for (int j = 0; j < parallaxLayers[i].size(); j++) {
-			Game::getInstance()->getRenderer()->addToQueue(parallaxLayers[i][j]);
+			Game::getInstance()->getRenderer()->draw(parallaxLayers[i][j], Game::getInstance()->baseTextureShader);
 		}
 	}
 }

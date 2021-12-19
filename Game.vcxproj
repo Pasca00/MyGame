@@ -149,9 +149,11 @@
     <ClCompile Include="src\Game\State\PlayerState\WalkingPlayerState.cpp" />
     <ClCompile Include="src\Game\State\PlayingGameState.cpp" />
     <ClCompile Include="src\game\state\State.cpp" />
+    <ClCompile Include="src\Game\Visuals\AfterEffects.cpp" />
     <ClCompile Include="src\Game\Visuals\Animation.cpp" />
     <ClCompile Include="src\Game\Visuals\Background.cpp" />
     <ClCompile Include="src\Game\Visuals\ButtonView.cpp" />
+    <ClCompile Include="src\Game\Visuals\Core\FrameBuffer.cpp" />
     <ClCompile Include="src\Game\Visuals\Core\Quad.cpp" />
     <ClCompile Include="src\Game\Visuals\Core\Shader.cpp" />
     <ClCompile Include="src\Game\Visuals\Core\Texture.cpp" />
@@ -185,9 +187,11 @@
     <ClInclude Include="src\game\state\State.h" />
     <ClInclude Include="src\Game\stb_image.h" />
     <ClInclude Include="src\Game\Utils\Paths.h" />
+    <ClInclude Include="src\Game\Visuals\AfterEffects.h" />
     <ClInclude Include="src\Game\Visuals\Animation.h" />
     <ClInclude Include="src\Game\Visuals\Background.h" />
     <ClInclude Include="src\Game\Visuals\ButtonView.h" />
+    <ClInclude Include="src\Game\Visuals\Core\FrameBuffer.h" />
     <ClInclude Include="src\Game\Visuals\Core\Quad.h" />
     <ClInclude Include="src\Game\Visuals\Core\Shader.h" />
     <ClInclude Include="src\Game\Visuals\Core\Texture.h" />
@@ -287,6 +291,10 @@
     <ClInclude Include="src\sdl\sdl2_image-2.0.5\include\SDL_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="src\Shaders\AfterEffectTestFragmentShader.glsl" />
+    <None Include="src\Shaders\AfterEffectTestVertexShader.glsl" />
+    <None Include="src\Shaders\FrameBufferTestFragmentShader.glsl" />
+    <None Include="src\Shaders\FrameBufferTestVertexShader.glsl" />
     <None Include="src\Shaders\TestFragmentShader.glsl" />
     <None Include="src\Shaders\TestVertexShader.glsl" />
   </ItemGroup>

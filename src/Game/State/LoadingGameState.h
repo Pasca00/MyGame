@@ -15,7 +15,7 @@ class LoadingGameState : public GameState {
 		std::mutex m;
 
 	public:
-		LoadingGameState(Renderer* renderer);
+		LoadingGameState();
 
 		void enter(/*should take level that needs to be loaded*/);
 

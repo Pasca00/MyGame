@@ -7,7 +7,7 @@ ButtonView::ButtonView(Texture *texture, SDL_Rect dstrect) : View(texture, dstre
 	onClickListener = NULL;
 }
 
-ButtonView::ButtonView(Texture* texture, int x, int y, int sizeMultiplier)
+ButtonView::ButtonView(Texture* texture, float x, float y, float sizeMultiplier)
 	: View(texture, x, y, sizeMultiplier) {
 	onHoverListener = NULL;
 	onHoverReleaseListener = NULL;

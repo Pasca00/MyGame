@@ -10,7 +10,7 @@ Player::Player(int health, SDL_Rect dstrect, int8_t direction)
 
 	this->dstrect = dstrect;
 
-	this->sizeMultiplier = 1;
+	this->sizeMultiplier = 2;
 
 	this->idleState = new IdlePlayerState();
 	this->walkingState = new WalkingPlayerState(this);
@@ -25,15 +25,29 @@ Player::Player(int health, SDL_Rect dstrect, int8_t direction)
 	healthbar = new Healthbar(this);
 }
 
+Player::Player(int health, float x, float y, int8_t direction)
+	: Movable(0, 30, 0, 3, 6, direction, DIRECTION_DOWN) {
+	this->health = health;
+
+	this->position = glm::vec3(x, y, 0);
+
+	this->sizeMultiplier = 1;
+
+	this->idleState = new IdlePlayerState();
+	this->walkingState = new WalkingPlayerState(this);
+	this->fallingState = new FallingPlayerState();
+	this->attackState = new AttackPlayerState(this);
+	this->currentState_ = idleState;
+
+
+	healthbar = new Healthbar(this);
+}
+
 void Player::handleInput(Level* level, Input* input) {
 	if (input->KEY_SHIFT) {
 		TimeEngine::getInstance()->slowDown();
-		level->lightBlueFilter->fadeIn();
-		level->mask->fadeIn();
 	} else {
 		TimeEngine::getInstance()->returnToNormal();
-		level->lightBlueFilter->fadeOut();
-		level->mask->fadeOut();
 	}
 
 	currentState_->handleInput(this, input);
@@ -51,16 +65,16 @@ void Player::draw() {
 	}
 }
 
-void Player::drawToRelativePosition(SDL_Rect cameraPos) {
-	SDL_Rect renderRect = dstrect;
-	renderRect.x -= cameraPos.x;
-
+void Player::drawToRelativePosition(Camera* camera) {
 	if (xDirection == DIRECTION_RIGHT) {
-		Game::getInstance()->getRenderer()->addToQueue(renderRect, currentState_->getCurrentTexture());
+		glUniform1i(glGetUniformLocation(Game::getInstance()->baseTextureShader->getProgram(), "render_flipped"), 0);
+	} else {
+		glUniform1i(glGetUniformLocation(Game::getInstance()->baseTextureShader->getProgram(), "render_flipped"), 1);
 	}
-	else {
-		Game::getInstance()->getRenderer()->addToQueueFlipped(renderRect, currentState_->getCurrentTexture(), SDL_FLIP_HORIZONTAL);
-	}
+
+	camera->drawViewToRelativePosition(currentState_->getCurrentFrame());
+	
+	//glUniform1i(glGetUniformLocation(Game::getInstance()->baseTextureShader->getProgram(), "render_flipped"), 0);
 }
 
 Texture* Player::getCurrentTexture() {
@@ -82,6 +96,6 @@ Player::Healthbar::Healthbar(Player* player) {
 void Player::Healthbar::setHealth(int health) { }
 
 void Player::drawHealthbar() {
-	Game::getInstance()->getRenderer()->addToQueue(healthbar->health);
-	Game::getInstance()->getRenderer()->addToQueue(healthbar->container);
+	//Game::getInstance()->getRenderer()->addToQueue(healthbar->health);
+	Game::getInstance()->getRenderer()->draw(healthbar->container);
 }

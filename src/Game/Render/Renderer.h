@@ -6,7 +6,9 @@
 #include "../Window/Window.h"
 #include "../Visuals/Core/Quad.h"
 #include "../Visuals/Core/Shader.h"
+#include "../Visuals/Core/FrameBuffer.h"
 #include "../Visuals/View.h"
+#include "../Visuals/AfterEffects.h"
 #include "../Player/Player.h"
 
 class Renderer {
@@ -28,7 +30,10 @@ class Renderer {
 		void addToQueue(View* view);
 		void addToQueue(Player* player);
 
-		void draw(View* view, Shader* shader);
+		void draw(View* view, Shader* shader = NULL);
+		void draw(AfterEffect* afterEffect);
+		void draw(FrameBuffer* frameBuffer);
+
 		void drawToRelativePosition(View* view, Shader* shader, glm::vec3 cameraPos);
 
 		void clearScreen();

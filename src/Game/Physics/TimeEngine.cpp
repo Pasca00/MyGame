@@ -6,6 +6,9 @@ TimeEngine::TimeEngine(int physicsTimeMultiplier, int animationTimeMultiplier) {
 	this->physicsTimeMultiplier = physicsTimeMultiplier;
 	this->animationTimeMultiplier = animationTimeMultiplier;
 
+	this->timeSlowed = false;
+	this->stopTime = 0;
+
 	this->currentAnimationMultiplier = this->currentPhysicsMultiplier = 1;
 }
 
@@ -13,7 +16,10 @@ TimeEngine::TimeEngine() {
 	physicsTimeMultiplier = 5;
 	animationTimeMultiplier = 2;
 
-	this->currentAnimationMultiplier = this->currentPhysicsMultiplier = 1;
+	timeSlowed = false;
+	stopTime = 0;
+
+	currentAnimationMultiplier = currentPhysicsMultiplier = 1;
 }
 
 TimeEngine* TimeEngine::getInstance() {
@@ -41,11 +47,29 @@ int TimeEngine::getAnimationMultiplier() {
 }
 
 void TimeEngine::slowDown() {
-	this->currentAnimationMultiplier = animationTimeMultiplier;
-	this->currentPhysicsMultiplier = physicsTimeMultiplier;
+	timeSlowed = true;
+	if (stopTime == 0) {
+		stopTime = Game::getInstance()->getCurrentTime();
+	}
+
+
+	currentAnimationMultiplier = animationTimeMultiplier;
+	currentPhysicsMultiplier = physicsTimeMultiplier;
 }
 
 void TimeEngine::returnToNormal() {
-	this->currentAnimationMultiplier = 1;
-	this->currentPhysicsMultiplier = 1;
+	timeSlowed = false;
+
+	stopTime = 0;
+
+	currentAnimationMultiplier = 1;
+	currentPhysicsMultiplier = 1;
+}
+
+bool TimeEngine::isSlowed() {
+	return timeSlowed;
+}
+
+Uint32 TimeEngine::getStopTime() {
+	return stopTime;
 }

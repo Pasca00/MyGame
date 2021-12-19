@@ -34,13 +34,14 @@ class Player : public Movable {
 
 	public:
 		Player(int health, SDL_Rect dstrect, int8_t direction);
+		Player(int health, float x, float y, int8_t direction = DIRECTION_RIGHT);
 
 		void handleInput(Level* level, Input* input);
 		void update();
 		void draw();
 		void drawHealthbar();
 
-		void drawToRelativePosition(SDL_Rect cameraPos);
+		void drawToRelativePosition(Camera* camera);
 
 		Texture* getCurrentTexture();
 

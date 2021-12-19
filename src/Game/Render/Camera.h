@@ -40,6 +40,8 @@ class Camera {
 		void renderViewToRelativePosition(View* view);
 		void renderViewToAbsolutePosition(View* view);
 
+		void drawViewToRelativePosition(View* view, Shader* shader = NULL);
+
 		int8_t getXDirection();
 
 		SDL_Rect getRect();

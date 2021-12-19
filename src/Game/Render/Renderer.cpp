@@ -1,6 +1,7 @@
 #include "Renderer.h"
 #include "../Game.h"
 #include "../glm/gtc/matrix_transform.hpp"
+#include "../Physics/TimeEngine.h"
 
 Renderer::Renderer() {
 	drawR = 0;
@@ -42,16 +43,59 @@ void Renderer::addToQueue(Player* player) {
 }
 
 void Renderer::draw(View* view, Shader* shader) {
+	if (shader == NULL) {
+		shader = Game::getInstance()->baseTextureShader;
+	}
+
 	glm::mat4 modelMatrix(1);
 	modelMatrix = glm::translate(modelMatrix, view->pos);
-	modelMatrix = glm::scale(modelMatrix, glm::vec3(view->texture->getWidth() * view->sizeMultiplier, view->texture->getHeight() * view->sizeMultiplier, 0));
+	modelMatrix = glm::scale(modelMatrix, glm::vec3(view->texture->getWidth() * view->sizeMultiplier, view->texture->getHeight() * view->sizeMultiplier, 1));
 
 	shader->use();
 	shader->setModelMatrix(modelMatrix);
 	shader->setProjectionMatrix(projectionMatrix);
+	shader->setTimeUniform(Game::getInstance()->getCurrentTime() - (float) TimeEngine::getInstance()->getStopTime() * TimeEngine::getInstance()->isSlowed());
+
+	glUniform1i(shader->getUniformLocation("time_stop"), TimeEngine::getInstance()->isSlowed());
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, view->texture->getTextureID());
+
+	glBindVertexArray(quad->getVAO());
+
+	glDrawArrays(GL_QUADS, 0, quad->getIndices().size());
+
+	glBindVertexArray(0);
+}
+
+void Renderer::draw(AfterEffect* afterEffect) {
+	glm::mat4 modelMatrix(1);
+	modelMatrix = glm::translate(modelMatrix, afterEffect->position);
+	modelMatrix = glm::scale(modelMatrix, glm::vec3(afterEffect->size.x, afterEffect->size.y, 1));
+
+	afterEffect->shader->use();
+	afterEffect->shader->setModelMatrix(modelMatrix);
+	afterEffect->shader->setProjectionMatrix(projectionMatrix);
+
+	glBindVertexArray(quad->getVAO());
+
+	glDrawArrays(GL_QUADS, 0, quad->getIndices().size());
+
+	glBindVertexArray(0);
+}
+
+void Renderer::draw(FrameBuffer* frameBuffer) {
+	glm::mat4 modelMatrix(1);
+
+	modelMatrix = glm::scale(modelMatrix, glm::vec3((float) Window::BASE_WINDOW_WIDTH, (float) Window::BASE_WINDOW_HEIGHT, 1));
+
+	frameBuffer->shader->use();
+	frameBuffer->shader->setModelMatrix(modelMatrix);
+	frameBuffer->shader->setProjectionMatrix(projectionMatrix);
+	frameBuffer->shader->setTimeUniform(Game::getInstance()->getCurrentTime());
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, frameBuffer->getTextureID());
 
 	glBindVertexArray(quad->getVAO());
 

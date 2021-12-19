@@ -6,6 +6,8 @@ class TimeEngine {
 	private:
 		static TimeEngine* instance;
 
+		bool timeSlowed;
+
 		int physicsTimeMultiplier;
 		int animationTimeMultiplier;
 
@@ -14,6 +16,8 @@ class TimeEngine {
 
 		TimeEngine(int physicsTimeMultiplier, int animationTimeMultiplier);
 		TimeEngine();
+
+		Uint32 stopTime;
 
 	public:
 		static TimeEngine* getInstance();
@@ -26,5 +30,9 @@ class TimeEngine {
 
 		void slowDown();
 		void returnToNormal();
+
+		bool isSlowed();
+
+		Uint32 getStopTime();
 };
 

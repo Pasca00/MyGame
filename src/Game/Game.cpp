@@ -20,7 +20,7 @@ Game::Game() {
 	state_ = new MainMenuGameState();
 	inputCollector = new InputCollector();
 
-	//loadingScreen = new LoadingGameState(renderer);
+	loadingScreen = new LoadingGameState();
 
 	transitionRequested = false;
 	nextState = NULL;
@@ -28,7 +28,7 @@ Game::Game() {
 	startTime = SDL_GetTicks();
 	currentTime = startTime;
 
-	baseTextureShader = new Shader(SHADERS::BASE_SHADE_PATH, std::string("Test"));
+	baseTextureShader = new Shader(SHADERS::BASE_SHADER_PATH, std::string("Test"));
 }
 
 void Game::setupGL() {
@@ -46,6 +46,9 @@ void Game::setupGL() {
 
 	glewExperimental = GL_TRUE;
 	glContext = SDL_GL_CreateContext(window->getWindow());
+
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND);
 
 	error = glewInit();
 	if (error != GLEW_OK) {

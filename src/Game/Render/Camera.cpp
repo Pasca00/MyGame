@@ -169,8 +169,14 @@ void Camera::renderViewToRelativePosition(View* view) {
 		rendRect.x -= rect.x;
 		renderer->addToQueue(rendRect, view->texture);
 	}
+}
 
-	renderer->draw(view, NULL);
+void Camera::drawViewToRelativePosition(View* view, Shader* shader) {
+	if (shader == NULL) {
+		renderer->draw(view, Game::getInstance()->baseTextureShader);
+	} else {
+		renderer->draw(view, shader);
+;	}
 }
 
 void Camera::renderViewToAbsolutePosition(View* view) {

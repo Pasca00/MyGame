@@ -23,9 +23,9 @@ int main(int argc, char* args[]) {
 		deltaTime = game->getCurrentTime() - oldTime;
 		oldTime = game->getCurrentTime();
 		accumulator += deltaTime;
-		/*while (accumulator > 1.0/60.0) {
+		while (accumulator > 1.0/60.0) {
 			accumulator -= 1.0 / 60.0;
-		}*/
+		}
 
 		game->handleInput(input);
 		game->update();

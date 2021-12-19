@@ -46,6 +46,12 @@ void Animation::setRect(SDL_Rect dstrect) {
 	}
 }
 
+void Animation::setPosition(float x, float y) {
+	for (int i = 0; i < frames->size(); i++) {
+		(*frames)[i]->pos = glm::vec3(x, y, 0);
+	}
+}
+
 void Animation::reset() {
 	timeSinceLastFrame = Game::getInstance()->getCurrentTime();
 	currentFrame = 0;

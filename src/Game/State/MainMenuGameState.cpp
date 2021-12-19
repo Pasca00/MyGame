@@ -18,10 +18,10 @@ MainMenuGameState::MainMenuGameState() : GameState() {
 	
 	playButtonView = new ButtonView(playButtonTexture, x, y, 2);
 	playButtonView->setOnHoverListener(
-		[this]() {
+		[]() {
 			
 		},
-		[this]() {
+		[]() {
 			
 		});
 

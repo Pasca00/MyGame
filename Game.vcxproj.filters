@@ -198,6 +198,12 @@
     <ClCompile Include="src\Game\Visuals\Core\Shader.cpp">
       <Filter>Source Files\Game\Visuals\Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Visuals\AfterEffects.cpp">
+      <Filter>Source Files\Game\Visuals</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Visuals\Core\FrameBuffer.cpp">
+      <Filter>Source Files\Game\Visuals\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\sdl\sdl2-2.0.14\include\begin_code.h">
@@ -563,12 +569,30 @@
     <ClInclude Include="src\Game\Utils\Paths.h">
       <Filter>Header Files\Game\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="src\Game\Visuals\AfterEffects.h">
+      <Filter>Header Files\Game\Visuals</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Visuals\Core\FrameBuffer.h">
+      <Filter>Header Files\Game\Visuals\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\TestFragmentShader.glsl">
       <Filter>Source Files\Shaders</Filter>
     </None>
     <None Include="src\Shaders\TestVertexShader.glsl">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\AfterEffectTestFragmentShader.glsl">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\AfterEffectTestVertexShader.glsl">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\FrameBufferTestFragmentShader.glsl">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\FrameBufferTestVertexShader.glsl">
       <Filter>Source Files\Shaders</Filter>
     </None>
   </ItemGroup>

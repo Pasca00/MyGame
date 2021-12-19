@@ -3,8 +3,6 @@
 TextureBag* TextureBag::instance = NULL;
 
 TextureBag::TextureBag() {
-	SDL_Renderer* renderer = Game::getInstance()->getRenderer()->getSDLRenderer();
-	
 	backgroundLayers["backgroundMoon"] = new Texture("C:/Users/alexp/Desktop/Game/resources/backgrounds/clouds_background.png");
 	backgroundLayers["backgroundTreesFar"] = new Texture("C:/Users/alexp/Desktop/Game/resources/backgrounds/trees_far.png");
 	backgroundLayers["backgroundTreesClose"] = new Texture("C:/Users/alexp/Desktop/Game/resources/backgrounds/trees_close.png");
@@ -29,10 +27,10 @@ TextureBag::TextureBag() {
 	miniTextures["healthbarHealth"] = new Texture("C:/Users/alexp/Desktop/Game/resources/mini/healthbar/healthbar_health.png");
 
 
-	loadPlayerTextures(renderer);
+	loadPlayerTextures();
 }
 
-void TextureBag::loadPlayerTextures(SDL_Renderer* renderer) {
+void TextureBag::loadPlayerTextures() {
 	std::vector<Texture*> playerIdle(playerIdleFrameCount, NULL);
 	std::vector<Texture*> playerWalking(playerWalkingFrameCount, NULL);
 	std::vector<Texture*> playerFirstAttack(playerFirstAttackFrameCount, NULL);

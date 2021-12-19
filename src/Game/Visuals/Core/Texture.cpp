@@ -35,7 +35,7 @@ void Texture::loadImage(const char* filepath) {
 
     glGenTextures(1, &textureID);
     glBindTexture(GL_TEXTURE_2D, textureID);
-    
+
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, textureMinFilter);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, textureMagFilter);
 
@@ -43,6 +43,10 @@ void Texture::loadImage(const char* filepath) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
     imageData = stbi_load(filepath, &width, &height, &channels, 0);
+
+    if (imageData == NULL) {
+        printf("ERROR::TEXTURE::LOADING\n");
+    }
 
     glTexImage2D(targetType, 0, internalFormat[0][channels], width, height, 0, pixelFormat[channels], GL_UNSIGNED_BYTE, imageData);
     glGenerateMipmap(targetType);

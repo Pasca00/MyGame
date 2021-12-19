@@ -16,7 +16,7 @@ class TextureBag {
 		Uint8 playerWalkingFrameCount = 7;
 		Uint8 playerFirstAttackFrameCount = 5;
 		Uint8 playerSecondAttackFrameCount = 3;
-		void loadPlayerTextures(SDL_Renderer* renderer);
+		void loadPlayerTextures();
 
 	public:
 		static TextureBag* getInstance();
