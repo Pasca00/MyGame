@@ -4,13 +4,13 @@
 #include "../Physics/TimeEngine.h"
 #include "../Visuals/TextureBag/TextureBag.h"
 
-Player::Player(int health, SDL_Rect dstrect, int8_t direction) 
+Player::Player(int health, Hitbox* hitbox, int8_t direction) 
 	: Movable(0, 30, 0, 3, 6, DIRECTION_RIGHT, DIRECTION_DOWN) {
 	this->health = health;
 
-	this->dstrect = dstrect;
+	this->hitbox = hitbox;
 
-	this->sizeMultiplier = 2;
+	this->sizeMultiplier = 3;
 
 	this->idleState = new IdlePlayerState();
 	this->walkingState = new WalkingPlayerState(this);
@@ -19,8 +19,8 @@ Player::Player(int health, SDL_Rect dstrect, int8_t direction)
 	this->currentState_ = idleState;
 
 	//SDL_QueryTexture(currentState_->getCurrentFrame()->texture, NULL, NULL, &this->textureW, &this->textureH);
-	this->dstrect.w = textureW * 3;
-	this->dstrect.h = textureH * 3;
+	this->hitbox->w = textureW * sizeMultiplier;
+	this->hitbox->h = textureH * sizeMultiplier;
 
 	healthbar = new Healthbar(this);
 }
@@ -29,16 +29,15 @@ Player::Player(int health, float x, float y, int8_t direction)
 	: Movable(0, 30, 0, 3, 6, direction, DIRECTION_DOWN) {
 	this->health = health;
 
-	this->position = glm::vec3(x, y, 0);
-
-	this->sizeMultiplier = 1;
+	this->sizeMultiplier = 3;
 
 	this->idleState = new IdlePlayerState();
 	this->walkingState = new WalkingPlayerState(this);
 	this->fallingState = new FallingPlayerState();
 	this->attackState = new AttackPlayerState(this);
 	this->currentState_ = idleState;
-
+	
+	this->hitbox = new Hitbox(x, y, idleState->getCurrentTexture()->getWidth() * sizeMultiplier, idleState->getCurrentTexture()->getHeight() * sizeMultiplier);
 
 	healthbar = new Healthbar(this);
 }
@@ -58,22 +57,26 @@ void Player::update() {
 }
 
 void Player::draw() {
+	/*
 	if (xDirection == DIRECTION_RIGHT) {
 		Game::getInstance()->getRenderer()->addToQueue(dstrect, currentState_->getCurrentTexture());
 	} else {
 		Game::getInstance()->getRenderer()->addToQueueFlipped(dstrect, currentState_->getCurrentTexture(), SDL_FLIP_HORIZONTAL);
 	}
+	*/
 }
 
 void Player::drawToRelativePosition(Camera* camera) {
 	if (xDirection == DIRECTION_RIGHT) {
 		glUniform1i(glGetUniformLocation(Game::getInstance()->baseTextureShader->getProgram(), "render_flipped"), 0);
 	} else {
+		Game::getInstance()->baseTextureShader->use();
 		glUniform1i(glGetUniformLocation(Game::getInstance()->baseTextureShader->getProgram(), "render_flipped"), 1);
 	}
 
-	camera->drawViewToRelativePosition(currentState_->getCurrentFrame());
-	
+	//camera->drawViewToRelativePosition(currentState_->getCurrentFrame());
+	camera->drawViewToRelativePosition(this);
+	glUniform1i(glGetUniformLocation(Game::getInstance()->baseTextureShader->getProgram(), "render_flipped"), 0);
 	//glUniform1i(glGetUniformLocation(Game::getInstance()->baseTextureShader->getProgram(), "render_flipped"), 0);
 }
 

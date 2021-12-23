@@ -13,11 +13,11 @@ Level::Level(int h, int w) {
 	this->w = w;
 	this->h = h;
 
-	float x = 600;
-	float y = h * tileH + 1;
+	float x = 200;
+	float y = tileH + 1;
 
 	this->player = new Player(100, x, y, DIRECTION_RIGHT);
-	this->camera = new Camera(player->getRectAddress(), 0, w * tileW);
+	this->camera = new Camera(player->getHitbox(), 0, w * tileW);
 	this->timeEngine = TimeEngine::getInstance();
 	this->physicsEngine = new PhysicsEngine(2, 20, 1, 1, timeEngine->getPhysicsMultilpierAddress());
 	this->collisionEngine = new CollisionEngine(0, w * tileW);
@@ -99,7 +99,7 @@ void Level::renderTileMap() {
 void Level::placeDecorations() {
 	Texture* woodenFence = bag_->decorationsTextures["woodenFence"];
 	float x = 500;
-	float y = tiles[0][0]->pos.y + tileH - 10;
+	float y = tiles[0][0]->hitbox->y + tileH - 10;
 	decorations.push_back(new View(woodenFence, x, y, 5));
 
 	Texture* grass = bag_->decorationsTextures["grass"];
@@ -110,7 +110,7 @@ void Level::placeDecorations() {
 	}
 
 	x = 0;
-	y = tiles[0][0]->pos.y + tileH - 10;
+	y = tiles[0][0]->hitbox->y + tileH - 10;
 }
 
 void Level::placeInteractables() {
@@ -120,7 +120,7 @@ void Level::placeInteractables() {
 	
 
 	x = 1200;
-	y = tiles[0][0]->pos.y + tileH - 10;
+	y = tiles[0][0]->hitbox->y + tileH - 10;
 
 	InteractableView* shrine = new InteractableView(bag_->decorationsTextures["altar"], x, y, 4);
 	shrine->setOnInteractListener([this] {

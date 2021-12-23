@@ -16,11 +16,11 @@ class Animation {
 		bool done;
 
 	public:
-		Animation(std::vector<Texture*> textures, std::vector<SDL_Rect> dstrect, uint32_t frameTimes);
+		Animation(std::vector<Texture*> textures, std::vector<Hitbox*> dstrect, uint32_t frameTimes);
 		Animation(std::vector<Texture*> textures, std::vector<uint32_t> frameTimes, float x, float y, float sizeMultiplier = 1.f);
 		Animation(std::vector<Texture*> textures, uint32_t frameTimes, float x, float y, float sizeMultiplier = 1.f);
 
-		void setRect(SDL_Rect dstrect);
+		void setHitbox(Hitbox* dstrect);
 		void setPosition(float x, float y);
 
 		void reset();

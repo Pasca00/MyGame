@@ -42,7 +42,7 @@ void PhysicsEngine::applyFriction(Movable* o) {
 }
 
 void PhysicsEngine::moveObject(Movable* o) {
-	SDL_Rect* rect = o->getRectAddress();
+	Hitbox* rect = o->getHitbox();
 
 	if (!o->collidesLeft() && !o->collidesRight()) {
 		rect->x += o->getXVelocity() * o->getXDirection();

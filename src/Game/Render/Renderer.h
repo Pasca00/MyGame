@@ -31,10 +31,12 @@ class Renderer {
 		void addToQueue(Player* player);
 
 		void draw(View* view, Shader* shader = NULL);
+		void draw(Player* player, Shader* shader = NULL);
 		void draw(AfterEffect* afterEffect);
 		void draw(FrameBuffer* frameBuffer);
 
 		void drawToRelativePosition(View* view, Shader* shader, glm::vec3 cameraPos);
+		void drawToRelativePosition(Player* player, Shader* shader, glm::vec3 cameraPos);
 
 		void clearScreen();
 		void renderQueue();

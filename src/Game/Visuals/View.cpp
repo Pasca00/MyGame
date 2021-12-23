@@ -3,9 +3,9 @@
 
 View::View() { }
 
-View::View(Texture* texture, SDL_Rect dstrect) {
+View::View(Texture* texture, Hitbox* hitbox) {
 	this->texture = texture;
-	this->dstrect = dstrect;
+	this->hitbox = hitbox;
 	sizeMultiplier = 1;
 }
 
@@ -13,7 +13,7 @@ View::View(Texture* texture, float x, float y, float sizeMultiplier) {
 	this->texture = texture;
 	
 	this->sizeMultiplier = sizeMultiplier;
-	this->pos = glm::vec3(x, y, 0.f);
+	this->hitbox = new Hitbox(x, y, texture->getWidth() * sizeMultiplier, texture->getHeight() * sizeMultiplier);
 }
 
 View::~View() {

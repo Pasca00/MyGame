@@ -1,12 +1,12 @@
 #include "Animation.h"
 #include "../Game.h"
 
-Animation::Animation(std::vector<Texture*> textures, std::vector<SDL_Rect> dstrect, uint32_t frameTimes) {
+Animation::Animation(std::vector<Texture*> textures, std::vector<Hitbox*> hitboxes, uint32_t frameTimes) {
 	timeSinceLastFrame = Game::getInstance()->getCurrentTime();
 	currentFrame = 0;
 	frames = new std::vector<FrameView*>(textures.size(), NULL);
 	for (int i = 0; i < textures.size(); i++) {
-		(*frames)[i] = (new FrameView(textures[i], dstrect[i], frameTimes));
+		(*frames)[i] = (new FrameView(textures[i], hitboxes[i], frameTimes));
 	}
 
 	this->timeMultiplier = new int(1);
@@ -40,15 +40,16 @@ Animation::Animation(std::vector<Texture*> textures, uint32_t frameTimes, float 
 	done = false;
 }
 
-void Animation::setRect(SDL_Rect dstrect) {
+void Animation::setHitbox(Hitbox* hitbox) {
 	for (int i = 0; i < frames->size(); i++) {
-		(*frames)[i]->dstrect = dstrect;
+		(*frames)[i]->hitbox = hitbox;
 	}
 }
 
 void Animation::setPosition(float x, float y) {
 	for (int i = 0; i < frames->size(); i++) {
-		(*frames)[i]->pos = glm::vec3(x, y, 0);
+		(*frames)[i]->hitbox->x = x;
+		(*frames)[i]->hitbox->y = y;
 	}
 }
 

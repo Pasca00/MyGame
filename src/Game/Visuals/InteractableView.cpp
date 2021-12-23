@@ -19,8 +19,8 @@ void InteractableView::attachPromptAnimation() {
 		TextureBag::getInstance()->miniTextures["eKeyDown"]
 	};
 
-	float x = pos.x + texture->getWidth() * sizeMultiplier / 2;
-	float y = pos.y + texture->getHeight() * sizeMultiplier;
+	float x = hitbox->x + hitbox->w / 2; //texture->getWidth() * sizeMultiplier / 2;
+	float y = hitbox->y + hitbox->h;	 //texture->getHeight() * sizeMultiplier;
 
 	this->promptAnimation = new Animation(eKeys, 300, x, y);
 }

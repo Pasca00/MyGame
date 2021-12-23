@@ -1,6 +1,6 @@
 #include "TileView.h"
 
-TileView::TileView(Texture* texture, SDL_Rect dstrect, bool passable) : View(texture, dstrect) {
+TileView::TileView(Texture* texture, Hitbox* hitbox, bool passable) : View(texture, hitbox) {
 	this->passable = passable;
 }
 

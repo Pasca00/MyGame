@@ -1,7 +1,7 @@
 #include "FrameView.h"
 
-FrameView::FrameView(Texture* texture, SDL_Rect dstrect, Uint32 timeOnScreen) 
-	: View(texture, dstrect) {
+FrameView::FrameView(Texture* texture, Hitbox* hitbox, Uint32 timeOnScreen) 
+	: View(texture, hitbox) {
 	this->timeOnScreen = timeOnScreen;
 }
 

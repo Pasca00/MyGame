@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL_image.h>
+#include "../Physics/Hitbox.h"
 #include "Core/Texture.h"
 #include "../glm/glm.hpp"
 
@@ -10,11 +11,10 @@ class View {
 	public:
 		int sizeMultiplier;
 		Texture* texture;
-		SDL_Rect dstrect;
-		glm::vec3 pos;
+		Hitbox* hitbox;
 
 		View();
-		View(Texture* texture, SDL_Rect destrect);
+		View(Texture* texture, Hitbox* hitbox);
 		View(Texture* texture, float x, float y, float sizeMultiplier = 1.f);
 
 		~View();

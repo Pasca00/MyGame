@@ -34,7 +34,7 @@ float fbm (vec2 _st) {
     for (int i = 0; i < NUM_OCTAVES; ++i) {
         v += a * noise(_st);
         _st = _st * 13.0 + shift;
-        a *= clamp(time * 0.0003, 0.0, 0.4);
+        a *= 0.3;
         //shift = -vec2(time * 0.001);
     }
     return v;
@@ -58,7 +58,6 @@ void main() {
     f = f*f*f+.6*f*f+.5*f;
     gl_FragColor = vec4(f * color, 0.45);
 }
-
 
 /*
 float snow(vec2 uv, float scale) {

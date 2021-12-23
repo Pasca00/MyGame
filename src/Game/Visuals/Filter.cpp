@@ -13,7 +13,6 @@ Filter::Filter(Texture* texture, SDL_BlendMode mode) {
 	//SDL_SetTextureAlphaMod(texture, alphaValue);
 
 	SDL_Rect dstrect = { 0, 0, Window::BASE_WINDOW_WIDTH, Window::BASE_WINDOW_HEIGHT};
-	this->dstrect = dstrect;
 }
 
 void Filter::fadeIn() {

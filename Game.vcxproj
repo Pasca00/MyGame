@@ -170,6 +170,7 @@
     <ClInclude Include="src\game\input\InputCollector.h" />
     <ClInclude Include="src\Game\Level\Level.h" />
     <ClInclude Include="src\Game\Physics\CollisionEngine.h" />
+    <ClInclude Include="src\Game\Physics\Hitbox.h" />
     <ClInclude Include="src\Game\Physics\Movable.h" />
     <ClInclude Include="src\Game\Physics\PhysicsEngine.h" />
     <ClInclude Include="src\Game\Player\Player.h" />

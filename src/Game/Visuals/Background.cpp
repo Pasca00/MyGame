@@ -37,7 +37,7 @@ void Background::setBaseScrollSpeed(int baseScrollSpeed) {
 void Background::scrollLeft() {
 	for (int i = 0; i < parallaxLayers.size(); i++) {
 		for (int j = 0; j < parallaxLayers[i].size(); j++) {
-			parallaxLayers[i][j]->dstrect.x -= baseScrollSpeed + i + 1;
+			parallaxLayers[i][j]->hitbox->x -= baseScrollSpeed + i + 1;
 		}
 	}
 }
@@ -45,7 +45,7 @@ void Background::scrollLeft() {
 void Background::scrollRight() {
 	for (int i = 0; i < parallaxLayers.size(); i++) {
 		for (int j = 0; j < parallaxLayers[i].size(); j++) {
-			parallaxLayers[i][j]->dstrect.x += baseScrollSpeed + i + 1;
+			parallaxLayers[i][j]->hitbox->x += baseScrollSpeed + i + 1;
 		}
 	}
 }

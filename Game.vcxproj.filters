@@ -575,6 +575,9 @@
     <ClInclude Include="src\Game\Visuals\Core\FrameBuffer.h">
       <Filter>Header Files\Game\Visuals\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Game\Physics\Hitbox.h">
+      <Filter>Header Files\Game\Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\TestFragmentShader.glsl">

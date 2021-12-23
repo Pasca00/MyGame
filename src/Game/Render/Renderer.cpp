@@ -48,7 +48,7 @@ void Renderer::draw(View* view, Shader* shader) {
 	}
 
 	glm::mat4 modelMatrix(1);
-	modelMatrix = glm::translate(modelMatrix, view->pos);
+	modelMatrix = glm::translate(modelMatrix, glm::vec3(view->hitbox->x, view->hitbox->y, 0));
 	modelMatrix = glm::scale(modelMatrix, glm::vec3(view->texture->getWidth() * view->sizeMultiplier, view->texture->getHeight() * view->sizeMultiplier, 1));
 
 	shader->use();
@@ -60,6 +60,32 @@ void Renderer::draw(View* view, Shader* shader) {
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, view->texture->getTextureID());
+
+	glBindVertexArray(quad->getVAO());
+
+	glDrawArrays(GL_QUADS, 0, quad->getIndices().size());
+
+	glBindVertexArray(0);
+}
+
+void Renderer::draw(Player* player, Shader* shader) {
+	if (shader == NULL) {
+		shader = Game::getInstance()->baseTextureShader;
+	}
+
+	glm::mat4 modelMatrix(1);
+	modelMatrix = glm::translate(modelMatrix, glm::vec3(player->getHitbox()->x, player->getHitbox()->y, 0));
+	modelMatrix = glm::scale(modelMatrix, glm::vec3(player->getHitbox()->w, player->getHitbox()->h, 1));
+
+	shader->use();
+	shader->setModelMatrix(modelMatrix);
+	shader->setProjectionMatrix(projectionMatrix);
+	shader->setTimeUniform(Game::getInstance()->getCurrentTime() - (float)TimeEngine::getInstance()->getStopTime() * TimeEngine::getInstance()->isSlowed());
+
+	glUniform1i(shader->getUniformLocation("time_stop"), TimeEngine::getInstance()->isSlowed());
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, player->getCurrentTexture()->getTextureID());
 
 	glBindVertexArray(quad->getVAO());
 
@@ -106,7 +132,7 @@ void Renderer::draw(FrameBuffer* frameBuffer) {
 
 void Renderer::drawToRelativePosition(View* view, Shader* shader, glm::vec3 cameraPos) {
 	glm::mat4 modelMatrix(1);
-	modelMatrix = glm::translate(modelMatrix, view->pos);
+	modelMatrix = glm::translate(modelMatrix, glm::vec3(view->hitbox->x, view->hitbox->y, 0));
 	modelMatrix = glm::translate(modelMatrix, -cameraPos);
 	modelMatrix = glm::scale(modelMatrix, glm::vec3(view->texture->getWidth() * view->sizeMultiplier, view->texture->getHeight() * view->sizeMultiplier, 0));
 
@@ -116,6 +142,33 @@ void Renderer::drawToRelativePosition(View* view, Shader* shader, glm::vec3 came
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, view->texture->getTextureID());
+
+	glBindVertexArray(quad->getVAO());
+
+	glDrawArrays(GL_QUADS, 0, quad->getIndices().size());
+
+	glBindVertexArray(0);
+}
+
+void Renderer::drawToRelativePosition(Player* player, Shader* shader, glm::vec3 cameraPos) {
+	if (shader == NULL) {
+		shader = Game::getInstance()->baseTextureShader;
+	}
+
+	glm::mat4 modelMatrix(1);
+	modelMatrix = glm::translate(modelMatrix, glm::vec3(player->getHitbox()->x, player->getHitbox()->y, 0));
+	modelMatrix = glm::translate(modelMatrix, -cameraPos);
+	modelMatrix = glm::scale(modelMatrix, glm::vec3(player->getHitbox()->w, player->getHitbox()->h, 1));
+
+	shader->use();
+	shader->setModelMatrix(modelMatrix);
+	shader->setProjectionMatrix(projectionMatrix);
+	shader->setTimeUniform(Game::getInstance()->getCurrentTime() - (float)TimeEngine::getInstance()->getStopTime() * TimeEngine::getInstance()->isSlowed());
+
+	glUniform1i(shader->getUniformLocation("time_stop"), TimeEngine::getInstance()->isSlowed());
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, player->getCurrentTexture()->getTextureID());
 
 	glBindVertexArray(quad->getVAO());
 

@@ -7,7 +7,7 @@ class TileView : public View {
 		bool passable;
 
 	public:
-		TileView(Texture* texture, SDL_Rect destrect, bool passable);
+		TileView(Texture* texture, Hitbox* hitbox, bool passable);
 		TileView(Texture* texture, bool passable, int x, int y, int sizeMultiplier);
 
 		bool isPassable();

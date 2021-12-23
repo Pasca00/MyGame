@@ -8,8 +8,7 @@ Movable::Movable(float velocity, float jumpSpeed, float fallSpeed, float acceler
 	this->acceleration = acceleration;
 	this->velocityCap = velocityCap;
 
-	this->position = glm::vec3(0);
-	this->position2 = glm::vec3(0);
+	this->hitbox = NULL;
 
 	this->xDirection = xDirection;
 	this->yDirection = yDirection;
@@ -114,32 +113,12 @@ int Movable::getXVelocityCap() {
 	return velocityCap;
 }
 
-void Movable::setRect(SDL_Rect dstrect) {
-	this->dstrect = dstrect;
+void Movable::setHitbox(Hitbox* hitbox) {
+	this->hitbox = hitbox;
 }
 
-SDL_Rect Movable::getRect() {
-	return dstrect;
-}
-
-SDL_Rect* Movable::getRectAddress() {
-	return &dstrect;
-}
-
-glm::vec3 Movable::getPosition() {
-	return position;
-}
-
-glm::vec3 Movable::getPosition2() {
-	return position2;
-}
-
-glm::vec3* Movable::getPositionPtr() {
-	return &position;
-}
-
-glm::vec3* Movable::getPosition2Ptr() {
-	return &position2;
+Hitbox* Movable::getHitbox() {
+	return hitbox;
 }
 
 void Movable::accelerate() {
