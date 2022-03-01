@@ -20,6 +20,6 @@ class PlayerState {
 		virtual void resetAnimation();
 
 		FrameView* getCurrentFrame();
-		SDL_Texture* getCurrentTexture();
+		Texture* getCurrentTexture();
 };
 

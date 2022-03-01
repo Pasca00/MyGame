@@ -1,13 +1,13 @@
 #include "ButtonView.h"
 
-ButtonView::ButtonView(SDL_Texture *texture, SDL_Rect dstrect) : View(texture, dstrect) {
+ButtonView::ButtonView(Texture *texture, Hitbox* hitbox) : View(texture, hitbox) {
 	onHoverListener = NULL;
 	onHoverReleaseListener = NULL;
 
 	onClickListener = NULL;
 }
 
-ButtonView::ButtonView(SDL_Texture* texture, int x, int y, int sizeMultiplier)
+ButtonView::ButtonView(Texture* texture, float x, float y, float sizeMultiplier)
 	: View(texture, x, y, sizeMultiplier) {
 	onHoverListener = NULL;
 	onHoverReleaseListener = NULL;
@@ -33,7 +33,8 @@ bool ButtonView::hasClickListener() {
 }
 
 bool ButtonView::mouseIsHovering(int x, int y) {
-	if (x >= dstrect.x && x <= dstrect.x + dstrect.w && y >= dstrect.y && y <= dstrect.y + dstrect.h) {
+	if ((float)x >= hitbox->x && (float)x <= hitbox->x + texture->width * sizeMultiplier 
+		&& (float)y >= hitbox->y && (float)y <= hitbox->y + texture->height * sizeMultiplier) {
 		return true;
 	}
 

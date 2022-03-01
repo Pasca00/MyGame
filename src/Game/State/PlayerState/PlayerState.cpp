@@ -9,7 +9,7 @@ void PlayerState::resetAnimation() {
 	animation->reset();
 }
 
-SDL_Texture* PlayerState::getCurrentTexture() {
+Texture* PlayerState::getCurrentTexture() {
 	return animation->getCurrentFrame()->texture;
 }
 

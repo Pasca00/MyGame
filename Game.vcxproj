@@ -113,7 +113,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
-      <AdditionalDependencies>glew32s.lib;opengl32.lib;glu32.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;glew32s.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>
       </EntryPointSymbol>
       <SubSystem>Console</SubSystem>
@@ -121,7 +121,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Link>
-      <AdditionalDependencies>glew32s.lib;opengl32.lib;glu32.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;glew32s.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>
       </EntryPointSymbol>
       <SubSystem>Console</SubSystem>
@@ -149,9 +149,14 @@
     <ClCompile Include="src\Game\State\PlayerState\WalkingPlayerState.cpp" />
     <ClCompile Include="src\Game\State\PlayingGameState.cpp" />
     <ClCompile Include="src\game\state\State.cpp" />
+    <ClCompile Include="src\Game\Visuals\AfterEffects.cpp" />
     <ClCompile Include="src\Game\Visuals\Animation.cpp" />
     <ClCompile Include="src\Game\Visuals\Background.cpp" />
     <ClCompile Include="src\Game\Visuals\ButtonView.cpp" />
+    <ClCompile Include="src\Game\Visuals\Core\FrameBuffer.cpp" />
+    <ClCompile Include="src\Game\Visuals\Core\Quad.cpp" />
+    <ClCompile Include="src\Game\Visuals\Core\Shader.cpp" />
+    <ClCompile Include="src\Game\Visuals\Core\Texture.cpp" />
     <ClCompile Include="src\Game\Visuals\Filter.cpp" />
     <ClCompile Include="src\Game\Visuals\FrameView.cpp" />
     <ClCompile Include="src\Game\Visuals\InteractableView.cpp" />
@@ -165,6 +170,7 @@
     <ClInclude Include="src\game\input\InputCollector.h" />
     <ClInclude Include="src\Game\Level\Level.h" />
     <ClInclude Include="src\Game\Physics\CollisionEngine.h" />
+    <ClInclude Include="src\Game\Physics\Hitbox.h" />
     <ClInclude Include="src\Game\Physics\Movable.h" />
     <ClInclude Include="src\Game\Physics\PhysicsEngine.h" />
     <ClInclude Include="src\Game\Player\Player.h" />
@@ -180,9 +186,16 @@
     <ClInclude Include="src\Game\State\PlayerState\WalkingPlayerState.h" />
     <ClInclude Include="src\Game\State\PlayingGameState.h" />
     <ClInclude Include="src\game\state\State.h" />
+    <ClInclude Include="src\Game\stb_image.h" />
+    <ClInclude Include="src\Game\Utils\Paths.h" />
+    <ClInclude Include="src\Game\Visuals\AfterEffects.h" />
     <ClInclude Include="src\Game\Visuals\Animation.h" />
     <ClInclude Include="src\Game\Visuals\Background.h" />
     <ClInclude Include="src\Game\Visuals\ButtonView.h" />
+    <ClInclude Include="src\Game\Visuals\Core\FrameBuffer.h" />
+    <ClInclude Include="src\Game\Visuals\Core\Quad.h" />
+    <ClInclude Include="src\Game\Visuals\Core\Shader.h" />
+    <ClInclude Include="src\Game\Visuals\Core\Texture.h" />
     <ClInclude Include="src\Game\Visuals\Filter.h" />
     <ClInclude Include="src\Game\Visuals\FrameView.h" />
     <ClInclude Include="src\Game\Visuals\InteractableView.h" />
@@ -277,6 +290,14 @@
     <ClInclude Include="src\sdl\sdl2-2.0.14\include\SDL_video.h" />
     <ClInclude Include="src\sdl\sdl2-2.0.14\include\SDL_vulkan.h" />
     <ClInclude Include="src\sdl\sdl2_image-2.0.5\include\SDL_image.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Shaders\AfterEffectTestFragmentShader.glsl" />
+    <None Include="src\Shaders\AfterEffectTestVertexShader.glsl" />
+    <None Include="src\Shaders\FrameBufferTestFragmentShader.glsl" />
+    <None Include="src\Shaders\FrameBufferTestVertexShader.glsl" />
+    <None Include="src\Shaders\TestFragmentShader.glsl" />
+    <None Include="src\Shaders\TestVertexShader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

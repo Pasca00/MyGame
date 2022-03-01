@@ -3,14 +3,13 @@
 #include <string>
 #include <iostream>
 
+#define GLEW_STATIC
 #include <gl/glew.h>
 #include <SDL_opengl.h>
-#include <gl/GL.h>
 #include <gl/GLU.h>
+#include <gl/GL.h>
 
 #include <SDL.h>
-#include <SDL_image.h>
-#include <SDL_thread.h>
 
 #include <thread>
 
@@ -19,6 +18,10 @@
 
 #include "Window/Window.h"
 #include "Render/Renderer.h"
+
+#include "Visuals/Core/Texture.h"
+#include "Visuals/Core/Quad.h"
+#include "Visuals/Core/Shader.h"
 
 class Game {
 	private: 
@@ -39,8 +42,6 @@ class Game {
 		Uint32 currentTime;
 
 		SDL_GLContext glContext;
-
-		std::mutex mtx;
 
 		Game();
 		void setupGL();
@@ -68,5 +69,7 @@ class Game {
 		void loadLevel();
 		void requestTransition(GameState* nextState);
 		void changeState();
+
+		Shader* baseTextureShader;
 };
 

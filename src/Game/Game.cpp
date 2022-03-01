@@ -1,6 +1,10 @@
 #include "Game.h"
 
 #include "State/MainMenuGameState.h"
+#include "Utils/Paths.h"
+
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 
 Game* Game::instance = NULL;
 
@@ -9,37 +13,47 @@ class LoadingGameState;
 Game::Game() {
 	running = true;
 	window = new Window();
-	//setupGL();
-	renderer = new Renderer(window);
-	state_ = new MainMenuGameState(renderer);
+	setupGL();
+	stbi_set_flip_vertically_on_load(true);
+
+	renderer = new Renderer();
+	state_ = new MainMenuGameState();
 	inputCollector = new InputCollector();
 
-	loadingScreen = new LoadingGameState(renderer);
+	loadingScreen = new LoadingGameState();
 
 	transitionRequested = false;
 	nextState = NULL;
 
 	startTime = SDL_GetTicks();
 	currentTime = startTime;
+
+	baseTextureShader = new Shader(SHADERS::BASE_SHADER_PATH, std::string("Test"));
 }
 
 void Game::setupGL() {
+	GLenum error = GL_NO_ERROR;
+
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 1);
-	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
-	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
-	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+
+	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 5);
+	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 5);
+	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 5);
+	SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 5);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
-	SDL_GLContext context = SDL_GL_CreateContext(window->getWindow());
+	glewExperimental = GL_TRUE;
+	glContext = SDL_GL_CreateContext(window->getWindow());
 
-	if (context == NULL) {
-		printf("error initializing GL context\n");
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND);
+
+	error = glewInit();
+	if (error != GLEW_OK) {
+		std::cout << "ERROR ON GLEW INIT " << glewGetErrorString(error) << std::endl;
 	}
-
-	glClearColor(1.f, 0.f, 1.f, 0.f);
-	glViewport(0, 0, Window::BASE_WINDOW_WIDTH, Window::BASE_WINDOW_HEIGHT);
 }
 
 bool Game::isRunning() {
@@ -59,12 +73,14 @@ Game* Game::getInstance() {
 }
 
 Input Game::collectInput() {
-	//inputCollector->flushInputs();
 	inputCollector->collectInput();
 	return inputCollector->getInput();
 }
 
 void Game::handleInput(Input input) {
+	if (input.QUIT || input.KEY_ESCAPE) {
+		running = false;
+	}
 	state_->handleInput(this, &input);
 }
 
@@ -93,8 +109,8 @@ void Game::renderClearScreen() {
 }
 
 void Game::renderQueue() {
+	glViewport(0, 0, Window::BASE_WINDOW_WIDTH, Window::BASE_WINDOW_HEIGHT);
 	state_->draw();
-	renderer->renderQueue();
 }
 
 void Game::update() {

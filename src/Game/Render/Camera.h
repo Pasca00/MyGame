@@ -11,9 +11,9 @@
 
 class Camera {
 	private:	
-		SDL_Rect rect;
-		SDL_Rect *focusView;
-		SDL_Rect focusZone;
+		Hitbox* rect;
+		Hitbox* focusView;
+		Hitbox* focusZone;
 
 		int xMinSpeed;
 		int xRelativeSpeed;
@@ -29,8 +29,8 @@ class Camera {
 
 	public:
 		Camera();
-		Camera(SDL_Rect* focusView, int leftBound, int rightBound);
-		void setFocusView(SDL_Rect* focusView);
+		Camera(Hitbox* focusView, int leftBound, int rightBound);
+		void setFocusView(Hitbox* focusView);
 
 		bool viewIsOnScreen(View* view);
 		void setDirection();
@@ -40,9 +40,12 @@ class Camera {
 		void renderViewToRelativePosition(View* view);
 		void renderViewToAbsolutePosition(View* view);
 
+		void drawViewToRelativePosition(View* view, Shader* shader = NULL);
+		void drawViewToRelativePosition(Player* player, Shader* shader = NULL);
+
 		int8_t getXDirection();
 
-		SDL_Rect getRect();
-		SDL_Rect getFocusZone();
+		Hitbox* getRect();
+		Hitbox* getFocusZone();
 };
 

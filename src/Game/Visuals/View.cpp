@@ -3,22 +3,17 @@
 
 View::View() { }
 
-View::View(SDL_Texture* texture, SDL_Rect dstrect) {
+View::View(Texture* texture, Hitbox* hitbox) {
 	this->texture = texture;
-	this->dstrect = dstrect;
+	this->hitbox = hitbox;
 	sizeMultiplier = 1;
 }
 
-View::View(SDL_Texture* texture, int x, int y, float sizeMultiplier) {
+View::View(Texture* texture, float x, float y, float sizeMultiplier) {
 	this->texture = texture;
 	
 	this->sizeMultiplier = sizeMultiplier;
-	this->dstrect.x = x;
-	this->dstrect.y = y;
-
-	SDL_QueryTexture(texture, NULL, NULL, &dstrect.w, &dstrect.h);
-	this->dstrect.w *= sizeMultiplier;
-	this->dstrect.h *= sizeMultiplier;
+	this->hitbox = new Hitbox(x, y, texture->getWidth() * sizeMultiplier, texture->getHeight() * sizeMultiplier);
 }
 
 View::~View() {
@@ -26,5 +21,5 @@ View::~View() {
 }
 
 void View::draw(Camera* camera) {
-	camera->renderViewToRelativePosition(this);
+	camera->drawViewToRelativePosition(this);
 }

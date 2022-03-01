@@ -33,16 +33,17 @@ class Player : public Movable {
 		} *healthbar;
 
 	public:
-		Player(int health, SDL_Rect dstrect, int8_t direction);
+		Player(int health, Hitbox* hitbox, int8_t direction);
+		Player(int health, float x, float y, int8_t direction = DIRECTION_RIGHT);
 
 		void handleInput(Level* level, Input* input);
 		void update();
 		void draw();
 		void drawHealthbar();
 
-		void drawToRelativePosition(SDL_Rect cameraPos);
+		void drawToRelativePosition(Camera* camera);
 
-		SDL_Texture* getCurrentTexture();
+		Texture* getCurrentTexture();
 
 		void setState(PlayerState* state);
 

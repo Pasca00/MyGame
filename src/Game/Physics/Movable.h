@@ -1,23 +1,25 @@
 #pragma once
 
 #include <SDL.h>
+#include "Hitbox.h"
+#include "../glm/glm.hpp"
 
 #define DIRECTION_RIGHT 1
 #define DIRECTION_LEFT -1
-#define DIRECTION_UP -1
-#define DIRECTION_DOWN 1
+#define DIRECTION_UP    1
+#define DIRECTION_DOWN -1
 
 class Movable {
 	protected:
-		int xVelocity;
-		int yVelocity;
-		int jumpSpeed;
-		int acceleration;
-		int velocityCap;
+		float xVelocity;
+		float yVelocity;
+		float jumpSpeed;
+		float acceleration;
+		float velocityCap;
 		signed char xDirection;
 		signed char yDirection;
 
-		SDL_Rect dstrect;
+		Hitbox* hitbox;
 
 		bool accelerating;
 
@@ -27,7 +29,7 @@ class Movable {
 		bool collisionUp;
 
 	public:
-		Movable(int velocity, int jumpSpeed, int fallSpeed, int acceleration, int velocityCap, signed char direction, signed char yDirection);
+		Movable(float velocity, float jumpSpeed, float fallSpeed, float acceleration, float velocityCap, signed char direction, signed char yDirection);
 
 		void setXDirection(signed char xDirection);
 		signed char getXDirection();
@@ -44,9 +46,8 @@ class Movable {
 		void setXVelocityCap(int xVelocityCap);
 		int getXVelocityCap();
 
-		void setRect(SDL_Rect dstrect);
-		SDL_Rect getRect();
-		SDL_Rect* getRectAddress();
+		void setHitbox(Hitbox* hitbox);
+		Hitbox* getHitbox();
 
 		void setAcceleration(int acceleration);
 		int getAcceleration();

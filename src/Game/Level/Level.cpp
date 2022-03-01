@@ -13,16 +13,15 @@ Level::Level(int h, int w) {
 	this->w = w;
 	this->h = h;
 
-	SDL_Rect dstrect;
-	dstrect.x = 600;
-	dstrect.y = (h - 2) * tileH - 200;
+	float x = 200;
+	float y = tileH + 1;
 
-	this->player = new Player(100, dstrect, DIRECTION_RIGHT);
-	this->camera = new Camera(player->getRectAddress(), 0, w * tileW);
+	this->player = new Player(100, x, y, DIRECTION_RIGHT);
+	this->camera = new Camera(player->getHitbox(), 0, w * tileW);
 	this->timeEngine = TimeEngine::getInstance();
 	this->physicsEngine = new PhysicsEngine(2, 20, 1, 1, timeEngine->getPhysicsMultilpierAddress());
 	this->collisionEngine = new CollisionEngine(0, w * tileW);
-	
+
 	physicsEngine->attach(player);
 
 	std::vector<const char*> fileNames(2);
@@ -36,8 +35,8 @@ Level::Level(int h, int w) {
 	placeDecorations();
 	placeInteractables();
 
-	lightBlueFilter = new Filter(bag_->filters["lightBlueFilter"], SDL_BLENDMODE_MUL);
-	mask = new Filter(bag_->filters["circularMask"], SDL_BLENDMODE_MOD);
+	test = new AfterEffect(new Shader("C:/Users/alexp/Desktop/Game/src/Shaders/", std::string("AfterEffectTest")));
+	//frameBuffer = new FrameBuffer(new Shader("C:/Users/alexp/Desktop/Game/src/Shaders/", std::string("FrameBufferTest")));
 }
 
 void Level::handleInput(Input* input) {
@@ -46,7 +45,6 @@ void Level::handleInput(Input* input) {
 }
 
 void Level::update() {
-
 	background->update(camera->getXDirection());
 
 	updateInteractables();
@@ -61,23 +59,25 @@ void Level::update() {
 }
 
 void Level::draw() {
+	//frameBuffer->bind();
+
 	background->draw();
-	
+
 	renderDecorations();
 	renderInteractables();
+	
 	renderTileMap();
+	
+	test->draw();
 
-	lightBlueFilter->draw(camera);
-	mask->draw(camera);
-
-	player->drawToRelativePosition(camera->getRect());
+	player->drawToRelativePosition(camera);
 
 	player->drawHealthbar();
 }
 
 void Level::createTileMap() {
 	int x = 0;
-	int y = Window::BASE_WINDOW_HEIGHT - tileH;
+	int y = 0;
 	tiles = std::vector< std::vector<TileView*> >(h, std::vector<TileView*>(w, NULL));
 
 	for (int i = 0; i < w; i++) {
@@ -97,57 +97,43 @@ void Level::renderTileMap() {
 }
 
 void Level::placeDecorations() {
-	SDL_Rect rect;
+	Texture* woodenFence = bag_->decorationsTextures["woodenFence"];
+	float x = 500;
+	float y = tiles[0][0]->hitbox->y + tileH - 10;
+	decorations.push_back(new View(woodenFence, x, y, 5));
 
-	SDL_Texture* woodenFence = bag_->decorationsTextures["woodenFence"];
-	SDL_QueryTexture(woodenFence, NULL, NULL, &rect.w, &rect.h);
-	rect.w *= 5;
-	rect.h *= 5;
-	rect.y = tiles[0][0]->dstrect.y - rect.h + 10;
-	rect.x = 500;
-	decorations.push_back(new View(woodenFence, rect));
-
-	SDL_Texture* grass = bag_->decorationsTextures["grass"];
-	SDL_QueryTexture(grass, NULL, NULL, &rect.w, &rect.h);
-	rect.w *= 4;
-	rect.h *= 4;
-	rect.y = tiles[0][0]->dstrect.y - rect.h + 10;
-	rect.x = 0;
-
+	Texture* grass = bag_->decorationsTextures["grass"];
+	x = 0;
 	for (int i = 0; i < 20; i++) {
-		decorations.push_back(new View(grass, rect));
-		rect.x += rect.w;
+		decorations.push_back(new View(grass, x, y, 4));
+		x += grass->getWidth() * 4;
 	}
+
+	x = 0;
+	y = tiles[0][0]->hitbox->y + tileH - 10;
 }
 
 void Level::placeInteractables() {
-	int x = 0;
-	int y = 0;
+	float x = 0;
+	float y = 0;
 
-	std::vector<SDL_Texture*> eKeys{
-		bag_->miniTextures["eKeyUp"],
-		bag_->miniTextures["eKeyDown"]
-	};
+	
 
 	x = 1200;
-	y = tiles[0][0]->dstrect.y;
+	y = tiles[0][0]->hitbox->y + tileH - 10;
 
-	InteractableView* shrine = new InteractableView(player->getRectAddress(), bag_->decorationsTextures["altar"], x, y, 4);
-	shrine->attachPromptAnimation(new Animation(eKeys, {0, 0, 0, 0}, 350));
+	InteractableView* shrine = new InteractableView(bag_->decorationsTextures["altar"], x, y, 4);
 	shrine->setOnInteractListener([this] {
 		printf("deez nuts lmao\n");
 	});
 	interactables.push_back(shrine);
 
 	x = 0;
-	y = tiles[0][0]->dstrect.y;
-
-	InteractableView* carriage = new InteractableView(player->getRectAddress(), bag_->decorationsTextures["carriage"], x, y, 6);
-	carriage->attachPromptAnimation(new Animation(eKeys, {0, 0, 0, 0}, 350));
+	InteractableView* carriage = new InteractableView(bag_->decorationsTextures["carriage"], x, y, 6);
 	carriage->setOnInteractListener([] {
 		printf("add Money\n");
 	});
-	
+
 	interactables.push_back(carriage);
 }
 

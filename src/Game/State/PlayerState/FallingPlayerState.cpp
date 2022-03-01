@@ -4,14 +4,9 @@
 #include "../../Visuals/TextureBag/TextureBag.h"
 
 FallingPlayerState::FallingPlayerState() {
-	std::vector<SDL_Texture*>& textures = TextureBag::getInstance()->playerTextures["idle"];
-	SDL_Rect dimensions;
+	std::vector<Texture*>& textures = TextureBag::getInstance()->playerTextures["idle"];
 
-	SDL_QueryTexture(textures[0], NULL, NULL, &(dimensions.w), &(dimensions.h));
-	dimensions.w *= 3;
-	dimensions.h *= 3;
-
-	animation = new Animation(textures, dimensions, 250);
+	animation = new Animation(textures, 250, 0, 0, 3);
 	animation->setTimeMultiplier(TimeEngine::getInstance()->getAnimationMultiplierAddress());
 }
 

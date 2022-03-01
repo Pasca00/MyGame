@@ -1,13 +1,14 @@
 #include "Movable.h"
 #include "../Game.h"
 
-Movable::Movable(int velocity, int jumpSpeed, int fallSpeed, int acceleration, int velocityCap, signed char xDirection, signed char yDirection) {
+Movable::Movable(float velocity, float jumpSpeed, float fallSpeed, float acceleration, float velocityCap, signed char xDirection, signed char yDirection) {
 	this->xVelocity = velocity;
 	this->yVelocity = fallSpeed;
 	this->jumpSpeed = jumpSpeed;
 	this->acceleration = acceleration;
 	this->velocityCap = velocityCap;
 
+	this->hitbox = NULL;
 
 	this->xDirection = xDirection;
 	this->yDirection = yDirection;
@@ -112,16 +113,12 @@ int Movable::getXVelocityCap() {
 	return velocityCap;
 }
 
-void Movable::setRect(SDL_Rect dstrect) {
-	this->dstrect = dstrect;
+void Movable::setHitbox(Hitbox* hitbox) {
+	this->hitbox = hitbox;
 }
 
-SDL_Rect Movable::getRect() {
-	return dstrect;
-}
-
-SDL_Rect* Movable::getRectAddress() {
-	return &dstrect;
+Hitbox* Movable::getHitbox() {
+	return hitbox;
 }
 
 void Movable::accelerate() {

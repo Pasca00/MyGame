@@ -4,10 +4,11 @@
 #include "ButtonView.h"
 #include "../Input/InputCollector.h"
 
-class InteractableView : public ButtonView {
+class InteractableView : public View {
 	private:
-		SDL_Rect* target;
-		SDL_Rect proximity;
+		glm::vec3* target;
+		glm::vec3 proximity;
+		glm::vec3 proximity2;
 
 		Animation* promptAnimation;
 
@@ -16,9 +17,9 @@ class InteractableView : public ButtonView {
 		std::function<void()> onInteractListener;
 
 	public:
-		InteractableView(SDL_Rect* target, SDL_Texture* texture, int x, int y, int sizeMultiplier);
+		InteractableView(Texture* texture, float x, float y, float sizeMultiplier = 1);
 
-		void attachPromptAnimation(Animation* animation);
+		void attachPromptAnimation();
 		bool targetIsInProximity();
 
 		void setOnInteractListener(std::function<void()> onInteractListener);

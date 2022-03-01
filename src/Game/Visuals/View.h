@@ -1,18 +1,21 @@
 #pragma once
 
 #include <SDL_image.h>
+#include "../Physics/Hitbox.h"
+#include "Core/Texture.h"
+#include "../glm/glm.hpp"
 
 class Camera;
 
 class View {
 	public:
 		int sizeMultiplier;
-		SDL_Texture* texture;
-		SDL_Rect dstrect;
+		Texture* texture;
+		Hitbox* hitbox;
 
 		View();
-		View(SDL_Texture* texture, SDL_Rect destrect);
-		View(SDL_Texture* texture, int x, int y, float sizeMultiplier);
+		View(Texture* texture, Hitbox* hitbox);
+		View(Texture* texture, float x, float y, float sizeMultiplier = 1.f);
 
 		~View();
 

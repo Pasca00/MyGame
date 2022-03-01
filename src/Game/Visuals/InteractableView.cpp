@@ -1,31 +1,28 @@
 #include "InteractableView.h"
 #include "../Input/InputCollector.h"
 #include "../Render/Camera.h"
+#include "TextureBag/TextureBag.h"
 
-InteractableView::InteractableView(SDL_Rect* target, SDL_Texture* texture, int x, int y, int sizeMultiplier) 
-	: ButtonView(texture, x, y, sizeMultiplier) {
-	this->target = target;
+InteractableView::InteractableView(Texture* texture, float x, float y, float sizeMultiplier) 
+	: View(texture, x, y, sizeMultiplier) {
+
+	this->target = new glm::vec3(0, 0, 1);
 	this->interacted = false;
 	this->promptAnimation = NULL;
 
-	this->dstrect.y -= this->dstrect.h;
-
-	this->proximity.w = dstrect.w + 100;
-	this->proximity.h = dstrect.h + 100;
-	this->proximity.x = dstrect.x - 100;
-	this->proximity.y = dstrect.y - 100;
+	attachPromptAnimation();
 }
 
-void InteractableView::attachPromptAnimation(Animation* animation) {
-	SDL_Rect promptDstrect;
-	SDL_QueryTexture(animation->getCurrentFrame()->texture, NULL, NULL, &(promptDstrect.w), &(promptDstrect.h));
+void InteractableView::attachPromptAnimation() {
+	std::vector<Texture*> eKeys{
+		TextureBag::getInstance()->miniTextures["eKeyUp"],
+		TextureBag::getInstance()->miniTextures["eKeyDown"]
+	};
 
-	promptDstrect.y = dstrect.y - promptDstrect.h;
-	promptDstrect.x = (dstrect.x + dstrect.x + dstrect.w - promptDstrect.w) / 2;
+	float x = hitbox->x + hitbox->w / 2; //texture->getWidth() * sizeMultiplier / 2;
+	float y = hitbox->y + hitbox->h;	 //texture->getHeight() * sizeMultiplier;
 
-	animation->setRect(promptDstrect);
-
-	this->promptAnimation = animation;
+	this->promptAnimation = new Animation(eKeys, 300, x, y);
 }
 
 void InteractableView::setOnInteractListener(std::function<void()> onInteractListener) {
@@ -40,16 +37,16 @@ void InteractableView::onInteract(Input* input) {
 }
 
 bool InteractableView::targetIsInProximity() {
-	if ((target->x + target->w >= proximity.x && target->x + target->w < proximity.x + proximity.w)
+	/*if ((target->x + target->w >= proximity.x && target->x + target->w < proximity.x + proximity.w)
 		|| (target->x < proximity.x + proximity.w && target->x >= proximity.x)) {
 		return true;
-	}
+	}*/
 
-	return false;
+	return true;
 }
 
 void InteractableView::draw(Camera* camera) {
-	camera->renderViewToRelativePosition(this);
+	camera->drawViewToRelativePosition(this);
 	if (targetIsInProximity() && !interacted && promptAnimation != NULL) {
 		promptAnimation->getCurrentFrame()->draw(camera);
 	}

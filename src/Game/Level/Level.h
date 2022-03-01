@@ -8,6 +8,8 @@
 #include "../Visuals/TileView.h"
 #include "../Visuals/InteractableView.h"
 #include "../Visuals/Filter.h"
+#include "../Visuals/AfterEffects.h"
+#include "../Visuals/Core/FrameBuffer.h"
 
 class PhysicsEngine;
 class TimeEngine;
@@ -48,6 +50,10 @@ class Level {
 
 		void updateInteractables();
 		void feedInputToInteractables(Input* input);
+
+		AfterEffect* test;
+
+		FrameBuffer* frameBuffer;
 
 	public:
 		Filter* lightBlueFilter;

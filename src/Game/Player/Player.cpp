@@ -4,13 +4,13 @@
 #include "../Physics/TimeEngine.h"
 #include "../Visuals/TextureBag/TextureBag.h"
 
-Player::Player(int health, SDL_Rect dstrect, int8_t direction) 
+Player::Player(int health, Hitbox* hitbox, int8_t direction) 
 	: Movable(0, 30, 0, 3, 6, DIRECTION_RIGHT, DIRECTION_DOWN) {
 	this->health = health;
 
-	this->dstrect = dstrect;
+	this->hitbox = hitbox;
 
-	this->sizeMultiplier = 1;
+	this->sizeMultiplier = 3;
 
 	this->idleState = new IdlePlayerState();
 	this->walkingState = new WalkingPlayerState(this);
@@ -18,9 +18,26 @@ Player::Player(int health, SDL_Rect dstrect, int8_t direction)
 	this->attackState = new AttackPlayerState(this);
 	this->currentState_ = idleState;
 
-	SDL_QueryTexture(currentState_->getCurrentFrame()->texture, NULL, NULL, &this->textureW, &this->textureH);
-	this->dstrect.w = textureW * 3;
-	this->dstrect.h = textureH * 3;
+	//SDL_QueryTexture(currentState_->getCurrentFrame()->texture, NULL, NULL, &this->textureW, &this->textureH);
+	this->hitbox->w = textureW * sizeMultiplier;
+	this->hitbox->h = textureH * sizeMultiplier;
+
+	healthbar = new Healthbar(this);
+}
+
+Player::Player(int health, float x, float y, int8_t direction)
+	: Movable(0, 30, 0, 3, 6, direction, DIRECTION_DOWN) {
+	this->health = health;
+
+	this->sizeMultiplier = 3;
+
+	this->idleState = new IdlePlayerState();
+	this->walkingState = new WalkingPlayerState(this);
+	this->fallingState = new FallingPlayerState();
+	this->attackState = new AttackPlayerState(this);
+	this->currentState_ = idleState;
+	
+	this->hitbox = new Hitbox(x, y, idleState->getCurrentTexture()->getWidth() * sizeMultiplier, idleState->getCurrentTexture()->getHeight() * sizeMultiplier);
 
 	healthbar = new Healthbar(this);
 }
@@ -28,12 +45,8 @@ Player::Player(int health, SDL_Rect dstrect, int8_t direction)
 void Player::handleInput(Level* level, Input* input) {
 	if (input->KEY_SHIFT) {
 		TimeEngine::getInstance()->slowDown();
-		level->lightBlueFilter->fadeIn();
-		level->mask->fadeIn();
 	} else {
 		TimeEngine::getInstance()->returnToNormal();
-		level->lightBlueFilter->fadeOut();
-		level->mask->fadeOut();
 	}
 
 	currentState_->handleInput(this, input);
@@ -44,26 +57,30 @@ void Player::update() {
 }
 
 void Player::draw() {
+	/*
 	if (xDirection == DIRECTION_RIGHT) {
 		Game::getInstance()->getRenderer()->addToQueue(dstrect, currentState_->getCurrentTexture());
 	} else {
 		Game::getInstance()->getRenderer()->addToQueueFlipped(dstrect, currentState_->getCurrentTexture(), SDL_FLIP_HORIZONTAL);
 	}
+	*/
 }
 
-void Player::drawToRelativePosition(SDL_Rect cameraPos) {
-	SDL_Rect renderRect = dstrect;
-	renderRect.x -= cameraPos.x;
-
+void Player::drawToRelativePosition(Camera* camera) {
 	if (xDirection == DIRECTION_RIGHT) {
-		Game::getInstance()->getRenderer()->addToQueue(renderRect, currentState_->getCurrentTexture());
+		glUniform1i(glGetUniformLocation(Game::getInstance()->baseTextureShader->getProgram(), "render_flipped"), 0);
+	} else {
+		Game::getInstance()->baseTextureShader->use();
+		glUniform1i(glGetUniformLocation(Game::getInstance()->baseTextureShader->getProgram(), "render_flipped"), 1);
 	}
-	else {
-		Game::getInstance()->getRenderer()->addToQueueFlipped(renderRect, currentState_->getCurrentTexture(), SDL_FLIP_HORIZONTAL);
-	}
+
+	//camera->drawViewToRelativePosition(currentState_->getCurrentFrame());
+	camera->drawViewToRelativePosition(this);
+	glUniform1i(glGetUniformLocation(Game::getInstance()->baseTextureShader->getProgram(), "render_flipped"), 0);
+	//glUniform1i(glGetUniformLocation(Game::getInstance()->baseTextureShader->getProgram(), "render_flipped"), 0);
 }
 
-SDL_Texture* Player::getCurrentTexture() {
+Texture* Player::getCurrentTexture() {
 	return currentState_->getCurrentTexture();
 }
 
@@ -82,6 +99,6 @@ Player::Healthbar::Healthbar(Player* player) {
 void Player::Healthbar::setHealth(int health) { }
 
 void Player::drawHealthbar() {
-	Game::getInstance()->getRenderer()->addToQueue(healthbar->health);
-	Game::getInstance()->getRenderer()->addToQueue(healthbar->container);
+	//Game::getInstance()->getRenderer()->addToQueue(healthbar->health);
+	Game::getInstance()->getRenderer()->draw(healthbar->container);
 }

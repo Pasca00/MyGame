@@ -2,7 +2,7 @@
 #include "PlayingGameState.h"
 #include "../Physics/PhysicsEngine.h"
 
-PlayingGameState::PlayingGameState() : GameState() {	
+PlayingGameState::PlayingGameState() : GameState() {
 	this->level = new Level(Window::BASE_WINDOW_HEIGHT / 96, 80);
 }
 
